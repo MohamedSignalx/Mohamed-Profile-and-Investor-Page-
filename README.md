@@ -28,8 +28,22 @@ rather than as surface.
 
 ## Hosting
 
-`index.html` is standalone, so any static host serves it. `.nojekyll` is present
-so GitHub Pages publishes it as-is.
+Production is Vercel, from `main`:
 
-If the page moves to a new URL, the QR in `card.html` has to be regenerated —
-it encodes the URL directly.
+**https://mohamed-profile-and-investor-page.vercel.app**
+
+That URL is what the QR on the card encodes. Two things make it work, and both
+are already done or noted:
+
+- Vercel Authentication (Deployment Protection) is **off** for this project.
+  While it was on, every `.vercel.app` URL redirected to a Vercel sign-in page,
+  which would have made the QR useless to anyone but the account owner. Custom
+  domains are exempt from that protection; `.vercel.app` domains are not.
+- The page must exist at `index.html` (lowercase) in the repo root for Vercel to
+  serve it at `/`. The previous file was `Index.html`, which does not resolve.
+
+`index.html` is standalone, so any other static host serves it too. `.nojekyll`
+is present in case GitHub Pages is ever preferred.
+
+If the page moves to a different URL, the QR in `card.html` must be regenerated —
+it encodes the URL directly, and nothing redirects.
