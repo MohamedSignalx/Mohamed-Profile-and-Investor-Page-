@@ -317,6 +317,35 @@ img{max-width:100%; display:block}
 .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:13px}
 .tag{font-size:11px; padding:4px 10px; border-radius:var(--r-pill); background:rgba(255,255,255,.05); border:1px solid var(--line-soft); color:var(--fg-3)}
 
+/* ---------- inline video ---------- */
+.vid{margin:0}
+.vid video{
+  /* height:auto is required — the height="720" attribute is a presentational
+     hint that otherwise beats aspect-ratio and leaves the box 720px tall. */
+  display:block; width:100%; height:auto; aspect-ratio:16/9; background:#0E0A18; object-fit:cover;
+  border-radius:var(--r-cardlet); border:1px solid var(--line);
+}
+.vid video:focus-visible{outline:2px solid var(--cyan); outline-offset:3px}
+.vid-badge{
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:9px;
+  font-size:11px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--cyan);
+}
+[dir="rtl"] .vid-badge{letter-spacing:.04em}
+.vid-badge .ring{width:8px; height:8px; border-radius:50%; background:var(--cyan); flex:none;
+  box-shadow:0 0 0 3px rgba(115,250,253,.26)}
+.vid figcaption{font-size:12.5px; color:var(--fg-3); line-height:1.55; margin-top:9px}
+/* only ever shown when neither source can be decoded — keep it readable */
+.vfall{display:block; padding:14px; color:var(--fg-2); font-size:13px}
+.roadmap{margin-top:22px; padding:16px; border-radius:var(--r-cardlet);
+  background:var(--panel-2); border:1px solid var(--line-soft)}
+
+/* ---------- founder strip ---------- */
+.fv-grid{display:grid; gap:14px; margin-top:26px}
+.fv{padding:16px; border-radius:var(--r-card); border:1px solid var(--line); background:var(--panel)}
+.fv h3{font-size:14.5px; color:#fff; margin-top:11px}
+.fv p{font-size:13px; color:var(--fg-2); line-height:1.55; margin-top:5px}
+@media (min-width:760px){ .fv-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+
 /* ---------- venture / flagship link rows ---------- */
 .vent-links,.flag-links{display:flex; flex-wrap:wrap; gap:8px; margin-top:15px}
 .vlink{
@@ -394,8 +423,10 @@ img{max-width:100%; display:block}
 .link .ic{width:34px; height:34px; border-radius:9px; display:grid; place-items:center; flex:none; background:rgba(58,41,171,.34); border:1px solid rgba(115,250,253,.26)}
 .link .ic svg{width:16px; height:16px; stroke:var(--cyan); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
 .link .tx{flex:1; min-width:0}
-.link .tx .t{font-size:14px; font-weight:700; color:#fff}
-.link .tx .d{font-size:12.5px; color:var(--fg-3); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+/* both must be block — text-overflow:ellipsis does nothing on an inline box,
+   so a long label used to push the whole grid past the viewport. */
+.link .tx .t{display:block; font-size:14px; font-weight:700; color:#fff}
+.link .tx .d{display:block; font-size:12.5px; color:var(--fg-3); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .link .ar{width:16px; height:16px; stroke:var(--fg-3); fill:none; stroke-width:2; flex:none}
 [dir="rtl"] .link .ar{transform:scaleX(-1)}
 
@@ -564,6 +595,18 @@ img{max-width:100%; display:block}
 
       <p class="ask-note" data-en="The founder left a senior role paying ~SAR 50,000/month and now draws SAR 25,000, self-funding the company to this point. This is launch capital, not R&amp;D capital." data-ar="ترك المؤسس منصبًا قياديًا براتب يقارب 50,000 ريال شهريًا، ويصرف لنفسه اليوم 25,000 ريال، ومَوَّل المشروع من ماله الخاص حتى هذه المرحلة. هذا رأس مال إطلاق، لا رأس مال بحث وتطوير."></p>
 
+      <div class="roadmap">
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="The five-year scaling roadmap" data-ar="خارطة التوسّع لخمس سنوات">The five-year scaling roadmap</span></div>
+        <video controls preload="none" playsinline poster="media/scaling-revenue.jpg" width="1280" height="720">
+          <source src="media/scaling-revenue.mp4" type="video/mp4">
+          <source src="media/scaling-revenue.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption data-en="Year 1 launch at $126K through to Year 5 at $1.5M — how the build scales to platform maturity." data-ar="من الإطلاق في السنة الأولى بـ126 ألف دولار حتى السنة الخامسة بـ1.5 مليون — كيف تتوسّع البنية حتى نضج المنصة.">Year 1 launch at $126K through to Year 5 at $1.5M — how the build scales to platform maturity.</figcaption>
+      </figure>
+      </div>
+
       <div class="stack g-8" style="margin-top:24px">
         <p class="eyebrow" data-en="Eight revenue streams on one build" data-ar="ثمانية مصادر إيراد فوق بنية واحدة"></p>
         <div class="streams">
@@ -582,6 +625,58 @@ img{max-width:100%; display:block}
       </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ in his own words ============ -->
+<section class="sect wrap" id="words">
+  <div class="stack g-12 rv">
+    <p class="eyebrow" data-en="In his own words" data-ar="بصوته"></p>
+    <h2 class="h-sect" data-en="Ninety seconds, straight from the founder" data-ar="تسعون ثانية، من المؤسس مباشرة"></h2>
+    <p class="lede" data-en="Three short clips. They follow the language you pick above — switch to Arabic and the Arabic cuts play." data-ar="ثلاثة مقاطع قصيرة. تتبع اللغة التي تختارها بالأعلى — بدّل إلى الإنجليزية وتُشغَّل النسخ الإنجليزية."></p>
+  </div>
+
+  <div class="fv-grid rv">
+    <div class="fv">
+      <figure class="vid">
+        <video controls preload="none" playsinline
+               data-vid-en="media/intro-coaching-en" data-vid-ar="media/intro-coaching-ar"
+               poster="media/intro-coaching-en.jpg" width="1280" height="720">
+          <source src="media/intro-coaching-en.mp4" type="video/mp4">
+          <source src="media/intro-coaching-en.webm" type="video/webm">
+        </video>
+      </figure>
+      <h3 data-en="Seventeen years of coaching" data-ar="سبعة عشر عامًا من التوجيه"></h3>
+      <p data-en="Where the practice started, and what it has measured since." data-ar="من أين بدأت الممارسة، وما الذي قاسته منذ ذلك الحين."></p>
+    </div>
+    <div class="fv">
+      <figure class="vid">
+        <video controls preload="none" playsinline
+               data-vid-en="media/something-rare-en" data-vid-ar="media/something-rare-ar"
+               poster="media/something-rare-en.jpg" width="1280" height="720">
+          <source src="media/something-rare-en.mp4" type="video/mp4">
+          <source src="media/something-rare-en.webm" type="video/webm">
+        </video>
+      </figure>
+      <h3 data-en="Building something rare" data-ar="بناء شيء نادر"></h3>
+      <p data-en="Why an Arabic-first behavioural engine had to be built rather than bought." data-ar="لماذا كان لا بد من بناء محرك سلوكي عربي أولًا بدل شرائه."></p>
+    </div>
+    <div class="fv">
+      <figure class="vid">
+        <video controls preload="none" playsinline
+               poster="media/closing-signalx-en.jpg" width="1280" height="720">
+          <source src="media/closing-signalx-en.mp4" type="video/mp4">
+          <source src="media/closing-signalx-en.webm" type="video/webm">
+        </video>
+      </figure>
+      <h3 data-en="Closing on SignalX" data-ar="خِتام حول سيجنال إكس"></h3>
+      <p data-en="The ask, in one take. English only — an Arabic cut is not recorded yet." data-ar="الطلب، في لقطة واحدة. بالإنجليزية فقط — لم تُسجَّل نسخة عربية بعد."></p>
+    </div>
+  </div>
+
+  <div class="vent-links rv" style="margin-top:20px">
+    <a class="vlink lead" href="cases.html" data-en="See these working →" data-ar="شاهدها وهي تعمل ←">See these working →</a>
+    <a class="vlink" href="#ask" data-en="The investment case" data-ar="فرصة الاستثمار"></a>
   </div>
 </section>
 
@@ -617,6 +712,8 @@ img{max-width:100%; display:block}
         <div class="tags"><span class="tag">Knowledge graph</span><span class="tag">Bilingual · RTL</span><span class="tag">Dark theme</span><span class="tag">AA contrast</span></div>
         <div class="vent-links">
           <a class="vlink lead" href="cases.html#brain" data-en="See the case" data-ar="اطّلع على الحالة">See the case</a>
+          <a class="vlink" href="knowledge-graph.html" data-en="Open the Signal Brain" data-ar="افتح الدماغ الإشاري">Open the Signal Brain</a>
+          <a class="vlink" href="executive-dashboard.html" data-en="Open the Executive Dashboard" data-ar="افتح لوحة القيادة التنفيذية">Open the Executive Dashboard</a>
         </div>
       </div>
     </article>
@@ -670,8 +767,8 @@ img{max-width:100%; display:block}
       <div class="vent-top">
         <span class="vent-lane" style="background:#00DB96"></span>
         <div class="vent-h">
-          <div class="k" data-en="Campaign production" data-ar="إنتاج حملة"></div>
-          <h3 data-en="Saudi Ceramics campaign" data-ar="حملة الخزف السعودي"></h3>
+          <div class="k" data-en="Campaign production, automated" data-ar="إنتاج الحملات آليًا"></div>
+          <h3 data-en="Creative automation engine" data-ar="محرك الأتمتة الإبداعية"></h3>
           <div class="ar" data-en="طُلب منّا مقترح. سلّمنا الأفلام." data-ar="They asked for a treatment. We delivered the films."></div>
         </div>
       </div>
@@ -741,7 +838,17 @@ img{max-width:100%; display:block}
   </div>
 
   <div class="links rv">
-    <a class="link" href="cases.html">
+    <a class="link" href="executive-dashboard.html">
+        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>
+        <span class="tx"><span class="t" data-en="Executive Dashboard" data-ar="لوحة القيادة التنفيذية"></span><span class="d" data-en="The working surface on top of the Signal Brain — sample data" data-ar="الواجهة العاملة فوق الدماغ الإشاري — بيانات نموذجية"></span></span>
+        <svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="link" href="knowledge-graph.html">
+        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7v4M10.5 12.8 6.8 15.4M13.5 12.8l3.7 2.6"/></svg></span>
+        <span class="tx"><span class="t" data-en="Signal Brain" data-ar="الدماغ الإشاري"></span><span class="d" data-en="96 notes, 129 links — the graph behind the dashboards" data-ar="96 ملاحظة و129 رابطًا — الرسم خلف اللوحات"></span></span>
+        <svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="link" href="cases.html">
         <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="M3 10h18"/><path d="M8 10v9"/></svg></span>
         <span class="tx"><span class="t" data-en="Project cases" data-ar="حالات المشاريع"></span><span class="d" data-en="What the AI actually does, by project" data-ar="ما الذي يفعله الذكاء الاصطناعي فعلًا، مشروعًا بمشروع"></span></span>
         <svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
@@ -888,6 +995,19 @@ img{max-width:100%; display:block}
     document.documentElement.lang = lang;
     document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
     document.getElementById("lang").textContent = (lang === "en") ? "العربية" : "English";
+
+    /* clips that exist in both languages follow the toggle */
+    document.querySelectorAll("video[data-vid-en][data-vid-ar]").forEach(function(v){
+      var base = v.getAttribute(lang === "ar" ? "data-vid-ar" : "data-vid-en");
+      var src  = v.querySelector("source");
+      if (!src || src.getAttribute("src") === base + ".mp4") return;
+      var wasPlaying = !v.paused;
+      src.setAttribute("src", base + ".mp4");
+      v.setAttribute("poster", base + ".jpg");
+      v.load();
+      if (wasPlaying) v.play().catch(function(){});
+    });
+
     paintRole();
   }
 

@@ -192,6 +192,46 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
   html{scroll-behavior:auto}
   *{transition:none !important; animation:none !important}
 }
+
+/* ---------- video blocks ---------- */
+.vid{margin:0 0 16px}
+.vid:last-of-type{margin-bottom:0}
+.vid video{
+  /* height:auto is required — the height="720" attribute is a presentational
+     hint that otherwise beats aspect-ratio and leaves the box 720px tall. */
+  display:block; width:100%; height:auto; aspect-ratio:16/9; background:#0E0A18;
+  border-radius:var(--r-cardlet); border:1px solid var(--line);
+  object-fit:cover;
+}
+.vid video:focus-visible{outline:2px solid var(--cyan); outline-offset:3px}
+.vid-badge{
+  display:inline-flex; align-items:center; gap:8px; margin-bottom:9px;
+  font-size:11px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--lc);
+}
+[dir="rtl"] .vid-badge{letter-spacing:.04em}
+.vid figcaption{font-size:12.5px; color:var(--fg-3); line-height:1.55; margin-top:9px}
+
+/* ---------- the embedded knowledge graph ---------- */
+.graph-row{padding:clamp(18px,3.2vw,26px); border-bottom:1px solid var(--line-soft)}
+.graph-row .mini-links{margin-top:12px}
+.graph-embed{
+  position:relative; width:100%; height:clamp(400px,62vh,600px);
+  border-radius:var(--r-cardlet); border:1px solid var(--line);
+  overflow:hidden; background:#121212; margin-bottom:12px;
+}
+.graph-embed iframe{width:100%; height:100%; border:0; display:block}
+
+/* ---------- intro block ---------- */
+.intro-media{margin-top:28px; padding:clamp(16px,3vw,22px); border-radius:var(--r-card);
+  border:1px solid var(--line); background:var(--panel);
+  --lc:#73FAFD; --lc-soft:rgba(115,250,253,.30)}
+
+/* the opening clip sets the page up; it should not swallow the fold */
+.intro-media .vid{max-width:760px}
+
+/* only ever shown when neither source can be decoded — keep it readable */
+.vfall{display:block; padding:14px; color:var(--fg-2); font-size:13px}
 </style>
 </head>
 <body>
@@ -214,10 +254,27 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
 
     <nav class="leads" aria-label="Cases">
     <button class="lead-btn" type="button" data-target="signalx" style="--lc:#EB3DF7; --lc-soft:rgba(235,61,247,.30)"><span class="dot"></span><span data-en="SignalX AI — Coaching" data-ar="سيجنال إكس — التوجيه">SignalX AI — Coaching</span></button>
-    <button class="lead-btn" type="button" data-target="ceramic" style="--lc:#00DB96; --lc-soft:rgba(0,219,150,.30)"><span class="dot"></span><span data-en="Saudi Ceramics — Campaign automation" data-ar="الخزف السعودي — أتمتة الحملات">Saudi Ceramics — Campaign automation</span></button>
-    <button class="lead-btn" type="button" data-target="brain" style="--lc:#73FAFD; --lc-soft:rgba(115,250,253,.30)"><span class="dot"></span><span data-en="Dashboard brain" data-ar="دماغ لوحة المعلومات">Dashboard brain</span></button>
+    <button class="lead-btn" type="button" data-target="ceramic" style="--lc:#00DB96; --lc-soft:rgba(0,219,150,.30)"><span class="dot"></span><span data-en="Creative automation — video &amp; image" data-ar="أتمتة إبداعية — فيديو وصورة">Creative automation — video &amp; image</span></button>
+    <button class="lead-btn" type="button" data-target="brain" style="--lc:#73FAFD; --lc-soft:rgba(115,250,253,.30)"><span class="dot"></span><span data-en="Signal Brain" data-ar="الدماغ الإشاري">Signal Brain</span></button>
     <button class="lead-btn" type="button" data-target="academy" style="--lc:#8A7BF0; --lc-soft:rgba(138,123,240,.34)"><span class="dot"></span><span data-en="Signal Academy" data-ar="أكاديمية سيجنال">Signal Academy</span></button>
     </nav>
+
+    <div class="intro-media">
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="SignalX summary board" data-ar="لوحة ملخّص سيجنال إكس">SignalX summary board</span></div>
+        <video controls preload="none" playsinline
+               poster="media/generated-clip.jpg" width="1280" height="720">
+          <source src="media/generated-clip.mp4" type="video/mp4">
+          <source src="media/generated-clip.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="A walk through the SignalX summary board — what the platform reports, and to whom." data-ar="جولة في لوحة ملخّص سيجنال إكس — ما الذي تعرضه المنصة، ولمن.">A walk through the SignalX summary board — what the platform reports, and to whom.</span></figcaption>
+      </figure>
+      <div class="mini-links">
+        <a href="https://www.youtube.com/watch?v=n_JT7OTVerI" target="_blank" rel="noopener"><span data-en="Latest from the channel" data-ar="أحدث ما في القناة">Latest from the channel</span><span class="u ltr">www.youtube.com/watch?v=n_JT7OTVerI</span></a>
+        <a href="https://signalx.beautifulmindlifestyle.com/" target="_blank" rel="noopener"><span data-en="SignalX AI Academy" data-ar="أكاديمية سيجنال إكس للذكاء الاصطناعي">SignalX AI Academy</span><span class="u ltr">signalx.beautifulmindlifestyle.com</span></a>
+      </div>
+    </div>
   </div>
 
 <section class="case" id="signalx" style="--lc:#EB3DF7; --lc-soft:rgba(235,61,247,.30); --lc-wash:rgba(235,61,247,.22)" aria-labelledby="signalx-h">
@@ -229,13 +286,31 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
   </div>
   <div class="case-body">
     <div class="media">
-      <div class="media-frame">
-        <span class="badge"><span class="ring"></span><span data-en="Live call demo — SignalX Coach" data-ar="عرض مكالمة حية — مدرّب سيجنال إكس">Live call demo — SignalX Coach</span></span>
-      </div>
-      <div class="media-cap" data-en="Male / female coach selector. The live call runs on a consented sample report, never a real client&#x27;s." data-ar="اختيار مدرّب رجل أو امرأة. تعمل المكالمة الحية على تقرير عيّنة بموافقة، ولا تُستخدم بيانات عميل حقيقي أبدًا.">Male / female coach selector. The live call runs on a consented sample report, never a real client&#x27;s.</div>
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="Stage 1 — the platform" data-ar="المرحلة 1 — المنصة">Stage 1 — the platform</span></div>
+        <video controls preload="none" playsinline
+               poster="media/stage1-platform.jpg" width="1280" height="720">
+          <source src="media/stage1-platform.mp4" type="video/mp4">
+          <source src="media/stage1-platform.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="The platform a founder actually sits in front of." data-ar="المنصة التي يجلس أمامها المؤسس فعلًا.">The platform a founder actually sits in front of.</span></figcaption>
+      </figure>
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="Stage 2 — how it works" data-ar="المرحلة 2 — كيف يعمل">Stage 2 — how it works</span></div>
+        <video controls preload="none" playsinline
+               poster="media/stage2-how-it-works.jpg" width="1280" height="720">
+          <source src="media/stage2-how-it-works.mp4" type="video/mp4">
+          <source src="media/stage2-how-it-works.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="A report goes in; the engine reads it and the coach speaks from it." data-ar="يدخل التقرير؛ فيقرأه المحرك ويتحدّث منه المدرّب.">A report goes in; the engine reads it and the coach speaks from it.</span></figcaption>
+      </figure>
       <div class="mini-links">
         <a href="https://signalx-ceo-test.vercel.app/" target="_blank" rel="noopener"><span data-en="Investor demo — talk to the coach" data-ar="عرض المستثمر — تحدّث إلى المدرّب">Investor demo — talk to the coach</span><span class="u ltr">signalx-ceo-test.vercel.app</span></a>
         <a href="https://tre.beautifulmindlifestyle.com/launch-film" target="_blank" rel="noopener"><span data-en="Launch film — “A New Breath”" data-ar="الفيلم التعريفي — “نَفَس جديد”">Launch film — “A New Breath”</span><span class="u ltr">tre.beautifulmindlifestyle.com/launch-film</span></a>
+        <a href="https://www.youtube.com/watch?v=FzO3BgbFock&list=PLFaq7NYU1ew4" target="_blank" rel="noopener"><span data-en="SignalX — The World View (YouTube)" data-ar="سيجنال إكس — نظرة على العالم (يوتيوب)">SignalX — The World View (YouTube)</span><span class="u ltr">www.youtube.com/watch?v=FzO3BgbFock&amp;list=PLFaq7NYU1ew4</span></a>
+        <a href="https://youtube.com/playlist?list=PLFaq7NYU1ew4" target="_blank" rel="noopener"><span data-en="Entrepreneurship playlist" data-ar="قائمة تشغيل ريادة الأعمال">Entrepreneurship playlist</span><span class="u ltr">youtube.com/playlist?list=PLFaq7NYU1ew4</span></a>
       </div>
     </div>
     <div class="narrative">
@@ -259,15 +334,21 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
   <div class="case-head">
     <span class="tag" data-en="Case 02 — Live product" data-ar="الحالة 02 — منتج يعمل">Case 02 — Live product</span>
     <h2 data-en="Full-automation video and image production, run as a campaign" data-ar="إنتاج فيديو وصور بأتمتة كاملة، يُدار كحملة" id="ceramic-h">Full-automation video and image production, run as a campaign</h2>
-    <p data-en="This case isn&#x27;t about ceramics — the client happens to be Saudi Ceramics. What it demonstrates is an automated pipeline that turns a creative brief into three finished film concepts, storyboard to frame, without a production crew." data-ar="هذه الحالة ليست عن الخزف — العميل صادف أن يكون الخزف السعودي. ما تعرضه هو خط إنتاج آلي يحوّل موجزًا إبداعيًا إلى ثلاثة أفلام مفهومية مكتملة، من القصة المصوّرة إلى اللقطة، دون طاقم إنتاج.">This case isn&#x27;t about ceramics — the client happens to be Saudi Ceramics. What it demonstrates is an automated pipeline that turns a creative brief into three finished film concepts, storyboard to frame, without a production crew.</p>
-    <a class="open-link" href="https://saudi-ceramics-campaign.vercel.app/" target="_blank" rel="noopener"><span data-en="Open the campaign portal" data-ar="افتح بوابة الحملة">Open the campaign portal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+    <p data-en="A brief and a product still go in; finished film comes out. The engine writes the treatment, builds every frame, cuts the film and lays the bilingual supers — no crew, no shoot, no edit suite. The film below is one campaign it produced end to end." data-ar="يدخل موجز وصورة منتج؛ ويخرج فيلم مكتمل. يكتب المحرك المعالجة، ويبني كل لقطة، ويركّب الفيلم، ويضع النصوص بلغتين — بلا طاقم ولا تصوير ولا غرفة مونتاج. الفيلم بالأسفل حملة أنتجها المحرك من طرف إلى طرف.">A brief and a product still go in; finished film comes out. The engine writes the treatment, builds every frame, cuts the film and lays the bilingual supers — no crew, no shoot, no edit suite. The film below is one campaign it produced end to end.</p>
+    <a class="open-link" href="https://saudi-ceramics-campaign.vercel.app/" target="_blank" rel="noopener"><span data-en="Open the review portal" data-ar="افتح بوابة المراجعة">Open the review portal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
   </div>
   <div class="case-body">
     <div class="media">
-      <div class="media-frame">
-        <span class="badge"><span class="ring"></span><span data-en="Pre-visualisation portal — SCC" data-ar="بوابة التصوّر المسبق — الخزف السعودي">Pre-visualisation portal — SCC</span></span>
-      </div>
-      <div class="media-cap" data-en="Pre-visualisation portal, access-code gated for the client." data-ar="بوابة تصوّر مسبق، محميّة برمز دخول خاص بالعميل.">Pre-visualisation portal, access-code gated for the client.</div>
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="Frame-to-Film — a finished campaign" data-ar="من لقطة إلى فيلم — حملة مكتملة">Frame-to-Film — a finished campaign</span></div>
+        <video controls preload="none" playsinline
+               poster="media/campaign-film.jpg" width="1280" height="720">
+          <source src="media/campaign-film.mp4" type="video/mp4">
+          <source src="media/campaign-film.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="Forty-four seconds, generated and cut end to end from a brief and a product still. Bilingual supers laid automatically." data-ar="أربع وأربعون ثانية، مُولَّدة ومركّبة من طرف إلى طرف انطلاقًا من موجز وصورة منتج. والنصوص بلغتين وُضعت آليًا.">Forty-four seconds, generated and cut end to end from a brief and a product still. Bilingual supers laid automatically.</span></figcaption>
+      </figure>
       <div class="mini-links">
         <a href="https://saudi-ceramics-campaign.vercel.app/" target="_blank" rel="noopener"><span data-en="Production brief and review portal" data-ar="موجز الإنتاج وبوابة المراجعة">Production brief and review portal</span><span class="u ltr">saudi-ceramics-campaign.vercel.app</span></a>
       </div>
@@ -275,13 +356,13 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
     <div class="narrative">
       <div class="block">
         <h3 data-en="How it works" data-ar="كيف يعمل">How it works</h3>
-        <p data-en="One brief goes in; the pipeline produces three distinct creative directions as watchable pre-visualisation — full films, not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend." data-ar="يدخل موجز واحد؛ فينتج خط الإنتاج ثلاثة اتجاهات إبداعية مختلفة كتصوّر مسبق قابل للمشاهدة — أفلام كاملة لا قصصًا مصوّرة — لكلٍّ نبرته وإيقاعه ومنطق لقطاته، مُولَّدة ومركّبة في عطلة أسبوع واحدة.">One brief goes in; the pipeline produces three distinct creative directions as watchable pre-visualisation — full films, not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend.</p>
+        <p data-en="One brief goes in; the pipeline returns three distinct creative directions as watchable film — not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend. A still of the product is enough to start." data-ar="يدخل موجز واحد؛ فيعيد خط الإنتاج ثلاثة اتجاهات إبداعية مختلفة كأفلام قابلة للمشاهدة — لا قصصًا مصوّرة — لكلٍّ نبرته وإيقاعه ومنطق لقطاته، مُولَّدة ومركّبة في عطلة أسبوع واحدة. وصورة واحدة للمنتج تكفي للبدء.">One brief goes in; the pipeline returns three distinct creative directions as watchable film — not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend. A still of the product is enough to start.</p>
         <p class="muted" data-en="Every scene is checked against the original brief automatically, with each deliverable marked Delivered, Proposed or On request — so a client reviews finished video, not a deck." data-ar="يُراجَع كل مشهد آليًا مقابل الموجز الأصلي، مع تعليم كل مُخرَج بـ مُسلَّم أو مُقترَح أو عند الطلب — ليراجع العميل فيديو مكتملًا، لا عرضًا تقديميًا.">Every scene is checked against the original brief automatically, with each deliverable marked Delivered, Proposed or On request — so a client reviews finished video, not a deck.</p>
       </div>
       <div class="block">
         <h3 data-en="What AI is doing here" data-ar="ما الذي يقوم به الذكاء الاصطناعي هنا">What AI is doing here</h3>
         <ol class="steps">
-          <li><span class="n">1</span><span><b data-en="Concept-to-film automation." data-ar="أتمتة من الفكرة إلى الفيلم.">Concept-to-film automation.</b> <span data-en="Generates full video treatments from a brief, in parallel, at a production speed a crew can&#x27;t match." data-ar="يولّد معالجات فيديو كاملة من موجز واحد، بالتوازي، وبسرعة إنتاج لا يضاهيها طاقم بشري.">Generates full video treatments from a brief, in parallel, at a production speed a crew can&#x27;t match.</span></span></li>
+          <li><span class="n">1</span><span><b data-en="Still to film." data-ar="من صورة إلى فيلم.">Still to film.</b> <span data-en="Takes a product image and a brief and generates the full treatment, shot by shot, in parallel — at a speed a crew cannot match." data-ar="يأخذ صورة منتج وموجزًا فيولّد المعالجة كاملة، لقطة بلقطة، بالتوازي — وبسرعة لا يضاهيها طاقم بشري.">Takes a product image and a brief and generates the full treatment, shot by shot, in parallel — at a speed a crew cannot match.</span></span></li>
           <li><span class="n">2</span><span><b data-en="Format adaptation." data-ar="تكييف الصيغ.">Format adaptation.</b> <span data-en="One master gets reflowed automatically into 16:9, 9:16, 1:1 and 4:5 cuts for TVC, social and showroom." data-ar="تُعاد صياغة النسخة الرئيسية آليًا إلى 16:9 و9:16 و1:1 و4:5 للإعلان التلفزيوني والتواصل الاجتماعي وصالة العرض.">One master gets reflowed automatically into 16:9, 9:16, 1:1 and 4:5 cuts for TVC, social and showroom.</span></span></li>
           <li><span class="n">3</span><span><b data-en="Bilingual super placement." data-ar="وضع النصوص ثنائية اللغة.">Bilingual super placement.</b> <span data-en="Arabic and English callouts are laid out and timed automatically, reading-order aware." data-ar="تُوضع النصوص العربية والإنجليزية وتُضبط توقيتاتها آليًا، مع مراعاة اتجاه القراءة.">Arabic and English callouts are laid out and timed automatically, reading-order aware.</span></span></li>
         </ol>
@@ -292,16 +373,40 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
 <section class="case" id="brain" style="--lc:#73FAFD; --lc-soft:rgba(115,250,253,.30); --lc-wash:rgba(115,250,253,.18)" aria-labelledby="brain-h">
   <div class="case-head">
     <span class="tag" data-en="Case 03 — Product architecture" data-ar="الحالة 03 — معمارية المنتج">Case 03 — Product architecture</span>
-    <h2 data-en="The knowledge graph that sits behind every dashboard" data-ar="الرسم المعرفي الذي يقف خلف كل لوحة معلومات" id="brain-h">The knowledge graph that sits behind every dashboard</h2>
-    <p data-en="Every report, score and coaching answer traces back to one structured knowledge graph. This case shows how the brain organizes behavioural data so the dashboard on top of it can explain, not just display." data-ar="كل تقرير ودرجة وإجابة توجيهية تعود إلى رسم معرفي واحد منظّم. تُظهر هذه الحالة كيف ينظّم الدماغ البيانات السلوكية لتتمكّن اللوحة فوقه من الشرح، لا العرض فقط.">Every report, score and coaching answer traces back to one structured knowledge graph. This case shows how the brain organizes behavioural data so the dashboard on top of it can explain, not just display.</p>
+    <h2 data-en="Signal Brain — the knowledge graph behind every dashboard" data-ar="الدماغ الإشاري — الرسم المعرفي خلف كل لوحة معلومات" id="brain-h">Signal Brain — the knowledge graph behind every dashboard</h2>
+    <p data-en="Every report, score and coaching answer traces back to one structured knowledge graph — the Signal Brain. This case shows how it organizes behavioural data so the dashboard on top of it can explain, not just display. Both are below, live." data-ar="كل تقرير ودرجة وإجابة توجيهية تعود إلى رسم معرفي واحد منظّم — الدماغ الإشاري. تُظهر هذه الحالة كيف ينظّم البيانات السلوكية لتتمكّن اللوحة فوقه من الشرح، لا العرض فقط. وكلاهما بالأسفل، ويعمل.">Every report, score and coaching answer traces back to one structured knowledge graph — the Signal Brain. This case shows how it organizes behavioural data so the dashboard on top of it can explain, not just display. Both are below, live.</p>
+  </div>
+  <div class="graph-row">
+    <div class="graph-embed">
+      <iframe src="knowledge-graph.html" loading="lazy" title="Beautiful Mind knowledge graph"></iframe>
+    </div>
+    <div class="media-cap" data-en="The live graph — 96 notes, 129 links, nine categories. Drag to pan, scroll to zoom, click a node to focus, or filter by category in the legend." data-ar="الرسم المباشر — 96 ملاحظة و129 رابطًا وتسع فئات. اسحب للتحريك، ومرّر للتكبير، وانقر عقدة للتركيز، أو رشّح حسب الفئة من مفتاح الألوان.">The live graph — 96 notes, 129 links, nine categories. Drag to pan, scroll to zoom, click a node to focus, or filter by category in the legend.</div>
+    <div class="mini-links"><a href="knowledge-graph.html"><span data-en="Open the graph full screen" data-ar="افتح الرسم بملء الشاشة">Open the graph full screen</span><span class="u ltr">knowledge-graph.html</span></a></div>
+  </div>
+  <div class="graph-row">
+    <div class="graph-embed">
+      <iframe src="executive-dashboard.html" loading="lazy" title="Executive Dashboard sample"></iframe>
+    </div>
+    <div class="media-cap" data-en="The surface that sits on top of the Signal Brain — ten lanes, live counters, the action centre and the cube map. Sample data throughout; no client or personal records." data-ar="الواجهة التي تعلو الدماغ الإشاري — عشرة مسارات وعدّادات حيّة ومركز إجراءات وخريطة المكعّب. بيانات نموذجية بالكامل؛ ولا سجلات عملاء أو بيانات شخصية.">The surface that sits on top of the Signal Brain — ten lanes, live counters, the action centre and the cube map. Sample data throughout; no client or personal records.</div>
+    <div class="mini-links"><a href="executive-dashboard.html"><span data-en="Open the Executive Dashboard full screen" data-ar="افتح لوحة القيادة التنفيذية بملء الشاشة">Open the Executive Dashboard full screen</span><span class="u ltr">executive-dashboard.html</span></a></div>
   </div>
   <div class="case-body">
     <div class="media">
-      <div class="media-frame">
-        <span class="badge"><span class="ring"></span><span data-en="Knowledge graph — architecture" data-ar="الرسم المعرفي — المعمارية">Knowledge graph — architecture</span></span>
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="Brain Galaxy — full walkthrough" data-ar="براين غالاكسي — جولة كاملة">Brain Galaxy — full walkthrough</span></div>
+        <video controls preload="none" playsinline
+               poster="media/walkthrough-each-part.jpg" width="1280" height="720">
+          <source src="media/walkthrough-each-part.mp4" type="video/mp4">
+          <source src="media/walkthrough-each-part.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="Fifty-seven seconds through the working graph: inspector, filters, categories, hubs." data-ar="سبع وخمسون ثانية داخل الرسم وهو يعمل: المفتّش، والمرشّحات، والفئات، والمحاور.">Fifty-seven seconds through the working graph: inspector, filters, categories, hubs.</span></figcaption>
+      </figure>
+      <div class="mini-links">
+        <a href="knowledge-graph.html"><span data-en="Open the Signal Brain graph" data-ar="افتح رسم الدماغ الإشاري">Open the Signal Brain graph</span><span class="u ltr">knowledge-graph.html</span></a>
+        <a href="executive-dashboard.html"><span data-en="Open the Executive Dashboard" data-ar="افتح لوحة القيادة التنفيذية">Open the Executive Dashboard</span><span class="u ltr">executive-dashboard.html</span></a>
+        <a href="https://beautifulmindlifestyle.com" target="_blank" rel="noopener"><span data-en="Beautiful Mind · Cowork OS" data-ar="بيوتيفول مايند · كووورك أو إس">Beautiful Mind · Cowork OS</span><span class="u ltr">beautifulmindlifestyle.com</span></a>
       </div>
-      <div class="media-cap" data-en="Bilingual · RTL · dark theme · AA contrast — built to the same accessibility bar as the investor site." data-ar="ثنائي اللغة · من اليمين لليسار · سمة داكنة · تباين AA — مبني على معيار الوصول نفسه المعتمد في موقع المستثمر.">Bilingual · RTL · dark theme · AA contrast — built to the same accessibility bar as the investor site.</div>
-      <div class="placeholder-note" data-en="Screens and a walkthrough clip for this case are pending — drop the dashboard capture into this frame when it is ready." data-ar="الشاشات ومقطع الشرح لهذه الحالة قيد الإعداد — ضع لقطة اللوحة في هذا الإطار عند جاهزيتها.">Screens and a walkthrough clip for this case are pending — drop the dashboard capture into this frame when it is ready.</div>
     </div>
     <div class="narrative">
       <div class="block">
@@ -329,12 +434,20 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
   </div>
   <div class="case-body">
     <div class="media">
-      <div class="media-frame">
-        <span class="badge"><span class="ring"></span><span data-en="Learning path — Signal Academy" data-ar="مسار التعلّم — أكاديمية سيجنال">Learning path — Signal Academy</span></span>
-      </div>
-      <div class="media-cap" data-en="Curriculum-generation layer, running live at signalx.beautifulmindlifestyle.com." data-ar="طبقة توليد المناهج، تعمل مباشرة على signalx.beautifulmindlifestyle.com.">Curriculum-generation layer, running live at signalx.beautifulmindlifestyle.com.</div>
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="Stage 4 — data to action" data-ar="المرحلة 4 — من البيانات إلى الفعل">Stage 4 — data to action</span></div>
+        <video controls preload="none" playsinline
+               poster="media/stage4-data-to-action.jpg" width="1280" height="720">
+          <source src="media/stage4-data-to-action.mp4" type="video/mp4">
+          <source src="media/stage4-data-to-action.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="Where a score stops being a report and becomes something to practise." data-ar="حيث تتوقّف الدرجة عن كونها تقريرًا وتصبح شيئًا يُمارَس.">Where a score stops being a report and becomes something to practise.</span></figcaption>
+      </figure>
       <div class="mini-links">
         <a href="https://signalx.beautifulmindlifestyle.com/" target="_blank" rel="noopener"><span data-en="Signal Academy — live site" data-ar="أكاديمية سيجنال — الموقع المباشر">Signal Academy — live site</span><span class="u ltr">signalx.beautifulmindlifestyle.com</span></a>
+        <a href="https://www.youtube.com/watch?v=NEtfWA4DIQo&list=PLSuIQaF--6lQ" target="_blank" rel="noopener"><span data-en="SignalX Academy — The Change Begins With The Vision" data-ar="أكاديمية سيجنال إكس — التغيير يبدأ بالرؤية">SignalX Academy — The Change Begins With The Vision</span><span class="u ltr">www.youtube.com/watch?v=NEtfWA4DIQo&amp;list=PLSuIQaF--6lQ</span></a>
+        <a href="https://youtube.com/playlist?list=PLSuIQaF--6lQ" target="_blank" rel="noopener"><span data-en="SignalX project assets playlist" data-ar="قائمة تشغيل أصول مشروع سيجنال إكس">SignalX project assets playlist</span><span class="u ltr">youtube.com/playlist?list=PLSuIQaF--6lQ</span></a>
       </div>
     </div>
     <div class="narrative">
