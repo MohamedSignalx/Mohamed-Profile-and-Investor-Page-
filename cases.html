@@ -222,22 +222,6 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
 }
 .graph-embed iframe{width:100%; height:100%; border:0; display:block}
 
-/* ---------- access code ---------- */
-.code-block{
-  display:flex; flex-wrap:wrap; align-items:center; gap:12px;
-  margin-bottom:14px; padding:14px 16px; border-radius:var(--r-cardlet);
-  background:rgba(0,219,150,.10); border:1px solid rgba(0,219,150,.30);
-}
-.code-block .lbl{font-size:10.5px; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:#5FE9C0}
-[dir="rtl"] .code-block .lbl{letter-spacing:.04em}
-.code-block .code{
-  font-family:var(--font-num); font-size:22px; font-weight:800; letter-spacing:.18em;
-  color:#fff; background:rgba(18,18,18,.55); border:1px solid rgba(0,219,150,.34);
-  border-radius:10px; padding:6px 16px; direction:ltr;
-}
-.code-block .why{flex:1 1 220px; font-size:12.5px; color:var(--fg-2); line-height:1.5}
-
 /* ---------- intro block ---------- */
 .intro-media{margin-top:28px; padding:clamp(16px,3vw,22px); border-radius:var(--r-card);
   border:1px solid var(--line); background:var(--panel);
@@ -270,8 +254,8 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
 
     <nav class="leads" aria-label="Cases">
     <button class="lead-btn" type="button" data-target="signalx" style="--lc:#EB3DF7; --lc-soft:rgba(235,61,247,.30)"><span class="dot"></span><span data-en="SignalX AI — Coaching" data-ar="سيجنال إكس — التوجيه">SignalX AI — Coaching</span></button>
-    <button class="lead-btn" type="button" data-target="ceramic" style="--lc:#00DB96; --lc-soft:rgba(0,219,150,.30)"><span class="dot"></span><span data-en="Saudi Ceramics — Campaign automation" data-ar="الخزف السعودي — أتمتة الحملات">Saudi Ceramics — Campaign automation</span></button>
-    <button class="lead-btn" type="button" data-target="brain" style="--lc:#73FAFD; --lc-soft:rgba(115,250,253,.30)"><span class="dot"></span><span data-en="Dashboard brain" data-ar="دماغ لوحة المعلومات">Dashboard brain</span></button>
+    <button class="lead-btn" type="button" data-target="ceramic" style="--lc:#00DB96; --lc-soft:rgba(0,219,150,.30)"><span class="dot"></span><span data-en="Creative automation — video &amp; image" data-ar="أتمتة إبداعية — فيديو وصورة">Creative automation — video &amp; image</span></button>
+    <button class="lead-btn" type="button" data-target="brain" style="--lc:#73FAFD; --lc-soft:rgba(115,250,253,.30)"><span class="dot"></span><span data-en="Signal Brain" data-ar="الدماغ الإشاري">Signal Brain</span></button>
     <button class="lead-btn" type="button" data-target="academy" style="--lc:#8A7BF0; --lc-soft:rgba(138,123,240,.34)"><span class="dot"></span><span data-en="Signal Academy" data-ar="أكاديمية سيجنال">Signal Academy</span></button>
     </nav>
 
@@ -350,20 +334,21 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
   <div class="case-head">
     <span class="tag" data-en="Case 02 — Live product" data-ar="الحالة 02 — منتج يعمل">Case 02 — Live product</span>
     <h2 data-en="Full-automation video and image production, run as a campaign" data-ar="إنتاج فيديو وصور بأتمتة كاملة، يُدار كحملة" id="ceramic-h">Full-automation video and image production, run as a campaign</h2>
-    <p data-en="This case isn&#x27;t about ceramics — the client happens to be Saudi Ceramics. What it demonstrates is an automated pipeline that turns a creative brief into three finished film concepts, storyboard to frame, without a production crew." data-ar="هذه الحالة ليست عن الخزف — العميل صادف أن يكون الخزف السعودي. ما تعرضه هو خط إنتاج آلي يحوّل موجزًا إبداعيًا إلى ثلاثة أفلام مفهومية مكتملة، من القصة المصوّرة إلى اللقطة، دون طاقم إنتاج.">This case isn&#x27;t about ceramics — the client happens to be Saudi Ceramics. What it demonstrates is an automated pipeline that turns a creative brief into three finished film concepts, storyboard to frame, without a production crew.</p>
-    <a class="open-link" href="https://saudi-ceramics-campaign.vercel.app/" target="_blank" rel="noopener"><span data-en="Open the campaign portal" data-ar="افتح بوابة الحملة">Open the campaign portal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
+    <p data-en="A brief and a product still go in; finished film comes out. The engine writes the treatment, builds every frame, cuts the film and lays the bilingual supers — no crew, no shoot, no edit suite. The film below is one campaign it produced end to end." data-ar="يدخل موجز وصورة منتج؛ ويخرج فيلم مكتمل. يكتب المحرك المعالجة، ويبني كل لقطة، ويركّب الفيلم، ويضع النصوص بلغتين — بلا طاقم ولا تصوير ولا غرفة مونتاج. الفيلم بالأسفل حملة أنتجها المحرك من طرف إلى طرف.">A brief and a product still go in; finished film comes out. The engine writes the treatment, builds every frame, cuts the film and lays the bilingual supers — no crew, no shoot, no edit suite. The film below is one campaign it produced end to end.</p>
+    <a class="open-link" href="https://saudi-ceramics-campaign.vercel.app/" target="_blank" rel="noopener"><span data-en="Open the review portal" data-ar="افتح بوابة المراجعة">Open the review portal</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg></a>
   </div>
   <div class="case-body">
     <div class="media">
-      <div class="code-block">
-        <span class="lbl" data-en="Client access code" data-ar="رمز دخول العميل">Client access code</span>
-        <span class="code ltr">SCC</span>
-        <span class="why" data-en="The portal is gated. Enter this code to reach the pre-visualisation films." data-ar="البوابة محميّة. أدخل هذا الرمز للوصول إلى أفلام التصوّر المسبق.">The portal is gated. Enter this code to reach the pre-visualisation films.</span>
-      </div>
-      <div class="media-frame">
-        <span class="badge"><span class="ring"></span><span data-en="Pre-visualisation portal — SCC" data-ar="بوابة التصوّر المسبق — الخزف السعودي">Pre-visualisation portal — SCC</span></span>
-      </div>
-      <div class="media-cap" data-en="Pre-visualisation portal, access-code gated for the client." data-ar="بوابة تصوّر مسبق، محميّة برمز دخول خاص بالعميل.">Pre-visualisation portal, access-code gated for the client.</div>
+      <figure class="vid">
+        <div class="vid-badge"><span class="ring"></span><span data-en="Frame-to-Film — a finished campaign" data-ar="من لقطة إلى فيلم — حملة مكتملة">Frame-to-Film — a finished campaign</span></div>
+        <video controls preload="none" playsinline
+               poster="media/campaign-film.jpg" width="1280" height="720">
+          <source src="media/campaign-film.mp4" type="video/mp4">
+          <source src="media/campaign-film.webm" type="video/webm">
+          <span class="vfall" data-en="Your browser cannot play this video." data-ar="متصفحك لا يستطيع تشغيل هذا المقطع.">Your browser cannot play this video.</span>
+        </video>
+        <figcaption><span data-en="Forty-four seconds, generated and cut end to end from a brief and a product still. Bilingual supers laid automatically." data-ar="أربع وأربعون ثانية، مُولَّدة ومركّبة من طرف إلى طرف انطلاقًا من موجز وصورة منتج. والنصوص بلغتين وُضعت آليًا.">Forty-four seconds, generated and cut end to end from a brief and a product still. Bilingual supers laid automatically.</span></figcaption>
+      </figure>
       <div class="mini-links">
         <a href="https://saudi-ceramics-campaign.vercel.app/" target="_blank" rel="noopener"><span data-en="Production brief and review portal" data-ar="موجز الإنتاج وبوابة المراجعة">Production brief and review portal</span><span class="u ltr">saudi-ceramics-campaign.vercel.app</span></a>
       </div>
@@ -371,13 +356,13 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
     <div class="narrative">
       <div class="block">
         <h3 data-en="How it works" data-ar="كيف يعمل">How it works</h3>
-        <p data-en="One brief goes in; the pipeline produces three distinct creative directions as watchable pre-visualisation — full films, not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend." data-ar="يدخل موجز واحد؛ فينتج خط الإنتاج ثلاثة اتجاهات إبداعية مختلفة كتصوّر مسبق قابل للمشاهدة — أفلام كاملة لا قصصًا مصوّرة — لكلٍّ نبرته وإيقاعه ومنطق لقطاته، مُولَّدة ومركّبة في عطلة أسبوع واحدة.">One brief goes in; the pipeline produces three distinct creative directions as watchable pre-visualisation — full films, not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend.</p>
+        <p data-en="One brief goes in; the pipeline returns three distinct creative directions as watchable film — not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend. A still of the product is enough to start." data-ar="يدخل موجز واحد؛ فيعيد خط الإنتاج ثلاثة اتجاهات إبداعية مختلفة كأفلام قابلة للمشاهدة — لا قصصًا مصوّرة — لكلٍّ نبرته وإيقاعه ومنطق لقطاته، مُولَّدة ومركّبة في عطلة أسبوع واحدة. وصورة واحدة للمنتج تكفي للبدء.">One brief goes in; the pipeline returns three distinct creative directions as watchable film — not storyboards — each with its own tone, pacing and shot logic, generated and assembled in a single weekend. A still of the product is enough to start.</p>
         <p class="muted" data-en="Every scene is checked against the original brief automatically, with each deliverable marked Delivered, Proposed or On request — so a client reviews finished video, not a deck." data-ar="يُراجَع كل مشهد آليًا مقابل الموجز الأصلي، مع تعليم كل مُخرَج بـ مُسلَّم أو مُقترَح أو عند الطلب — ليراجع العميل فيديو مكتملًا، لا عرضًا تقديميًا.">Every scene is checked against the original brief automatically, with each deliverable marked Delivered, Proposed or On request — so a client reviews finished video, not a deck.</p>
       </div>
       <div class="block">
         <h3 data-en="What AI is doing here" data-ar="ما الذي يقوم به الذكاء الاصطناعي هنا">What AI is doing here</h3>
         <ol class="steps">
-          <li><span class="n">1</span><span><b data-en="Concept-to-film automation." data-ar="أتمتة من الفكرة إلى الفيلم.">Concept-to-film automation.</b> <span data-en="Generates full video treatments from a brief, in parallel, at a production speed a crew can&#x27;t match." data-ar="يولّد معالجات فيديو كاملة من موجز واحد، بالتوازي، وبسرعة إنتاج لا يضاهيها طاقم بشري.">Generates full video treatments from a brief, in parallel, at a production speed a crew can&#x27;t match.</span></span></li>
+          <li><span class="n">1</span><span><b data-en="Still to film." data-ar="من صورة إلى فيلم.">Still to film.</b> <span data-en="Takes a product image and a brief and generates the full treatment, shot by shot, in parallel — at a speed a crew cannot match." data-ar="يأخذ صورة منتج وموجزًا فيولّد المعالجة كاملة، لقطة بلقطة، بالتوازي — وبسرعة لا يضاهيها طاقم بشري.">Takes a product image and a brief and generates the full treatment, shot by shot, in parallel — at a speed a crew cannot match.</span></span></li>
           <li><span class="n">2</span><span><b data-en="Format adaptation." data-ar="تكييف الصيغ.">Format adaptation.</b> <span data-en="One master gets reflowed automatically into 16:9, 9:16, 1:1 and 4:5 cuts for TVC, social and showroom." data-ar="تُعاد صياغة النسخة الرئيسية آليًا إلى 16:9 و9:16 و1:1 و4:5 للإعلان التلفزيوني والتواصل الاجتماعي وصالة العرض.">One master gets reflowed automatically into 16:9, 9:16, 1:1 and 4:5 cuts for TVC, social and showroom.</span></span></li>
           <li><span class="n">3</span><span><b data-en="Bilingual super placement." data-ar="وضع النصوص ثنائية اللغة.">Bilingual super placement.</b> <span data-en="Arabic and English callouts are laid out and timed automatically, reading-order aware." data-ar="تُوضع النصوص العربية والإنجليزية وتُضبط توقيتاتها آليًا، مع مراعاة اتجاه القراءة.">Arabic and English callouts are laid out and timed automatically, reading-order aware.</span></span></li>
         </ol>
@@ -388,8 +373,8 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
 <section class="case" id="brain" style="--lc:#73FAFD; --lc-soft:rgba(115,250,253,.30); --lc-wash:rgba(115,250,253,.18)" aria-labelledby="brain-h">
   <div class="case-head">
     <span class="tag" data-en="Case 03 — Product architecture" data-ar="الحالة 03 — معمارية المنتج">Case 03 — Product architecture</span>
-    <h2 data-en="The knowledge graph that sits behind every dashboard" data-ar="الرسم المعرفي الذي يقف خلف كل لوحة معلومات" id="brain-h">The knowledge graph that sits behind every dashboard</h2>
-    <p data-en="Every report, score and coaching answer traces back to one structured knowledge graph. This case shows how the brain organizes behavioural data so the dashboard on top of it can explain, not just display." data-ar="كل تقرير ودرجة وإجابة توجيهية تعود إلى رسم معرفي واحد منظّم. تُظهر هذه الحالة كيف ينظّم الدماغ البيانات السلوكية لتتمكّن اللوحة فوقه من الشرح، لا العرض فقط.">Every report, score and coaching answer traces back to one structured knowledge graph. This case shows how the brain organizes behavioural data so the dashboard on top of it can explain, not just display.</p>
+    <h2 data-en="Signal Brain — the knowledge graph behind every dashboard" data-ar="الدماغ الإشاري — الرسم المعرفي خلف كل لوحة معلومات" id="brain-h">Signal Brain — the knowledge graph behind every dashboard</h2>
+    <p data-en="Every report, score and coaching answer traces back to one structured knowledge graph — the Signal Brain. This case shows how it organizes behavioural data so the dashboard on top of it can explain, not just display. Both are below, live." data-ar="كل تقرير ودرجة وإجابة توجيهية تعود إلى رسم معرفي واحد منظّم — الدماغ الإشاري. تُظهر هذه الحالة كيف ينظّم البيانات السلوكية لتتمكّن اللوحة فوقه من الشرح، لا العرض فقط. وكلاهما بالأسفل، ويعمل.">Every report, score and coaching answer traces back to one structured knowledge graph — the Signal Brain. This case shows how it organizes behavioural data so the dashboard on top of it can explain, not just display. Both are below, live.</p>
   </div>
   <div class="graph-row">
     <div class="graph-embed">
@@ -397,6 +382,13 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
     </div>
     <div class="media-cap" data-en="The live graph — 96 notes, 129 links, nine categories. Drag to pan, scroll to zoom, click a node to focus, or filter by category in the legend." data-ar="الرسم المباشر — 96 ملاحظة و129 رابطًا وتسع فئات. اسحب للتحريك، ومرّر للتكبير، وانقر عقدة للتركيز، أو رشّح حسب الفئة من مفتاح الألوان.">The live graph — 96 notes, 129 links, nine categories. Drag to pan, scroll to zoom, click a node to focus, or filter by category in the legend.</div>
     <div class="mini-links"><a href="knowledge-graph.html"><span data-en="Open the graph full screen" data-ar="افتح الرسم بملء الشاشة">Open the graph full screen</span><span class="u ltr">knowledge-graph.html</span></a></div>
+  </div>
+  <div class="graph-row">
+    <div class="graph-embed">
+      <iframe src="executive-dashboard.html" loading="lazy" title="Executive Dashboard sample"></iframe>
+    </div>
+    <div class="media-cap" data-en="The surface that sits on top of the Signal Brain — ten lanes, live counters, the action centre and the cube map. Sample data throughout; no client or personal records." data-ar="الواجهة التي تعلو الدماغ الإشاري — عشرة مسارات وعدّادات حيّة ومركز إجراءات وخريطة المكعّب. بيانات نموذجية بالكامل؛ ولا سجلات عملاء أو بيانات شخصية.">The surface that sits on top of the Signal Brain — ten lanes, live counters, the action centre and the cube map. Sample data throughout; no client or personal records.</div>
+    <div class="mini-links"><a href="executive-dashboard.html"><span data-en="Open the Executive Dashboard full screen" data-ar="افتح لوحة القيادة التنفيذية بملء الشاشة">Open the Executive Dashboard full screen</span><span class="u ltr">executive-dashboard.html</span></a></div>
   </div>
   <div class="case-body">
     <div class="media">
@@ -411,7 +403,8 @@ h1{font-size:clamp(26px,5.2vw,42px); color:#fff; margin-top:12px; text-transform
         <figcaption><span data-en="Fifty-seven seconds through the working graph: inspector, filters, categories, hubs." data-ar="سبع وخمسون ثانية داخل الرسم وهو يعمل: المفتّش، والمرشّحات، والفئات، والمحاور.">Fifty-seven seconds through the working graph: inspector, filters, categories, hubs.</span></figcaption>
       </figure>
       <div class="mini-links">
-        <a href="knowledge-graph.html"><span data-en="Open the knowledge graph" data-ar="افتح الرسم المعرفي">Open the knowledge graph</span><span class="u ltr">knowledge-graph.html</span></a>
+        <a href="knowledge-graph.html"><span data-en="Open the Signal Brain graph" data-ar="افتح رسم الدماغ الإشاري">Open the Signal Brain graph</span><span class="u ltr">knowledge-graph.html</span></a>
+        <a href="executive-dashboard.html"><span data-en="Open the Executive Dashboard" data-ar="افتح لوحة القيادة التنفيذية">Open the Executive Dashboard</span><span class="u ltr">executive-dashboard.html</span></a>
         <a href="https://beautifulmindlifestyle.com" target="_blank" rel="noopener"><span data-en="Beautiful Mind · Cowork OS" data-ar="بيوتيفول مايند · كووورك أو إس">Beautiful Mind · Cowork OS</span><span class="u ltr">beautifulmindlifestyle.com</span></a>
       </div>
     </div>
