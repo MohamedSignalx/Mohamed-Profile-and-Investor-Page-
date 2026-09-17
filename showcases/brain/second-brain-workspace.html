@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,500;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F8F6;--paper:#FBFCFB;--ink:#16211C;--muted:#647069;--faint:#9AA8A2;
+  --line:#E6EDE9;--line2:#EFF3F1;
+  --green:#1B6B3A;--green2:#2E8B57;--mint:#E8F5EE;--mint2:#7FD1A3;--gold:#B8860B;
+  --amber:#C08A2B;--red:#C0574A;
+  --signalx:#1B6B3A;--tre:#17817A;--aitools:#3E6FB0;--pets:#B4703A;--finance:#1F7A50;
+  --serif:"IBM Plex Serif",Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic","IBM Plex Sans",ui-sans-serif,system-ui,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#dbe4df;border-radius:8px}
+[dir="rtl"]{line-height:1.7}
+@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.14);opacity:.82}}
+@keyframes pulse{0%{transform:scale(.7);opacity:.55}70%{transform:scale(2.4);opacity:0}100%{opacity:0}}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes floaty{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 5px))}}
+@media (prefers-reduced-motion:reduce){[data-anim]{animation:none!important}}
+@media (max-width:1180px){[data-shell]{grid-template-columns:1fr!important}[data-rail]{display:none!important}}
+@media (max-width:820px){[data-iconrail]{display:none!important}[data-field]{height:auto!important;min-height:0!important}[data-node]{position:static!important;transform:none!important;width:auto!important;margin-bottom:10px!important;opacity:1!important}[data-fieldstage]{display:flex!important;flex-direction:column!important;height:auto!important}[data-decor]{display:none!important}}
+</style>
+</helmet>
+<div id="app" dir="ltr" style="min-height:100vh;background:var(--bg);color:var(--ink)">
+
+  <header style="position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:14px;height:58px;padding:0 20px;background:rgba(251,252,251,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:radial-gradient(circle at 38% 30%,#fff,var(--mint));border:1px solid var(--line)">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="var(--green)" stroke-width="1.4"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 1 4 3 3 0 0 0 3 4 2.4 2.4 0 0 0 3-2V4.5A1.5 1.5 0 0 0 10.5 3H9Z"/><path d="M15 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-1 4 3 3 0 0 1-3 4 2.4 2.4 0 0 1-3-2"/></svg>
+      </span>
+      <div style="line-height:1.05">
+        <div style="font-size:12.5px;font-weight:700;letter-spacing:.02em">BEAUTIFUL MIND</div>
+        <div style="font-size:8.5px;letter-spacing:.26em;color:var(--muted);font-weight:600" data-ar="الدماغ الثاني">SECOND BRAIN</div>
+      </div>
+    </div>
+
+    <label style="display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:7px 12px;color:var(--faint);width:240px;margin-inline-start:22px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg>
+      <input placeholder="Search your brain…" data-ar="ابحث في دماغك…" style="border:0;outline:0;background:transparent;flex:1;font:inherit;color:var(--ink);min-width:0"/>
+      <span style="font-size:10px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)">⌘K</span>
+    </label>
+
+    <div style="flex:1"></div>
+
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 11px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--green2)"></span>
+      <span data-clock>—</span> · <span data-date>—</span> · KSA
+    </span>
+    <span style="font-size:10px;color:#8a6612;background:rgba(184,134,11,.1);border:1px solid rgba(184,134,11,.3);border-radius:999px;padding:3px 9px;font-weight:600">● MOCK</span>
+    <button onClick="{{ toggleLang }}" style="border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 12px;font:inherit;font-size:12px;font-weight:600;cursor:pointer" id="langLabel">عربي</button>
+    <span style="position:relative;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--muted);cursor:pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+      <span style="position:absolute;top:-5px;inset-inline-end:-5px;min-width:16px;height:16px;border-radius:8px;background:var(--gold);color:#fff;font-size:9.5px;display:grid;place-items:center;padding:0 4px;font-weight:700">7</span>
+    </span>
+    <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:3px 11px 3px 4px;background:#fff;cursor:pointer">
+      <span style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#cfe9db,#e6efe2);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:12px">M</span>
+      <div style="line-height:1.1"><div style="font-size:12px;font-weight:600">Mohamed</div><div style="font-size:10px;color:var(--muted)" data-ar="مؤسس ومدرب">Founder &amp; Coach</div></div>
+    </div>
+  </header>
+
+  <div data-shell style="display:grid;grid-template-columns:66px 1fr 344px;gap:0;min-height:calc(100vh - 58px)">
+
+    <!-- icon rail -->
+    <nav data-iconrail style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 0;border-inline-end:1px solid var(--line);background:var(--paper)">
+      <span style="width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--mint);border:1px solid rgba(27,107,58,.2);color:var(--green)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></svg></span>
+      <span style="width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--faint);cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14V7"/></svg></span>
+      <span style="width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--faint);cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></span>
+      <span style="width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--faint);cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 18l5-5 4 4 8-9"/></svg></span>
+      <span style="width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--faint);cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 7a4 4 0 0 1-5 5L5 16l3 3 4-4a4 4 0 0 0 5-5z"/></svg></span>
+      <div style="flex:1"></div>
+      <span style="width:38px;height:38px;border-radius:11px;display:grid;place-items:center;color:var(--faint);cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></span>
+    </nav>
+
+    <!-- FIELD -->
+    <main style="padding:22px 26px 40px;min-width:0">
+      <div style="display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:4px">
+        <div>
+          <div style="font-family:var(--serif);font-style:italic;font-size:26px;font-weight:500;color:var(--ink);line-height:1.15" data-ar="صباح الخير يا محمد.">Good morning, Mohamed.</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:3px" data-ar="ثلاث إشارات اليوم. كل ما عداها يمكن أن ينتظر.">Three signals today. Everything else can wait.</div>
+        </div>
+        <div style="margin-inline-start:auto;display:flex;gap:8px;align-items:center">
+          <button id="guideBtn" onClick="{{ toggleGuides }}" style="display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;font:inherit;font-size:11.5px;font-weight:500;color:var(--muted);cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.5"/></svg><span data-ar="حلقات الطبقات">Tiers</span></button>
+          <button id="focusBtn" onClick="{{ toggleFocus }}" style="display:inline-flex;align-items:center;gap:6px;border:1px solid var(--green);background:var(--green);color:#fff;border-radius:9px;padding:6px 12px;font:inherit;font-size:11.5px;font-weight:600;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/></svg><span data-ar="ركّز على الإشارة">Focus signal</span></button>
+        </div>
+      </div>
+
+      <div data-field style="position:relative;height:670px;margin-top:12px;border-radius:22px;background:radial-gradient(circle at 50% 44%,#ffffff 0%,#fbfcfb 42%,#eef3f0 100%);border:1px solid var(--line);overflow:hidden;box-shadow:inset 0 1px 0 #fff">
+
+        <!-- corner legend -->
+        <div style="position:absolute;top:16px;inset-inline-start:18px;z-index:9;display:flex;flex-direction:column;gap:5px;background:rgba(251,252,251,.7);border:1px solid var(--line);border-radius:11px;padding:9px 11px">
+          <div style="font-size:8.5px;letter-spacing:.14em;color:var(--faint);font-weight:700" data-ar="الإشارة ← الضجيج">SIGNAL → NOISE</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ink)"><span style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(27,107,58,.15)"></span><span data-ar="إشارة · تنبض">Signal · glows</span></div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--muted)"><span style="width:8px;height:8px;border-radius:50%;background:var(--faint)"></span><span data-ar="سياق · هادئ">Context · calm</span></div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--faint)"><span style="width:8px;height:8px;border-radius:50%;background:#cfd8d3"></span><span data-ar="دعم · خافت">Support · faint</span></div>
+        </div>
+
+        <div data-fieldstage style="position:absolute;inset:0">
+
+          <!-- connective lines -->
+          <svg data-decor viewBox="0 0 1000 1000" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none">
+            <line x1="500" y1="500" x2="500" y2="160" stroke="rgba(46,139,87,.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            <line x1="500" y1="500" x2="200" y2="720" stroke="rgba(46,139,87,.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            <line x1="500" y1="500" x2="800" y2="720" stroke="rgba(46,139,87,.5)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            <line x1="500" y1="500" x2="150" y2="430" stroke="rgba(120,132,126,.22)" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/>
+            <line x1="500" y1="500" x2="850" y2="440" stroke="rgba(120,132,126,.22)" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/>
+            <line x1="500" y1="500" x2="500" y2="850" stroke="rgba(120,132,126,.22)" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/>
+          </svg>
+
+          <!-- guide rings -->
+          <div data-guide data-decor style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:452px;height:452px;border-radius:50%;border:1px dashed rgba(27,107,58,.2);pointer-events:none;z-index:1"></div>
+          <div data-guide data-decor style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:588px;height:588px;border-radius:50%;border:1px dashed rgba(100,112,105,.16);pointer-events:none;z-index:1"></div>
+          <div data-guide data-decor style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:716px;height:716px;border-radius:50%;border:1px dashed rgba(100,112,105,.1);pointer-events:none;z-index:1"></div>
+          <div data-anim data-decor style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:300px;height:300px;border-radius:50%;border:1.5px solid rgba(46,139,87,.1);border-top-color:rgba(46,139,87,.4);animation:spin 70s linear infinite;pointer-events:none;z-index:1"></div>
+
+          <!-- CORE -->
+          <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;text-align:center">
+            <div data-anim data-decor style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(127,209,163,.5) 0%,rgba(232,245,238,0) 70%);filter:blur(4px);animation:breathe 6.5s ease-in-out infinite;z-index:-1;pointer-events:none"></div>
+            <div style="width:152px;height:152px;border-radius:50%;background:radial-gradient(circle at 50% 36%,#ffffff,#f2f9f5);border:1px solid var(--line);box-shadow:0 12px 34px rgba(27,107,58,.16),inset 0 1px 0 #fff;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <div style="font-size:9px;letter-spacing:.2em;color:var(--faint);font-weight:700" data-ar="اليوم">TODAY</div>
+              <div id="sigCount" style="font-family:var(--serif);font-style:italic;font-size:48px;font-weight:600;color:var(--green);line-height:1;margin:1px 0">3</div>
+              <div style="font-size:8px;letter-spacing:.16em;color:var(--muted);font-weight:600" data-ar="إشارات نشطة">ACTIVE SIGNALS</div>
+              <div style="width:34px;height:1px;background:var(--line);margin:6px 0 4px"></div>
+              <div style="font-size:9px;color:var(--faint)"><span data-clock>—</span> · KSA</div>
+            </div>
+          </div>
+
+          <!-- SIGNAL 1 · SignalX -->
+          <div data-node data-card="s1" data-tier="signal" style="position:absolute;left:50%;top:16%;transform:translate(-50%,-50%);width:214px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--signalx);border-radius:14px;padding:12px 13px 11px;box-shadow:0 8px 26px rgba(27,107,58,.13),0 1px 2px rgba(20,33,28,.05);z-index:6">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="position:relative;width:9px;height:9px;flex:none"><span data-dot style="position:absolute;inset:0;border-radius:50%;background:var(--signalx)"></span><span data-pulse data-anim style="position:absolute;inset:-4px;border-radius:50%;background:var(--signalx);animation:pulse 2.8s ease-out infinite"></span></span>
+              <span style="font-size:9px;letter-spacing:.11em;color:var(--faint);font-weight:700" data-ar="سيغنال إكس · 1:1">SIGNALX · 1:1</span>
+              <span data-state style="margin-inline-start:auto;font-size:10px;font-weight:600;color:var(--signalx)" data-ar="في المسار">On track</span>
+            </div>
+            <div style="font-size:13.5px;font-weight:600;margin-top:6px;line-height:1.3" data-ar="مكالمة تعارف ← عميل تجريبي">Discovery call → pilot</div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:2px" data-ar="جهّز الملخص وأرسل المتابعة">Prep brief, send follow-up</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.07);color:#1d7a4c">✓ Brief</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.07);color:#1d7a4c">✓ Deck</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(192,138,43,.36);background:rgba(192,138,43,.1);color:#915512" data-ar="~ متابعة">~ Follow-up</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:9px">
+              <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-weight:600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>16:30</span>
+              <div style="margin-inline-start:auto;display:flex;gap:5px">
+                <button data-act="done" data-card="s1" onClick="{{ onAction }}" style="border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.06);color:var(--green);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;font-weight:600;cursor:pointer">✓ <span data-ar="تم">Done</span></button>
+                <button data-act="park" data-card="s1" onClick="{{ onAction }}" style="border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;cursor:pointer">⏸</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIGNAL 2 · AI Tools -->
+          <div data-node data-card="s2" data-tier="signal" style="position:absolute;left:20%;top:72%;transform:translate(-50%,-50%);width:214px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--aitools);border-radius:14px;padding:12px 13px 11px;box-shadow:0 8px 26px rgba(62,111,176,.14),0 1px 2px rgba(20,33,28,.05);z-index:6">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="position:relative;width:9px;height:9px;flex:none"><span data-dot style="position:absolute;inset:0;border-radius:50%;background:var(--amber)"></span><span data-pulse data-anim style="position:absolute;inset:-4px;border-radius:50%;background:var(--amber);animation:pulse 2.8s ease-out infinite"></span></span>
+              <span style="font-size:9px;letter-spacing:.11em;color:var(--faint);font-weight:700" data-ar="مختبر الأدوات">AI TOOLS LAB</span>
+              <span data-state style="margin-inline-start:auto;font-size:10px;font-weight:600;color:var(--amber)" data-ar="قريب الاستحقاق">Due soon</span>
+            </div>
+            <div style="font-size:13.5px;font-weight:600;margin-top:6px;line-height:1.3" data-ar="فيديو AI Cowork بالعربية">AI Cowork Arabic video</div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:2px" data-ar="الأفاتار والصوت جاهزان — راجع النص">Avatar + voice ready, validate script</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.07);color:#1d7a4c" data-ar="✓ أفاتار">✓ Avatar</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.07);color:#1d7a4c" data-ar="✓ صوت">✓ Voice</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(192,138,43,.36);background:rgba(192,138,43,.1);color:#915512" data-ar="~ نص">~ Script</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);background:#fafbfb;color:var(--faint)" data-ar="⌛ تصدير">⌛ Render</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:9px">
+              <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--amber);font-weight:600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>12:00</span>
+              <div style="margin-inline-start:auto;display:flex;gap:5px">
+                <button data-act="done" data-card="s2" onClick="{{ onAction }}" style="border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.06);color:var(--green);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;font-weight:600;cursor:pointer">✓ <span data-ar="تم">Done</span></button>
+                <button data-act="park" data-card="s2" onClick="{{ onAction }}" style="border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;cursor:pointer">⏸</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SIGNAL 3 · GS Pets -->
+          <div data-node data-card="s3" data-tier="signal" style="position:absolute;left:80%;top:72%;transform:translate(-50%,-50%);width:214px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--pets);border-radius:14px;padding:12px 13px 11px;box-shadow:0 8px 26px rgba(180,112,58,.14),0 1px 2px rgba(20,33,28,.05);z-index:6">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="position:relative;width:9px;height:9px;flex:none"><span data-dot style="position:absolute;inset:0;border-radius:50%;background:var(--pets)"></span><span data-pulse data-anim style="position:absolute;inset:-4px;border-radius:50%;background:var(--pets);animation:pulse 2.8s ease-out infinite"></span></span>
+              <span style="font-size:9px;letter-spacing:.11em;color:var(--faint);font-weight:700" data-ar="جي إس بيتس · منفصل">GS PETS · SEP.</span>
+              <span data-state style="margin-inline-start:auto;font-size:10px;font-weight:600;color:var(--pets)" data-ar="في المسار">On track</span>
+            </div>
+            <div style="font-size:13.5px;font-weight:600;margin-top:6px;line-height:1.3" data-ar="ريل التبنّي + رد إعلامي">Adoption reel + media reply</div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:2px" data-ar="اللقطات جاهزة — اكتب التعليق">Footage ready, write caption</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.07);color:#1d7a4c" data-ar="✓ لقطات">✓ Footage</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid rgba(192,138,43,.36);background:rgba(192,138,43,.1);color:#915512" data-ar="~ تعليق">~ Caption</span>
+              <span style="font-size:9.5px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);background:#fafbfb;color:var(--faint)" data-ar="⌛ جدولة">⌛ Schedule</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:9px">
+              <span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-weight:600"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>17:30</span>
+              <div style="margin-inline-start:auto;display:flex;gap:5px">
+                <button data-act="done" data-card="s3" onClick="{{ onAction }}" style="border:1px solid rgba(27,107,58,.3);background:rgba(27,107,58,.06);color:var(--green);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;font-weight:600;cursor:pointer">✓ <span data-ar="تم">Done</span></button>
+                <button data-act="park" data-card="s3" onClick="{{ onAction }}" style="border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:8px;padding:3px 8px;font:inherit;font-size:11px;cursor:pointer">⏸</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTEXT · radar trend -->
+          <div data-node data-tier="context" data-base-op=".72" style="position:absolute;left:13%;top:42%;transform:translate(-50%,-50%);width:158px;opacity:.72;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px;box-shadow:0 3px 10px rgba(20,33,28,.05);z-index:4">
+            <div style="display:flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:.1em;color:var(--faint);font-weight:700"><span style="width:5px;height:5px;border-radius:50%;background:var(--aitools)"></span><span data-ar="سياق · رادار">CONTEXT · RADAR</span></div>
+            <div style="font-size:11.5px;font-weight:500;margin-top:3px;color:var(--ink)" data-ar="مقاطع التدريب العربية ترتفع">Arabic clips rising</div>
+          </div>
+
+          <!-- CONTEXT · radar risk -->
+          <div data-node data-tier="context" data-base-op=".72" style="position:absolute;left:87%;top:44%;transform:translate(-50%,-50%);width:158px;opacity:.72;background:#fff;border:1px solid rgba(192,87,74,.32);border-radius:12px;padding:9px 11px;box-shadow:0 3px 10px rgba(20,33,28,.05);z-index:4">
+            <div style="display:flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:.1em;color:var(--faint);font-weight:700"><span style="width:5px;height:5px;border-radius:50%;background:var(--red)"></span><span data-ar="سياق · خطر">CONTEXT · RISK</span></div>
+            <div style="font-size:11.5px;font-weight:500;margin-top:3px;color:var(--ink)" data-ar="فجوة سعر المورّد">Supplier price gap</div>
+          </div>
+
+          <!-- CONTEXT · calendar -->
+          <div data-node data-tier="context" data-base-op=".72" style="position:absolute;left:50%;top:88%;transform:translate(-50%,-50%);width:172px;opacity:.72;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 11px;box-shadow:0 3px 10px rgba(20,33,28,.05);z-index:4">
+            <div style="display:flex;align-items:center;gap:5px;font-size:8.5px;letter-spacing:.1em;color:var(--faint);font-weight:700"><span style="width:5px;height:5px;border-radius:50%;background:var(--tre)"></span><span data-ar="سياق · التقويم">CONTEXT · CALENDAR</span></div>
+            <div style="font-size:11.5px;font-weight:500;margin-top:3px;color:var(--ink)" data-ar="جلسة TRE · 15:00">TRE session · 15:00</div>
+          </div>
+
+          <!-- SUPPORT · finance -->
+          <div data-node data-tier="support" data-base-op=".5" style="position:absolute;left:12%;top:15%;transform:translate(-50%,-50%);width:140px;opacity:.5;background:#fff;border:1px solid var(--line);border-radius:11px;padding:8px 10px;z-index:3">
+            <div style="font-size:8px;letter-spacing:.1em;color:var(--faint);font-weight:700" data-ar="دعم · مالية">SUPPORT · FINANCE</div>
+            <div style="font-size:11px;font-weight:500;margin-top:2px;color:var(--amber)" data-ar="قرض مستحق · 2,450">Loan due · 2,450 SAR</div>
+          </div>
+
+          <!-- SUPPORT · tools -->
+          <div data-node data-tier="support" data-base-op=".5" style="position:absolute;left:88%;top:14%;transform:translate(-50%,-50%);width:132px;opacity:.5;background:#fff;border:1px solid var(--line);border-radius:11px;padding:8px 10px;z-index:3">
+            <div style="font-size:8px;letter-spacing:.1em;color:var(--faint);font-weight:700" data-ar="دعم · أدوات">SUPPORT · TOOLS</div>
+            <div style="font-size:11px;font-weight:500;margin-top:2px;color:var(--muted)" data-ar="6 أدوات نشطة">6 tools active</div>
+          </div>
+
+          <!-- SUPPORT · inbox -->
+          <div data-node data-tier="support" data-base-op=".5" style="position:absolute;left:11%;top:86%;transform:translate(-50%,-50%);width:132px;opacity:.5;background:#fff;border:1px solid var(--line);border-radius:11px;padding:8px 10px;z-index:3">
+            <div style="font-size:8px;letter-spacing:.1em;color:var(--faint);font-weight:700" data-ar="دعم · البريد">SUPPORT · INBOX</div>
+            <div style="font-size:11px;font-weight:500;margin-top:2px;color:var(--muted)" data-ar="7 رسائل مهمة">7 top emails</div>
+          </div>
+
+          <!-- SUPPORT · bookmarks -->
+          <div data-node data-tier="support" data-base-op=".5" style="position:absolute;left:89%;top:87%;transform:translate(-50%,-50%);width:132px;opacity:.5;background:#fff;border:1px solid var(--line);border-radius:11px;padding:8px 10px;z-index:3">
+            <div style="font-size:8px;letter-spacing:.1em;color:var(--faint);font-weight:700" data-ar="دعم · روابط">SUPPORT · LINKS</div>
+            <div style="font-size:11px;font-weight:500;margin-top:2px;color:var(--muted)" data-ar="روابط سريعة">Quick links</div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- COCKPIT RAIL -->
+    <aside data-rail style="border-inline-start:1px solid var(--line);background:var(--paper);padding:22px 20px 40px;display:flex;flex-direction:column;gap:16px;overflow-y:auto">
+
+      <!-- signal-to-noise key -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px">
+        <div style="font-size:10px;letter-spacing:.12em;color:var(--faint);font-weight:700;margin-bottom:3px" data-ar="الإشارة مقابل الضجيج">SIGNAL-TO-NOISE</div>
+        <div style="font-family:var(--serif);font-style:italic;font-size:16px;color:var(--ink);margin-bottom:11px" data-ar="ثلاثة فقط قد تنبض اليوم.">Only three may glow today.</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;gap:9px;align-items:flex-start"><span style="width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(27,107,58,.14);margin-top:3px;flex:none"></span><div><div style="font-size:12px;font-weight:600" data-ar="إشارة">Signal</div><div style="font-size:10.5px;color:var(--muted)" data-ar="أهم 3 محرّكات اليوم — تنبض فقط.">Top 3 drivers today — the only pulse.</div></div></div>
+          <div style="display:flex;gap:9px;align-items:flex-start"><span style="width:9px;height:9px;border-radius:50%;background:var(--faint);margin-top:3px;flex:none"></span><div><div style="font-size:12px;font-weight:600" data-ar="سياق">Context</div><div style="font-size:10.5px;color:var(--muted)" data-ar="رادار وتقويم — يُنير القرار، لا ينبض.">Radar &amp; calendar — informs, never pulses.</div></div></div>
+          <div style="display:flex;gap:9px;align-items:flex-start"><span style="width:9px;height:9px;border-radius:50%;background:#cfd8d3;margin-top:3px;flex:none"></span><div><div style="font-size:12px;font-weight:600" data-ar="دعم">Support</div><div style="font-size:10.5px;color:var(--muted)" data-ar="مالية وأدوات — يعمل بهدوء في المحيط.">Finance &amp; tools — quiet at the edge.</div></div></div>
+        </div>
+      </div>
+
+      <!-- goal ring -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;align-items:center;gap:15px">
+        <div style="position:relative;width:88px;height:88px;flex:none">
+          <svg width="88" height="88" viewBox="0 0 120 120" style="transform:rotate(-90deg)">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="10"/>
+            <circle cx="60" cy="60" r="52" fill="none" stroke="var(--green)" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="104.5"/>
+            <circle cx="60" cy="8" r="4.5" fill="var(--gold)"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-family:var(--serif);font-style:italic;font-size:22px;font-weight:600;color:var(--green);line-height:1">68<span style="font-size:11px">%</span></div></div>
+        </div>
+        <div>
+          <div style="font-size:10px;letter-spacing:.1em;color:var(--faint);font-weight:700" data-ar="سباق النقد 72 ساعة">72H CASH SPRINT</div>
+          <div style="font-size:13px;font-weight:600;margin-top:2px" data-ar="2 من 3 مخرجات جاهزة">2 of 3 outputs shipped</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px" data-ar="التالي: تصدير فيديو AI Cowork">Next: render AI Cowork video</div>
+        </div>
+      </div>
+
+      <!-- brand lanes -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px">
+        <div style="font-size:10px;letter-spacing:.12em;color:var(--faint);font-weight:700;margin-bottom:11px" data-ar="مسارات العلامة">BRAND LANES</div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2)"><span style="width:8px;height:8px;border-radius:3px;background:var(--signalx);flex:none"></span><div style="flex:1"><div style="font-size:12.5px;font-weight:600">SignalX</div><div style="font-size:10.5px;color:var(--muted)" data-ar="التدريب السلوكي بالذكاء">AI behavioral coaching</div></div><span style="font-size:10px;color:#1d7a4c;font-weight:600" data-ar="نشط">active</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2)"><span style="width:8px;height:8px;border-radius:3px;background:var(--tre);flex:none"></span><div style="flex:1"><div style="font-size:12.5px;font-weight:600">TRE Arabia</div><div style="font-size:10.5px;color:var(--muted)" data-ar="جلسات حيّة">Live sessions</div></div><span style="font-size:10px;color:#1d7a4c;font-weight:600" data-ar="نشط">active</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line2)"><span style="width:8px;height:8px;border-radius:3px;background:var(--aitools);flex:none"></span><div style="flex:1"><div style="font-size:12.5px;font-weight:600">AI Tools Lab</div><div style="font-size:10.5px;color:var(--muted)" data-ar="أدوات النجاح">Tools for success</div></div><span style="font-size:10px;color:var(--amber);font-weight:600" data-ar="مشغول">busy</span></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:7px 0"><span style="width:8px;height:8px;border-radius:3px;background:var(--pets);flex:none"></span><div style="flex:1"><div style="font-size:12.5px;font-weight:600">GS Pets <span style="font-size:9px;color:var(--faint);font-weight:500" data-ar="منفصل">separate</span></div><div style="font-size:10.5px;color:var(--muted)" data-ar="مختبر محتوى-تجارة">Content-commerce lab</div></div><span style="font-size:10px;color:var(--muted);font-weight:600" data-ar="مسار">lane</span></div>
+        </div>
+      </div>
+
+      <!-- inspire -->
+      <div style="background:linear-gradient(135deg,var(--mint),#fff);border:1px solid rgba(27,107,58,.18);border-radius:16px;padding:16px">
+        <div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--green)" data-ar="أي شخص يستطيع بناء هذا.">Anyone can build this.</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5" data-ar="دماغ ثانٍ حيّ — تصفية الإشارة عن الضجيج. انسخ النمط لعملك.">A living second brain that filters signal from noise. Clone the pattern for your own work.</div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;focusMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Signal-to-noise&quot;,&quot;label&quot;:&quot;Focus mode (dim everything but the 3 signals)&quot;},&quot;showGuides&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Signal-to-noise&quot;,&quot;label&quot;:&quot;Show tier rings&quot;},&quot;pulseSignals&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Signal-to-noise&quot;,&quot;label&quot;:&quot;Pulse the signals&quot;}}">
+class Component extends DCLogic {
+  state = {
+    lang: 'en',
+    focus: (this.props.focusMode ?? false),
+    guides: (this.props.showGuides ?? true),
+    pulse: (this.props.pulseSignals ?? true)
+  };
+  done = {};
+
+  renderVals() {
+    const self = this;
+    return {
+      toggleLang: () => this.setState(s => ({ lang: s.lang === 'en' ? 'ar' : 'en' })),
+      toggleFocus: () => this.setState(s => ({ focus: !s.focus })),
+      toggleGuides: () => this.setState(s => ({ guides: !s.guides })),
+      onAction: (e) => {
+        const b = e.currentTarget;
+        self.applyCard(b.getAttribute('data-card'), b.getAttribute('data-act'));
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.root = document.getElementById('app');
+    this.captureEN();
+    this.tick();
+    this.timer = setInterval(() => this.tick(), 30000);
+    this.applyLang();
+    this.applyState();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps) {
+      const patch = {};
+      if (prevProps.focusMode !== this.props.focusMode) patch.focus = !!this.props.focusMode;
+      if (prevProps.showGuides !== this.props.showGuides) patch.guides = this.props.showGuides !== false;
+      if (prevProps.pulseSignals !== this.props.pulseSignals) patch.pulse = this.props.pulseSignals !== false;
+      if (Object.keys(patch).length) { this.setState(patch); return; }
+    }
+    this.applyLang();
+    this.applyState();
+  }
+
+  componentWillUnmount() { clearInterval(this.timer); }
+
+  captureEN() {
+    if (!this.root) return;
+    this.root.querySelectorAll('[data-ar]').forEach(el => {
+      if (!el.hasAttribute('data-en')) el.setAttribute('data-en', el.textContent);
+    });
+  }
+
+  applyLang() {
+    if (!this.root) return;
+    const ar = this.state.lang === 'ar';
+    this.root.setAttribute('dir', ar ? 'rtl' : 'ltr');
+    this.root.querySelectorAll('[data-ar]').forEach(el => {
+      const v = ar ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+      if (v != null) el.textContent = v;
+    });
+    const lb = this.root.querySelector('#langLabel');
+    if (lb) lb.textContent = ar ? 'EN' : 'عربي';
+  }
+
+  applyState() {
+    const r = this.root;
+    if (!r) return;
+    // tier guide rings + connective decor
+    r.querySelectorAll('[data-guide]').forEach(el => { el.style.display = this.state.guides ? '' : 'none'; });
+    // pulse rings
+    r.querySelectorAll('[data-pulse]').forEach(el => {
+      el.style.animationPlayState = this.state.pulse ? 'running' : 'paused';
+      el.style.opacity = this.state.pulse ? '' : '0';
+    });
+    // focus dim — context + support fade to periphery
+    r.querySelectorAll('[data-tier="context"],[data-tier="support"]').forEach(el => {
+      el.style.transition = 'opacity .45s ease, filter .45s ease';
+      if (this.state.focus) { el.style.opacity = '.08'; el.style.filter = 'grayscale(1)'; }
+      else { el.style.opacity = el.getAttribute('data-base-op') || ''; el.style.filter = 'none'; }
+    });
+    // focus button active look
+    const fb = r.querySelector('#focusBtn');
+    if (fb) {
+      if (this.state.focus) { fb.style.background = '#0f4f2a'; fb.style.borderColor = '#0f4f2a'; }
+      else { fb.style.background = 'var(--green)'; fb.style.borderColor = 'var(--green)'; }
+    }
+    const gb = r.querySelector('#guideBtn');
+    if (gb) {
+      if (this.state.guides) { gb.style.color = 'var(--green)'; gb.style.borderColor = 'rgba(27,107,58,.35)'; gb.style.background = 'rgba(27,107,58,.06)'; }
+      else { gb.style.color = 'var(--muted)'; gb.style.borderColor = 'var(--line)'; gb.style.background = '#fff'; }
+    }
+    // re-apply done/parked states after any render
+    Object.keys(this.done).forEach(id => this.styleDone(id, this.done[id]));
+  }
+
+  styleDone(id, kind) {
+    const el = this.root && this.root.querySelector('[data-card="' + id + '"]');
+    if (!el) return;
+    el.style.opacity = '.62';
+    el.style.filter = 'grayscale(.65)';
+    el.style.boxShadow = '0 1px 2px rgba(20,33,28,.05)';
+    el.style.borderTopColor = 'var(--faint)';
+    const p = el.querySelector('[data-pulse]');
+    if (p) { p.style.animationPlayState = 'paused'; p.style.opacity = '0'; }
+    const dot = el.querySelector('[data-dot]');
+    if (dot) dot.style.background = 'var(--faint)';
+    const badge = el.querySelector('[data-state]');
+    if (badge) {
+      const ar = this.state.lang === 'ar';
+      badge.textContent = kind === 'park' ? (ar ? 'مؤجّل' : 'Parked') : (ar ? '✓ تم' : '✓ Done');
+      badge.style.color = 'var(--faint)';
+      badge.removeAttribute('data-ar');
+    }
+  }
+
+  applyCard(id, act) {
+    if (!id) return;
+    this.done[id] = act;
+    this.styleDone(id, act);
+    this.updateCount();
+  }
+
+  updateCount() {
+    const off = Object.keys(this.done).length;
+    const c = this.root && this.root.querySelector('#sigCount');
+    if (c) c.textContent = String(Math.max(0, 3 - off));
+  }
+
+  tick() {
+    if (!this.root) return;
+    const n = new Date();
+    const k = new Date(n.getTime() + n.getTimezoneOffset() * 60000 + 3 * 3600000);
+    const hh = String(k.getHours()).padStart(2, '0');
+    const mm = String(k.getMinutes()).padStart(2, '0');
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const mons = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const time = hh + ':' + mm;
+    const date = days[k.getDay()] + ' ' + k.getDate() + ' ' + mons[k.getMonth()];
+    this.root.querySelectorAll('[data-clock]').forEach(e => e.textContent = time);
+    this.root.querySelectorAll('[data-date]').forEach(e => e.textContent = date);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,960 @@
+<!doctype html>
+<!-- =====================================================================
+     MOHAMED ABUZAID — THE RECORD
+     A story film of 22 years: certificates, the field, the awards, and
+     what the managers said. Opens inside the profile's showcase overlay.
+     Self-contained: no build step, no dependencies.
+     ===================================================================== -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mohamed Abuzaid — 22 years, the record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet:#7A1FEA; --lift:#B872FF; --teal:#16B3AC; --teal-ink:#14807B;
+  --ink:#1B1830; --muted:#514C6B; --dim:#847FA0;
+  --ground:#FAFAFC; --line:#ECE8F6;
+  --f:"Plus Jakarta Sans",system-ui,sans-serif;
+  --f-d:"Space Grotesk",var(--f);
+  --f-ar:"IBM Plex Sans Arabic",var(--f);
+}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes ang{to{--ang:360deg}}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.13)}}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f);
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+
+.stage{min-height:100%;display:flex;flex-direction:column}
+
+/* ---------- top bar: chapter progress ---------- */
+.bar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+  padding:14px 22px;background:rgba(250,250,252,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.bar h1{margin:0;font-family:var(--f-d);font-size:16px;font-weight:700;letter-spacing:-.02em}
+.back{display:inline-flex;align-items:center;gap:7px;padding:9px 16px 9px 13px;border-radius:99px;
+  background:#fff;border:1px solid #DCD5F2;color:var(--ink);text-decoration:none;
+  font-family:var(--f-d);font-size:13.5px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;
+  transition:background .2s,transform .2s}
+.back:hover{background:#F7F4FE;transform:translateX(-2px)}
+.back span{color:var(--violet);font-size:15px;line-height:1}
+.bar h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1.2px var(--violet)}
+.ticks{display:flex;gap:6px;flex:1;min-width:160px}
+.tick{position:relative;flex:1;height:4px;border:0;padding:0;border-radius:99px;background:#E7E2F5;
+  overflow:hidden;cursor:pointer;transition:height .15s,background .15s}
+.tick::after{content:"";position:absolute;left:0;right:0;top:-11px;bottom:-11px}
+.tick:hover{height:8px;background:#D6CDF0}
+.tick.now{height:8px}
+.tick:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+.tick i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--teal))}
+.tick.done i{width:100%}
+.tick.now i{width:100%;transition:width var(--dur,7s) linear}
+.ctrl{display:flex;gap:8px}
+.ctrl button{width:38px;height:38px;border-radius:50%;border:1px solid #DCD5F2;background:#fff;
+  display:grid;place-items:center;font-size:14px;color:var(--violet);transition:background .2s}
+.ctrl button:hover{background:#F7F4FE}
+
+/* ---------- a chapter ---------- */
+.chapters{flex:1}
+.ch{display:none;padding:clamp(22px,4vw,44px)}
+.ch.on{display:block}
+.ch-head{max-width:70ch;margin:0 0 26px;animation:up .6s ease both}
+.yrs{font-family:var(--f-d);font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--violet)}
+.ch-head h2{margin:8px 0 10px;font-family:var(--f-d);font-size:clamp(26px,4.2vw,46px);
+  line-height:1.08;letter-spacing:-.03em;font-weight:700}
+.ch-head h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--violet)}
+.ch-head p{margin:0;font-size:clamp(15px,1.7vw,18px);color:var(--muted);text-wrap:pretty}
+
+.plates,.rail{display:flex;gap:16px;overflow-x:auto;overscroll-behavior-x:contain;
+  padding:10px 2px 24px;
+  scrollbar-width:thin;scrollbar-color:#CFC6EA transparent}
+.plates.snap,.rail.snap{scroll-snap-type:x proximity}
+.plates::-webkit-scrollbar,.rail::-webkit-scrollbar{height:9px}
+.plates::-webkit-scrollbar-thumb,.rail::-webkit-scrollbar-thumb{background:#CFC6EA;border-radius:99px}
+.plate{margin:0;flex:0 0 clamp(230px,21vw,300px);scroll-snap-align:start;
+  display:flex;flex-direction:column;gap:10px;animation:up .7s ease both;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.plates:hover .plate{transform:scale(.965)}
+.plates .plate:hover,.plates .plate:focus-within{transform:scale(1.06);z-index:2}
+.plates .plate:hover .frame{box-shadow:0 30px 60px -22px rgba(122,31,234,.65)}
+.plate:nth-child(2){animation-delay:.08s}
+.plate:nth-child(3){animation-delay:.16s}
+.plate:nth-child(4){animation-delay:.24s}
+.plate:nth-child(5){animation-delay:.32s}
+.frame{position:relative;overflow:hidden;border-radius:20px;aspect-ratio:16/10;
+  border:2px solid transparent;
+  background-image:linear-gradient(#fff,#FBFAFE),
+    conic-gradient(from var(--ang),rgba(122,31,234,.10) 0deg,var(--violet) 120deg,
+      var(--teal) 215deg,rgba(22,179,172,.10) 310deg,rgba(122,31,234,.10) 360deg);
+  background-origin:border-box;background-clip:padding-box,border-box;
+  animation:ang 7s linear infinite;
+  box-shadow:0 18px 40px -24px rgba(122,31,234,.45)}
+.plate:nth-child(2n) .frame{animation-delay:-2.3s}
+.plate:nth-child(3n) .frame{animation-delay:-4.6s}
+.frame img,.frame video,.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
+.frame.fit img{object-fit:contain;background:#fff;padding:10px}
+
+.plate figcaption{font-size:13.5px;color:var(--muted)}
+.plate figcaption b{display:block;font-family:var(--f-d);font-size:14.5px;font-weight:600;
+  letter-spacing:-.01em;color:var(--ink)}
+
+.wide .frame{aspect-ratio:16/10}
+
+/* ---------- quote plates ---------- */
+.quotes{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.q{margin:0;padding:26px 28px;border-radius:22px;border:2px solid transparent;
+  background-image:linear-gradient(#fff,#FBFAFE),
+    conic-gradient(from var(--ang),rgba(122,31,234,.10) 0deg,var(--violet) 120deg,
+      var(--teal) 215deg,rgba(122,31,234,.10) 360deg);
+  background-origin:border-box;background-clip:padding-box,border-box;
+  animation:ang 8s linear infinite;box-shadow:0 18px 44px -26px rgba(122,31,234,.4)}
+.q blockquote{margin:0 0 16px;font-size:15.5px;line-height:1.7;color:var(--ink)}
+.q footer{display:flex;flex-direction:column;gap:2px;padding-top:14px;border-top:1px solid var(--line)}
+.q footer b{font-family:var(--f-d);font-size:15px;font-weight:700;letter-spacing:-.01em}
+.q footer span{font-size:12.5px;color:var(--dim)}
+
+/* ---------- the films block ---------- */
+.films{display:grid;gap:20px;grid-template-columns:1fr;margin:0 0 26px}
+.film{margin:0;display:grid;gap:18px;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}
+@media (max-width:820px){.film{grid-template-columns:1fr}}
+.film .frame{aspect-ratio:16/9}
+.film .say{padding:24px 26px;border-radius:22px;background:linear-gradient(140deg,#F6F2FE,#E7F9F9 70%);
+  border:1px solid #ECE8F6;display:flex;flex-direction:column;gap:12px}
+.film .say b{font-family:var(--f-dis,var(--f-d));font-size:15px;font-weight:700;letter-spacing:-.01em}
+.film .say p{margin:0;font-size:15px;line-height:1.75;color:var(--ink);text-wrap:pretty}
+.film.hero{display:block;margin:0 0 30px}
+.film.hero .frame{aspect-ratio:auto;height:min(72vh,780px);background:#0E0B1A}
+.film.hero .frame video,.film.hero .frame iframe{object-fit:contain;background:#0E0B1A}
+.film.hero .say{margin-top:16px;padding:26px clamp(20px,3vw,34px)}
+.film.hero .say p{font-size:clamp(15px,1.6vw,17.5px)}
+.hint{display:inline-flex;align-items:center;gap:8px;margin:12px 0 0;padding:8px 15px;border-radius:99px;
+  background:#F4F1FB;border:1px solid var(--line);font-family:var(--f-d);font-size:12.5px;font-weight:600;color:var(--muted)}
+.hint span{color:var(--violet)}
+.ch-head.sub{margin-top:34px;padding-top:28px;border-top:1px solid var(--line)}
+.film.solo{grid-template-columns:1fr}
+.film.solo .frame{max-width:860px}
+
+/* ---------- numbers ---------- */
+.nums{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:22px}
+.num{padding:22px;border-radius:20px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 12px 30px -20px rgba(43,29,82,.3)}
+.num b{display:block;font-family:var(--f-d);font-size:clamp(26px,3.4vw,38px);font-weight:700;
+  letter-spacing:-.03em;line-height:1;color:var(--violet)}
+.num span{display:block;margin-top:7px;font-size:13px;color:var(--muted)}
+
+.rail{display:flex;gap:18px;overflow-x:auto;overscroll-behavior-x:contain;
+  padding:4px 2px 20px;scrollbar-width:thin;scrollbar-color:#CFC6EA transparent}
+.rail::-webkit-scrollbar{height:9px}
+.rail::-webkit-scrollbar-thumb{background:#CFC6EA;border-radius:99px}
+.shot{flex:0 0 clamp(260px,28vw,380px);scroll-snap-align:start;display:flex;flex-direction:column;gap:10px;
+  text-decoration:none;color:inherit;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.shot .frame{aspect-ratio:16/10;transition:box-shadow .35s}
+.shot .frame img{animation:none!important}
+.shot b{font-family:var(--f-d);font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.shot span{font-size:12.5px;color:var(--muted);line-height:1.55}
+.rail.flick:hover .shot{transform:scale(.965)}
+.rail.flick .shot:hover,.rail.flick .shot:focus-visible{transform:scale(1.06);z-index:2}
+.rail.flick .shot:hover .frame{box-shadow:0 30px 60px -22px rgba(122,31,234,.65)}
+.cert{flex:0 0 clamp(236px,25vw,330px);scroll-snap-align:start;display:flex;flex-direction:column;gap:10px;
+  text-decoration:none;color:inherit}
+.cert .frame{aspect-ratio:3/4;transition:box-shadow .25s,transform .25s}
+.cert:hover .frame{transform:translateY(-3px);box-shadow:0 26px 54px -24px rgba(122,31,234,.6)}
+.cert b{font-family:var(--f-d);font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.cert span{font-size:12.5px;color:var(--muted);line-height:1.55}
+.ar{font-family:var(--f-ar);direction:rtl;unicode-bidi:isolate}
+.tag{display:inline-block;margin-top:14px;padding:6px 14px;border-radius:99px;
+  background:#E7F9F9;color:var(--teal-ink);font-family:var(--f-d);font-size:12.5px;font-weight:600}
+
+.foot{padding:clamp(22px,4vw,44px);border-top:1px solid var(--line);
+  background:linear-gradient(160deg,#F6F2FE,#E7F9F9 70%)}
+.foot h3{margin:0 0 10px;font-family:var(--f-d);font-size:clamp(22px,3vw,34px);
+  letter-spacing:-.03em;font-weight:700}
+.foot h3 em{font-style:normal;color:transparent;-webkit-text-stroke:1.4px var(--violet)}
+.foot p{margin:0 0 20px;color:var(--muted);max-width:62ch}
+.acts{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:99px;
+  font-weight:600;font-size:14.5px;text-decoration:none;border:1px solid transparent;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-p{background:var(--violet);color:#fff;box-shadow:0 12px 28px -14px rgba(122,31,234,.7)}
+.btn-g{background:#fff;border-color:#DCD5F2;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .frame,.q{background-image:linear-gradient(#fff,#FBFAFE),linear-gradient(90deg,var(--violet),var(--teal))}
+}
+
+/* ======================= TWEAKS ======================= */
+/* INK — the accent pairing the whole film is cut from */
+:root[data-ink="signalx"]{--violet:#2F6F62;--lift:#6FA396;--teal:#C79A3B;--teal-ink:#8A6A1F}
+:root[data-ink="mono"]{--violet:#262433;--lift:#5E5A70;--teal:#8A8398;--teal-ink:#4A4557}
+
+/* PACE — rhythm of the reel, the running line and the slow zoom */
+.frame,.q{animation-duration:calc(7s * var(--pace,1))}
+.ch.on .frame:not(.fit) img{animation-duration:calc(16s * var(--pace,1))}
+
+/* PRESENCE — how much room the photographs are given */
+:root[data-presence="dossier"] .plate{flex-basis:clamp(200px,20vw,260px)}
+:root[data-presence="dossier"] .plates{gap:14px}
+:root[data-presence="dossier"] .frame{aspect-ratio:3/2;border-radius:14px;border-width:1px;box-shadow:none}
+:root[data-presence="dossier"] .ch.on .frame:not(.fit) img{animation:none}
+:root[data-presence="dossier"] .plate figcaption{color:var(--ink);font-size:13px}
+:root[data-presence="dossier"] .plate figcaption b{font-size:13.5px}
+:root[data-presence="dossier"] .ch-head{margin-bottom:20px}
+:root[data-presence="cinema"] .plate{flex-basis:clamp(380px,40vw,560px)}
+:root[data-presence="cinema"] .plates{gap:24px}
+:root[data-presence="cinema"] .frame{aspect-ratio:16/9;border-radius:26px}
+:root[data-presence="cinema"] .plate figcaption{color:var(--dim)}
+
+
+/* the panel */
+.tw{position:fixed;right:18px;bottom:18px;z-index:40;display:flex;flex-direction:column;
+  align-items:flex-end;gap:10px;font-family:var(--f-d)}
+.tw-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:99px;border:0;
+  background:var(--violet);color:#fff;font-size:13.5px;font-weight:600;letter-spacing:-.01em;
+  box-shadow:0 14px 34px -14px rgba(122,31,234,.75)}
+.tw-card{display:none;width:268px;padding:18px;border-radius:22px;background:#fff;
+  border:1px solid var(--line);box-shadow:0 26px 60px -28px rgba(43,29,82,.5)}
+.tw[data-open="1"] .tw-card{display:block}
+.tw-row+.tw-row{margin-top:16px}
+.tw-row>b{display:block;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:8px}
+.seg{display:grid;grid-auto-flow:column;gap:5px;padding:4px;border-radius:99px;background:#F4F1FB}
+.seg button{border:0;background:none;padding:8px 4px;border-radius:99px;font-size:12.5px;font-weight:600;
+  color:var(--muted);transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--violet);
+  box-shadow:0 4px 12px -6px rgba(43,29,82,.4)}
+@media print{.tw{display:none}}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="bar">
+    <a class="back" href="../index.html" id="backBtn"><span>←</span>Profile</a>
+    <h1>22 years, <em>the record</em></h1>
+    <div class="ticks" id="ticks"></div>
+    <div class="ctrl">
+      <button id="prev" aria-label="Previous chapter">‹</button>
+      <button id="play" aria-label="Pause">❚❚</button>
+      <button id="next" aria-label="Next chapter">›</button>
+    </div>
+  </div>
+
+  <div class="chapters" id="chapters">
+
+    <!-- 1 -->
+    <section class="ch on" data-dur="16">
+      <div class="ch-head">
+        <span class="yrs">Ten years · Saudi Aramco</span>
+        <h2>Ten years of experience — <em>management appreciation</em></h2>
+      </div>
+      <figure class="film hero">
+        <div class="frame">
+          <iframe id="ytFilm" src="https://www.youtube-nocookie.com/embed/MAndylmiB6s?rel=0&modestbranding=1&playsinline=1&enablejsapi=1&iv_load_policy=3"
+              title="A decade with Saudi Aramco operations — the VP hands over the ten-year award" loading="lazy" allowfullscreen
+              allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        </div>
+        <p class="hint"><span>▶</span>Press play — the story pauses while the film runs, and resumes when it ends.</p>
+        <figcaption class="say"><p>Throughout my 10+ year tenure as a QHSE Manager with Saudi Aramco, my core mission has been to ensure that every single worker returns home safely at the end of their shift. Maintaining a zero-fatality record over a decade with a major operator is a significant milestone, but for me, it is the standard. Having recently relocated to Abu Dhabi for family reasons, I am eager to apply my belief that Zero Harm is not an impossible ideal, but an achievable target through rigorous leadership and strong contractor engagement.</p></figcaption>
+      </figure>
+      <div class="ch-head sub">
+        <span class="yrs">Recognition</span>
+        <h2>The awards came <em>from the crews</em></h2>
+        <p>HSE Award Excellence across the Geozone, a rig contract celebrated hard-hats-up in the desert, and a ten-year appreciation from management. Zero major incidents across an $800M+ EBITDA regional portfolio is the number behind these photographs.</p>
+      </div>
+      <div class="films">
+        <figure class="film">
+          <div class="frame"><video src="../media/story/wft-10-years-appreciation.mp4" controls playsinline preload="metadata"></video></div>
+          <div class="say">
+            <b>Ten years of experience — management appreciation</b>
+            <p>The appreciation handed over in front of the team, filmed on the day.</p>
+          </div>
+        </figure>
+        <figure class="film">
+          <div class="frame"><video src="../media/story/wft-10-years-cakes.mp4" controls playsinline preload="metadata"></video></div>
+          <div class="say">
+            <b>Ten years · the gathering</b>
+            <p>Throughout my 10+ year tenure as a QHSE Manager with Saudi Aramco, my core mission was proving that 'Zero Incidents' is not an impossible ideal, but an achievable target. After two years in Abu Dhabi supporting my family, I am proud to fulfill my promise and return home to Saudi Arabia.</p>
+            <p>Armed with over a decade of tier-one industrial safety experience and a newly acquired MISA Entrepreneurship License, I am launching a new chapter. I look forward to these beautiful days ahead, contributing to the Kingdom's vibrant growth and helping organizations build world-class, fatality-free safety cultures.</p>
+          </div>
+        </figure>
+      </div>
+      <div class="plates">
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wft-hse-awards.jpg" alt="Five HSE Award Excellence trophies in presentation boxes" loading="lazy"></div>
+          <figcaption><b>HSE Award Excellence</b>“In recognition of achieving best practices in the workplace”</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wft-rig-contract-celebration.jpg" alt="Crew celebrating a rig contract win, hard hats raised in the desert" loading="lazy"></div>
+          <figcaption><b>Hard hats up</b>Celebrating the rig contract with the crew and the VP QHSE</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/std-ceo-award-2021.jpg" alt="CEO Award 2021 Prestige crystal trophy on the desk" loading="lazy"></div>
+          <figcaption><b>CEO Award 2021 · Prestige</b>The company's own top recognition</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/rec-coo-and-vps.jpg" alt="With the COO and the Vice Presidents" loading="lazy"></div>
+          <figcaption><b>With the COO and the VPs</b>The leadership that signed off the standard</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/rec-vp-gm-qhse-manager.jpg" alt="The VP and the GM with the QHSE Manager" loading="lazy"></div>
+          <figcaption><b>VP, GM and the QHSE Manager</b>The three signatures on every operation</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wft-bahrain-tatweer-vp.jpg" alt="With the QHSE team at the Weatherford Bahrain Tatweer facility" loading="lazy"></div>
+          <figcaption><b>Bahrain · Tatweer facility</b>With the VP QHSE and the facility team</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/award-with-ceo-grish.jpg" alt="Presenting an HSE Award Excellence trophy alongside the CEO" loading="lazy"></div>
+          <figcaption><b>Handing the awards over</b>HSE Award Excellence presented with the CEO</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/award-with-coo-hr-ceo.jpg" alt="HSE award presentation with the Drilling Service Manager, COO, HR and the CEO" loading="lazy"></div>
+          <figcaption><b>The full leadership line</b>Drilling Service Manager, COO, HR and the CEO — awarding the crews</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/award-with-vp-hani.jpg" alt="Reading the award citation at the microphone beside the VP" loading="lazy"></div>
+          <figcaption><b>Reading the citations</b>Naming every recipient out loud, beside the VP</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/award-with-management.jpg" alt="HSE award presentation to two recipients with senior management" loading="lazy"></div>
+          <figcaption><b>Recognition night</b>The awards go to the people who earned them</figcaption>
+        </figure>
+        <figure class="plate wide">
+          <div class="frame"><img src="../assets/story/mid-one-weatherford-day.jpg" alt="One Weatherford day, the whole workforce and leadership assembled in the workshop" loading="lazy"></div>
+          <figcaption><b>One Weatherford day</b>The whole KSA workforce and leadership in one frame — with the CEO, the VP and the GM</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/mid-ceo-vp-gm-1.jpg" alt="With the CEO, the VP and the GM at the facility gathering" loading="lazy"></div>
+          <figcaption><b>With the CEO, VP and GM</b>Facility town hall</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/with-global-manager.jpg" alt="With the global manager and colleagues" loading="lazy"></div>
+          <figcaption><b>With the global manager</b>The visit that ends in a facility walk, not a slide deck</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/with-vp-management-manager.jpg" alt="With the VP and the management manager" loading="lazy"></div>
+          <figcaption><b>With the VP</b>Twelve years of these conversations</figcaption>
+        </figure>
+      </div>
+      <div class="nums">
+        <div class="num"><b>22+</b><span>years in the field</span></div>
+        <div class="num"><b>Zero</b><span>major incidents, $800M+ EBITDA portfolio</span></div>
+        <div class="num"><b>100%</b><span>compliance, ADNOC Life-Saving Rules on the snubbing deployment</span></div>
+        <div class="num"><b>10+ yrs</b><span>of HAZID trend analysis driving rates down</span></div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="ch" data-dur="10">
+      <div class="ch-head">
+        <span class="yrs">The farewell — and the return</span>
+        <h2>Leaving the right way, <em>back again on an innovative one</em></h2>
+        <p>The end of the Weatherford chapter, before Abu Dhabi. A plaque from the KSA team, a poster with a drawing of him on it, and the whole office in one photograph. How a team says goodbye says more than the appraisal.</p>
+        <p>Two years in Abu Dhabi supporting the family, and then the promise kept: back in Saudi Arabia, now with a MISA Entrepreneur Licence and an active investor registration — the same discipline, brought back on an innovative route. Open to QHSSE leadership roles in the Kingdom and the GCC.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wft-farewell-ksa-team.jpg" alt="Receiving a KSA Team poster from colleagues at the farewell" loading="lazy"></div>
+          <figcaption><b>“MOHAMMED ABUZAID · KSA TEAM”</b>The poster the team drew and signed</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wft-farewell-plaque.jpg" alt="Receiving a framed team photograph at the farewell gathering" loading="lazy"></div>
+          <figcaption><b>The framed crew photo</b>Handed over with the VP and the GM present</figcaption>
+        </figure>
+        <figure class="plate wide">
+          <div class="frame"><img src="../assets/story/wft-farewell-group.jpg" alt="The whole KSA office gathered for the farewell group photograph" loading="lazy"></div>
+          <figcaption><b>The whole office</b>KSA farewell, before the move to Abu Dhabi</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="ch" data-dur="10">
+      <div class="ch-head">
+        <span class="yrs">2013 – 2023 · The field</span>
+        <h2>Twenty-two years <em>on live operations</em></h2>
+        <p>Aramco and ADNOC operations across KSA, UAE and Turkmenistan. Geozone QHSE Manager, emergency response lead, the name on the ERT board and the badge that needs no escort. Safety leadership is measured where the work actually happens.</p>
+      </div>
+      <div class="rail flick" data-drift="1">
+        <a class="shot" href="../assets/story/aramco-snubbing-live-show.png" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/aramco-snubbing-live-show.png" alt="Live snubbing demonstration" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Live snubbing demonstration</b><span>Presenting a global step change in KSA drilling operations to senior Aramco safety and operations leadership</span>
+        </a>
+        <a class="shot" href="../assets/story/aramco-dhsli-2.jpg" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/aramco-dhsli-2.jpg" alt="Drilling HSE Leadership Initiative" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Drilling HSE Leadership Initiative</b><span>Presenting the wireline top-sheave incident investigation to the operators' HSE leadership forum</span>
+        </a>
+        <a class="shot" href="../assets/story/aramco-dhsli-1.jpg" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/aramco-dhsli-1.jpg" alt="Taking the floor" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Taking the floor</b><span>DHSLI forum, Le Méridien Al Khobar</span>
+        </a>
+        <a class="shot" href="../assets/story/field-badges-composite.jpg" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/field-badges-composite.jpg" alt="The badges, the org chart, the ERT board" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>The badges, the org chart, the ERT board</b><span>Saudi Aramco contractor · Weatherford QHSE ID 5842 · Geozone QHSE Manager on the Bahrain Emergency Response Team</span>
+        </a>
+        <a class="shot" href="../assets/story/wft-vp-gm-hse.jpg" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/wft-vp-gm-hse.jpg" alt="Pre-job briefing, SINO-1" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Pre-job briefing, SINO-1</b><span>With the VP, the GM and the HSE team — in the field, not the boardroom</span>
+        </a>
+        <a class="shot" href="../assets/story/wft-with-vp-gm-hse.jpg" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/wft-with-vp-gm-hse.jpg" alt="With the VP, the GM and HSE" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>With the VP, the GM and HSE</b><span>Facility walk-through, Geozone QHSE</span>
+        </a>
+        <a class="shot" href="../assets/story/wft-with-vp-gm.jpg" target="_blank" rel="noopener">
+          <div class="frame"><img src="../assets/story/wft-with-vp-gm.jpg" alt="Workshop review" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Workshop review</b><span>With the VP and the GM — safety boards, not slides</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="ch" data-dur="11">
+      <div class="ch-head">
+        <span class="yrs">The weekly discipline</span>
+        <h2>Safety is a standard <em>you walk every week</em></h2>
+        <p>Standups with the VP, site visits to every facility, the Aramco traffic-safety campaign, environment day with the operator's teams. None of it makes a headline. All of it is why the incident number stays at zero.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-aramco-just-drive.jpg" alt="Beside the Aramco Just Drive traffic safety campaign stand" loading="lazy"></div>
+          <figcaption><b>“Just Drive”</b>Aramco traffic-safety campaign with Halliburton, Weatherford, SLB and TAQA</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-juaimah-aramco.jpg" alt="Safety standup with the VP QHSSE at the Juaimah Aramco site" loading="lazy"></div>
+          <figcaption><b>Safety standup, Juaimah</b>With the VP QHSSE on Aramco ground</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-bahrain-1.jpg" alt="Safety standup with the VP HSSE at the Bahrain facility, the whole workforce assembled" loading="lazy"></div>
+          <figcaption><b>Safety standup, Bahrain</b>The whole workforce, hands raised on the commitment</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-bahrain-2.jpg" alt="The assembled workforce and management at the Bahrain safety standup" loading="lazy"></div>
+          <figcaption><b>Everybody on the floor</b>Management front row, crews behind — the only order that works</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-vp-ksa-weekly.jpg" alt="Weekly safety meeting with the VP KSA, reviewing before-and-after workplace improvements on screen" loading="lazy"></div>
+          <figcaption><b>Weekly safety meeting</b>With the VP KSA — before-and-after, every week</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/visit-bahrain-facility-1.jpg" alt="Site visit team photographed outside the Tatweer Petroleum facility" loading="lazy"></div>
+          <figcaption><b>Site visit · Tatweer Petroleum</b>With the VP and the facility team</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/visit-new-rigs-hse-managers.jpg" alt="Site visit for a new rigs contract with the HSE managers" loading="lazy"></div>
+          <figcaption><b>New rigs contract</b>Walking the site with the HSE managers before mobilisation</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/env-day-aramco.jpg" alt="Environment clean-up day with the HSE team and Aramco volunteers in high-visibility vests" loading="lazy"></div>
+          <figcaption><b>Environment day</b>Clean-up with the HSE team and the operator's volunteers</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="ch" data-dur="11">
+      <div class="ch-head">
+        <span class="yrs">The team</span>
+        <h2>The safest operations <em>are the closest teams</em></h2>
+        <p>Iftar tables, workshop group shots, student inductions, and the HSE women who ran the standard on the floor. Culture is not a poster. It is who shows up for each other when the job gets hard.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/team-managing-great-team.jpg" alt="With the workshop crew in coveralls at the facility" loading="lazy"></div>
+          <figcaption><b>The crew</b>Workshop team, end of shift</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/team-hse-ladies.jpg" alt="With the HSE women's team at the Weatherford facility" loading="lazy"></div>
+          <figcaption><b>The best HSE women's team anywhere</b>Running the standard on the floor, in coveralls</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/team-women-student-induction.jpg" alt="Large group of women students during a safety induction visit to the facility" loading="lazy"></div>
+          <figcaption><b>Student safety induction</b>Introducing a new intake of Saudi women to the work</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/team-diversity-inclusion-tot.jpg" alt="Diversity and inclusion train-the-trainer session on micro-affirmations, delivered online" loading="lazy"></div>
+          <figcaption><b>Diversity &amp; Inclusion · Train the Trainer</b>Micro-affirmations: the small behaviours that create engagement</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/team-iftar-1.jpg" alt="Iftar gathering with the team" loading="lazy"></div>
+          <figcaption><b>Iftar</b>With the team, Ramadan</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/team-iftar-3.jpg" alt="Iftar gathering group photo outside the venue" loading="lazy"></div>
+          <figcaption><b>The whole table outside</b>Same people who run the standups</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/team-hse-gathering.jpg" alt="HSE team gathering around the meeting table" loading="lazy"></div>
+          <figcaption><b>HSE team gathering</b>Lunch in the meeting room — the honest version of team building</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/team-great-team.jpg" alt="With colleagues in the planning office" loading="lazy"></div>
+          <figcaption><b>The planning office</b>Where the schedule and the safety case meet</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="ch" data-dur="11">
+      <div class="ch-head">
+        <span class="yrs">Beyond KSA</span>
+        <h2>The same programme, <em>carried across borders</em></h2>
+        <p>Training the Caspian team in Azerbaijan, the global transformation cohort, the numbers reviewed in the executive room, and the operators whose standards the work had to satisfy — Aramco, ADNOC, Dragon Oil.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate wide">
+          <div class="frame"><img src="../assets/story/gl-caspian-azerbaijan.jpg" alt="Group photograph with the Caspian team after a training session in Azerbaijan" loading="lazy"></div>
+          <figcaption><b>Training the Caspian team · Azerbaijan</b>The same culture programme, a different language and a different crew</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/gl-global-transformation.jpg" alt="Facilitating the global transformation programme with the international cohort" loading="lazy"></div>
+          <figcaption><b>Global transformation cohort</b>The programme run worldwide, 2018–2020</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/gl-ebitda-review.jpg" alt="Executive review meeting with trending gross margin and field EBITDA on screen" loading="lazy"></div>
+          <figcaption><b>The executive review</b>Gross margin and field EBITDA by GPL — where QHSSE has to speak the business's language</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/gl-vero-al-rushaid.jpg" alt="At the VERO and Al Rushaid Group joint exhibition stand" loading="lazy"></div>
+          <figcaption><b>VERO™ · Al Rushaid Group</b>Lifting-equipment demonstration, inspection tags and all</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/gl-wellgear-aberdeen.jpg" alt="Beside the WellGear Group sign at the facility" loading="lazy"></div>
+          <figcaption><b>WellGear Group</b>Between the Netherlands and Germany campaigns</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/gl-dragon-oil.png" alt="Dragon Oil logo" loading="lazy"></div>
+          <figcaption><b>Dragon Oil</b>Turkmenistan operations — one of the three national standards the work answered to</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="ch" data-dur="11">
+      <div class="ch-head">
+        <span class="yrs">The standard itself</span>
+        <h2>Fluent in the <em>operators' own rulebooks</em></h2>
+        <p>Aramco and ADNOC do not accept a generic safety case. The ADNOC HSE standards alone run to more than eighty documents — governance, occupational health, work management, emergency response. Twenty-two years of engagements means reading them, not citing them.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate wide">
+          <div class="frame fit"><img src="../assets/story/std-aramco-wall.jpg" alt="Beside the Saudi Aramco signage" loading="lazy"></div>
+          <figcaption><b>Saudi Aramco</b>Contractor and service-provider QHSSE across drilling and production operations</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/std-adnoc-2.jpg" alt="List of ADNOC HSE governance, environmental and occupational-health standards" loading="lazy"></div>
+          <figcaption><b>ADNOC · governance &amp; health</b>Governance framework, Life Saving Rules, occupational health, environmental performance</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/std-adnoc-3.jpg" alt="List of ADNOC HSE work-management and operational standards" loading="lazy"></div>
+          <figcaption><b>ADNOC · work management</b>Permit to work, JSA, energy isolation, SIMOPS, confined space, lifting, working at height</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/std-adnoc-1.jpg" alt="List of ADNOC HSE risk-management and process-safety standards" loading="lazy"></div>
+          <figcaption><b>ADNOC · risk &amp; process safety</b>HSEIA, HAZID, HAZOP, SIL, COMAH, QRA, PSSR, dispersion and explosion modelling</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-stop-work-authority.jpg" alt="At the QHSE desk beneath the Stop Work Authority poster" loading="lazy"></div>
+          <figcaption><b>“You are empowered to stop unsafe jobs”</b><span class="ar">لديك كامل الصلاحية لإيقاف الأعمال غير الآمنة</span> — Stop Work Authority, above the desk where the paperwork happens</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/std-core-values.jpg" alt="Standing beside the corporate core values wall" loading="lazy"></div>
+          <figcaption><b>Passion · Innovation · Accountability · Value creation</b>The wall on the way out</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame fit"><img src="../assets/story/std-ksa-org-chart.jpg" alt="KSA organization chart showing the QHSE manager position under functional support" loading="lazy"></div>
+          <figcaption><b>On the org chart</b>QHSE, functional support, reporting to the Vice President KSA</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="ch" data-dur="12">
+      <div class="ch-head">
+        <span class="yrs">2024 · WellGear</span>
+        <h2>A global step change, <em>rigged up in Saudi</em></h2>
+        <p>The first snubbing rig-up showcase in Aramco — presented to the Senior VP and the WellGear CEO, with the safety case delivered before the equipment ever moved. Then the operations themselves: Germany, the Netherlands, and the Abu Dhabi office opening.</p>
+      </div>
+      <div class="plates">
+        <figure class="plate wide">
+          <div class="frame"><img src="../assets/story/wg-first-rigup-aramco-svp.jpg" alt="Presenting the WellGear snubbing unit model to the Senior Vice President of Aramco alongside the WellGear CEO" loading="lazy"></div>
+          <figcaption><b>First rig-up snubbing showcase in Aramco</b>With the Aramco Senior VP and the WellGear CEO</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-aramco-safety-briefing-1.jpg" alt="Delivering the safety moment presentation to senior Aramco management before the snubbing operation" loading="lazy"></div>
+          <figcaption><b>The safety moment first</b>Situational awareness and Life-Saving Rules, delivered to senior Aramco management before the demonstration</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-aramco-safety-briefing-2.jpg" alt="Senior Aramco management seated for the snubbing operation briefing" loading="lazy"></div>
+          <figcaption><b>The room</b>Senior Aramco safety and operations leadership</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-snubbing-showcase-4.jpg" alt="The snubbing unit rigged up, with the visiting delegation looking up at the tower" loading="lazy"></div>
+          <figcaption><b>Rigged up and standing</b>The delegation at the unit</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-snubbing-showcase-3.jpg" alt="Walking the delegation through the rigged-up snubbing unit on site" loading="lazy"></div>
+          <figcaption><b>Walking them through it</b>Explaining the unit on the pad, in coveralls</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-snubbing-live-show-6.jpg" alt="Briefing the visiting executives beside the operations building" loading="lazy"></div>
+          <figcaption><b>Questions after</b>The part that decides whether they trust the operation</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-germany-snubbing-1.jpg" alt="On site at a snubbing operation in Germany" loading="lazy"></div>
+          <figcaption><b>Germany</b>A week on a live snubbing operation</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-netherlands-workover.jpg" alt="On site at a snubbing and workover operation in the Netherlands" loading="lazy"></div>
+          <figcaption><b>The Netherlands</b>A week on snubbing and workover — coveralls to prove it</figcaption>
+        </figure>
+        <figure class="plate">
+          <div class="frame"><img src="../assets/story/wg-abudhabi-opening.jpg" alt="Ribbon cutting at the WellGear office opening ceremony in Abu Dhabi" loading="lazy"></div>
+          <figcaption><b>Abu Dhabi office opening</b>WellGear — London, Luanda, Abu Dhabi, Perth on the wall</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="ch" data-dur="14">
+      <div class="ch-head">
+        <span class="yrs">What the managers said</span>
+        <h2>The part you <em>cannot certify</em></h2>
+        <p>Two of the consultants who led the AIMS operating-system implementation, written on LinkedIn and public there.</p>
+      </div>
+      <div class="quotes">
+        <figure class="q">
+          <blockquote>“I was employed as a Consultant by Axiom to implement the AIMS operating system… I was fortunate enough to have Mohamed as an integral member of my team, his passion for knowledge and personal development is second to none… The areas he was responsible for implementation were always at the top of our internal auditing scores and interviewing the team members he had trained and worked with we always got extremely positive feedback. I would recommend Mohamed to any organization wishing to improve their performance and I look forward to working with him again in the future.”</blockquote>
+          <footer>
+            <b>Paul Law</b>
+            <span>Senior Managing Director &amp; Partner · managed Mohamed directly</span>
+          </footer>
+        </figure>
+        <figure class="q">
+          <blockquote>“When I first met Mohamed (Gesso), I knew this was a man that I needed on our team (AIMS Facilitators). His outgoing personality along with his deep desire to be an effective change agent clearly stood out from the other candidates… His lean knowledge and hands on approach is inspiring to watch. His ability to get those &quot;non-believers&quot; to move forward and try new things is a true strength. A great and credible man that would add value to any organization.”</blockquote>
+          <footer>
+            <b>DJ Duarte</b>
+            <span>Optimization Expert &amp; Leadership Coach · TPS / Lean · worked with Mohamed on the same team</span>
+          </footer>
+        </figure>
+        <figure class="plate wide">
+          <div class="frame fit"><img src="../assets/story/recommendations-linkedin.jpg" alt="LinkedIn recommendations from Paul Law and DJ Duarte on Mohamed Abuzaid's profile" loading="lazy"></div>
+          <figcaption><b>As published</b>LinkedIn recommendations, visible to all members</figcaption>
+        </figure>
+      </div>
+      <span class="tag">Open to QHSSE leadership roles — Saudi Arabia &amp; the GCC</span>
+    </section>
+
+    <!-- 10 -->
+    <section class="ch gal" data-dur="20">
+      <div class="ch-head">
+        <span class="yrs">The paperwork</span>
+        <h2>Certificates, <em>at a glance</em></h2>
+        <p>It starts with a bachelor's in Computer Engineering, then 22 years across three sectors: IT, retail and telecommunications, where the Lean, Kaizen and TPS training and development work was built; then energy, oil and gas. Most recently the MISA Entrepreneur Licence, and a return to developing and coding applications. Every licence earned along the way is here — any certificate opens full size in a new tab.</p>
+        <div class="acts" style="margin-top:18px">
+          <a class="btn btn-p" href="../assets/Mohamed-Abuzaid-QHSSE-CV-2026.pdf" target="_blank" rel="noopener">Open the CV (PDF) ↗</a>
+        </div>
+      </div>
+      <div class="rail" data-drift="1">
+        <a class="cert" href="../assets/story/cert-7habits.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-7habits.jpg" alt="The 7 Habits of Highly Effective People" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>The 7 Habits of Highly Effective People</b><span>Franklin Covey · 25 June 2005</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-trainer-mindsystems.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-trainer-mindsystems.jpg" alt="Certified Trainer" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Certified Trainer</b><span>mind systems! · Institut for Strategic Communication · 104 hours, July 2007</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-trainer-iatc.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-trainer-iatc.jpg" alt="Certified Trainer" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Certified Trainer</b><span>International Academy for Training &amp; Consulting · July 2007</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-efqm-model.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-efqm-model.jpg" alt="EFQM Model — Certificate of Attendance" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>EFQM Model — Certificate of Attendance</b><span>European Foundation for Quality Management · Al Khobar, January 2010</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-team-leader-lean.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-team-leader-lean.jpg" alt="Team Leader / Group Leader — Lean Leadership" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Team Leader / Group Leader — Lean Leadership</b><span>Gemba Consulting, Dubai · 80+ hours, April 2010</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-5s-kaizen-champion.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-5s-kaizen-champion.jpg" alt="Best 5S Kaizen Facilitator — Champion Category" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Best 5S Kaizen Facilitator — Champion Category</b><span>Axiom Telecom &amp; Kaizen Institute · signed by the CEO</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-tvtc-trainer.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-tvtc-trainer.jpg" alt="تنمية مهارات المدربين — المستوى الأول" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>تنمية مهارات المدربين — المستوى الأول</b><span class="ar">مركز سبل للتدريب بإشراف المؤسسة العامة للتدريب التقني والمهني · الرياض ١٤٣٣هـ</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-iso-9001-lead-auditor.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-iso-9001-lead-auditor.jpg" alt="QMS Auditor / Lead Auditor — ISO 9001:2015" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>QMS Auditor / Lead Auditor — ISO 9001:2015</b><span>ESENEK Training Centre · IRCA course A18038 · Alexandria, December 2016</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-iso-14001-lead-auditor.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-iso-14001-lead-auditor.jpg" alt="EMS Lead Auditor Conversion — ISO 14001:2015" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>EMS Lead Auditor Conversion — ISO 14001:2015</b><span>ESENEK Training Centre · IRCA course A18081 · Cairo, December 2016</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-ohsas-18001-lead-auditor.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-ohsas-18001-lead-auditor.jpg" alt="OH&amp;S Auditor / Lead Auditor — OHSAS 18001:2007" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>OH&amp;S Auditor / Lead Auditor — OHSAS 18001:2007</b><span>ESENEK Training Centre · IRCA course A17555 · Cairo, December 2016</span>
+        </a>
+        <a class="cert" href="../assets/story/cert-birkman-authorized-trainer.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/cert-birkman-authorized-trainer.jpg" alt="Birkman® Authorized Trainer" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Birkman® Authorized Trainer</b><span>Birkman International · 21 July 2018</span>
+        </a>
+        <a class="cert" href="../assets/story/rc-jubail-appreciation.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/rc-jubail-appreciation.jpg" alt="شكر وتقدير — الهيئة الملكية بالجبيل" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>شكر وتقدير — الهيئة الملكية بالجبيل</b><span class="ar">برنامج منهجية التحسين المستمر اليابانية (الكايزن)</span>
+        </a>
+        <a class="cert" href="../assets/story/rc-jubail-kaizen-training.jpg" target="_blank" rel="noopener">
+          <div class="frame fit"><img src="../assets/story/rc-jubail-kaizen-training.jpg" alt="Kaizen for the Royal Commission in Jubail" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <b>Kaizen for the Royal Commission in Jubail</b><span>Operational excellence training, General Education Department — published by RCJ Schools</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <div class="foot">
+    <h3>The same discipline, <em>now built into software</em></h3>
+    <p>Twenty-two years of making people perform safely became the behavioural engine behind SignalX. The record above is the reason the products work.</p>
+    <div class="acts">
+      <a class="btn btn-p" href="../index.html" id="backBtn2">← Back to the profile</a>
+      <a class="btn btn-g" href="../assets/Mohamed-Abuzaid-QHSSE-CV-2026.pdf" target="_blank" rel="noopener"><span aria-hidden="true">⬇</span> Resume (PDF) ↗</a>
+      <a class="btn btn-g" href="https://wa.me/966504995475" target="_blank" rel="noopener"><span aria-hidden="true">✆</span> WhatsApp</a>
+      <a class="btn btn-g" href="tel:+966504995475"><span aria-hidden="true">✆</span> Call +966 50 499 5475</a>
+      <a class="btn btn-g" href="https://www.linkedin.com/in/mohamedabuzaid/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="tw" id="tw" data-open="0">
+  <div class="tw-card">
+    <div class="tw-row">
+      <b>Pace</b>
+      <div class="seg" data-tweak="pace">
+        <button data-val="slow">Slow</button>
+        <button data-val="steady">Steady</button>
+        <button data-val="brisk">Brisk</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <b>Ink</b>
+      <div class="seg" data-tweak="ink">
+        <button data-val="leap">LEAP</button>
+        <button data-val="signalx">SignalX</button>
+        <button data-val="mono">Mono</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <b>Presence</b>
+      <div class="seg" data-tweak="presence">
+        <button data-val="dossier">Dossier</button>
+        <button data-val="gallery">Gallery</button>
+        <button data-val="cinema">Cinema</button>
+      </div>
+    </div>
+  </div>
+  <button class="tw-btn" id="twBtn">Tweaks</button>
+</div>
+
+<script>
+/* ---- back to the profile: close the overlay when embedded, navigate when standalone ---- */
+(function(){
+  var embedded = window.parent !== window;
+  var profile = new URL('../index.html', location.href).href;
+  function back(e){
+    if (!embedded) return;
+    e.preventDefault();
+    var closed = false;
+    try {
+      window.parent.postMessage({type:'close-showcase'}, '*');
+      closed = true;
+    } catch(err){}
+    if (!closed) location.href = profile;
+  }
+  ['backBtn','backBtn2'].forEach(function(id){
+    var a = document.getElementById(id);
+    if (a) a.addEventListener('click', back);
+  });
+})();
+
+/* ---- tweaks: pace, ink, presence ---- */
+(function(){
+  var PACE = {slow:1.6, steady:1, brisk:0.62};
+  var DEF  = {pace:'steady', ink:'leap', presence:'gallery'};
+  var state = DEF, root = document.documentElement;
+  try { state = Object.assign({}, DEF, JSON.parse(localStorage.getItem('story-tweaks') || '{}')); } catch(e){}
+
+  function apply(){
+    root.dataset.ink = state.ink;
+    root.dataset.presence = state.presence;
+    root.style.setProperty('--pace', PACE[state.pace] || 1);
+    document.querySelectorAll('.seg').forEach(function(seg){
+      var k = seg.dataset.tweak;
+      seg.querySelectorAll('button').forEach(function(b){
+        b.setAttribute('aria-pressed', String(b.dataset.val === state[k]));
+      });
+    });
+    window.STORY_PACE = PACE[state.pace] || 1;
+    document.dispatchEvent(new CustomEvent('story:pace'));
+  }
+
+  document.querySelectorAll('.seg').forEach(function(seg){
+    seg.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if (!b) return;
+      state[seg.dataset.tweak] = b.dataset.val;
+      try { localStorage.setItem('story-tweaks', JSON.stringify(state)); } catch(err){}
+      apply();
+    });
+  });
+  var tw = document.getElementById('tw');
+  document.getElementById('twBtn').onclick = function(){
+    tw.dataset.open = tw.dataset.open === '1' ? '0' : '1';
+  };
+  apply();
+})();
+
+(function(){
+  var chs   = [].slice.call(document.querySelectorAll('.ch'));
+  var ticks = document.getElementById('ticks');
+  var playB = document.getElementById('play');
+  var i = 0, timer = null, playing = true;
+
+  chs.forEach(function(c, n){
+    var t = document.createElement('button');
+    t.className = 'tick';
+    t.type = 'button';
+    var label = c.querySelector('.yrs');
+    t.title = label ? label.textContent : 'Chapter ' + (n + 1);
+    t.setAttribute('aria-label', 'Go to: ' + t.title);
+    t.appendChild(document.createElement('i'));
+    t.addEventListener('click', function(){ go(n); });
+    ticks.appendChild(t);
+  });
+  var tk = [].slice.call(ticks.children);
+
+  function dur(n){ return (parseFloat(chs[n].dataset.dur) || 8) * 1000 * (window.STORY_PACE || 1); }
+
+  var held = false;
+  function paint(scroll){
+    chs.forEach(function(c,n){ c.classList.toggle('on', n === i); });
+    chs[i].querySelectorAll('img[loading="lazy"]').forEach(function(im){
+      im.loading = 'eager';
+      im.fetchPriority = 'high';
+    });
+    tk.forEach(function(t,n){
+      t.className = 'tick' + (n < i ? ' done' : '');
+      t.firstChild.style.transition = 'none';
+      t.firstChild.style.width = n < i ? '100%' : '0';
+    });
+    if (playing){
+      var fill = tk[i].firstChild;
+      tk[i].style.setProperty('--dur', dur(i)/1000 + 's');
+      void fill.offsetWidth;
+      tk[i].classList.add('now');
+      fill.style.transition = 'width ' + (dur(i)/1000) + 's linear';
+      fill.style.width = '100%';
+    }
+    if (scroll !== false) window.scrollTo(0,0);
+  }
+
+  function schedule(){
+    clearTimeout(timer);
+    if (!playing || held) return;
+    timer = setTimeout(function(){ go(i + 1 >= chs.length ? 0 : i + 1); }, dur(i));
+  }
+  function go(n){ i = n; paint(); schedule(); }
+
+  document.getElementById('next').onclick = function(){ go(i + 1 >= chs.length ? 0 : i + 1); };
+  document.getElementById('prev').onclick = function(){ go(i - 1 < 0 ? chs.length - 1 : i - 1); };
+  playB.onclick = function(){
+    playing = !playing;
+    playB.textContent = playing ? '❚❚' : '▶';
+    playB.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    paint(); schedule();
+  };
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight') document.getElementById('next').click();
+    if (e.key === 'ArrowLeft')  document.getElementById('prev').click();
+  });
+  // a film takes over: freeze the reel while it plays, pick up when it stops
+  function hold(){
+    held = true;
+    clearTimeout(timer);
+    var fill = tk[i].firstChild, w = fill.getBoundingClientRect().width;
+    fill.style.transition = 'none';
+    fill.style.width = w + 'px';
+  }
+  function release(){
+    if (!held) return;
+    held = false;
+    paint(false);
+    schedule();
+  }
+  document.querySelectorAll('video').forEach(function(v){
+    v.addEventListener('play',  hold);
+    v.addEventListener('pause', release);
+    v.addEventListener('ended', release);
+  });
+  window.STORY_REEL = { hold: hold, release: release };
+
+  document.addEventListener('story:pace', function(){ paint(); schedule(); });
+
+  go(0);
+})();
+
+// the picture rails drift on their own; touching one hands control back to you
+(function(){
+  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var SPEED = calm ? 0.18 : 0.5;
+  document.querySelectorAll('.plates, .rail').forEach(function(r){
+    var dir = 1, pos = 0, last = 0, holdUntil = 0, inside = false;
+    function touch(){ holdUntil = performance.now() + 2600; r.classList.add('snap'); }
+    r.addEventListener('pointerenter', function(){ inside = true; }, {passive:true});
+    r.addEventListener('pointerleave', function(){ inside = false; touch(); }, {passive:true});
+    ['pointerdown','wheel','touchstart','keydown'].forEach(function(ev){
+      r.addEventListener(ev, touch, {passive:true});
+    });
+    r.addEventListener('focusin', touch);
+    (function step(t){
+      requestAnimationFrame(step);
+      var dt = last ? Math.min(t - last, 64) : 16; last = t;
+      var ch = r.closest('.ch');
+      if (ch && !ch.classList.contains('on')) return;
+      if (inside || t < holdUntil){ pos = r.scrollLeft; return; }
+      if (r.classList.contains('snap')) r.classList.remove('snap');
+      var max = r.scrollWidth - r.clientWidth;
+      if (max < 4) return;
+      if (Math.abs(r.scrollLeft - pos) > 2) pos = r.scrollLeft;
+      pos += (dt / 16) * SPEED * dir;
+      if (pos >= max){ pos = max; dir = -1; }
+      if (pos <= 0){ pos = 0; dir = 1; }
+      r.scrollLeft = pos;
+    })(0);
+  });
+})();
+
+// the YouTube film drives the reel the same way the mp4s do
+(function(){
+  var el = document.getElementById('ytFilm');
+  if (!el) return;
+  var s = document.createElement('script');
+  s.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(s);
+  window.onYouTubeIframeAPIReady = function(){
+    new YT.Player('ytFilm', { events: { onStateChange: function(e){
+      var R = window.STORY_REEL; if (!R) return;
+      if (e.data === YT.PlayerState.PLAYING) R.hold();
+      else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) R.release();
+    }}});
+  };
+})();
+</script>
+</body>
+</html>
