@@ -126,14 +126,17 @@ button{font:inherit;color:inherit;cursor:pointer}
 .film{margin:0;display:grid;gap:18px;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}
 @media (max-width:820px){.film{grid-template-columns:1fr}}
 .film .frame{aspect-ratio:16/9}
+.film .frame video{object-fit:contain;background:#0E0B1A}
+.film.tall .frame{aspect-ratio:9/16;height:min(72vh,720px);width:auto;justify-self:center}
 .film .say{padding:24px 26px;border-radius:22px;background:linear-gradient(140deg,#F6F2FE,#E7F9F9 70%);
   border:1px solid #ECE8F6;display:flex;flex-direction:column;gap:12px}
 .film .say b{font-family:var(--f-dis,var(--f-d));font-size:15px;font-weight:700;letter-spacing:-.01em}
 .film .say p{margin:0;font-size:15px;line-height:1.75;color:var(--ink);text-wrap:pretty}
-.film.hero{display:block;margin:0 0 30px}
-.film.hero .frame{aspect-ratio:auto;height:min(72vh,780px);background:#0E0B1A}
+.film.hero{display:flex;flex-direction:column;align-items:center;margin:0 0 30px;
+  --hero-w:min(100%,calc(min(86vh,920px) * 16 / 9))}
+.film.hero .frame{aspect-ratio:16/9;width:var(--hero-w);background:#0E0B1A}
 .film.hero .frame video,.film.hero .frame iframe{object-fit:contain;background:#0E0B1A}
-.film.hero .say{margin-top:16px;padding:26px clamp(20px,3vw,34px)}
+.film.hero .say{width:var(--hero-w);margin-top:16px;padding:26px clamp(20px,3vw,34px)}
 .film.hero .say p{font-size:clamp(15px,1.6vw,17.5px)}
 .hint{display:inline-flex;align-items:center;gap:8px;margin:12px 0 0;padding:8px 15px;border-radius:99px;
   background:#F4F1FB;border:1px solid var(--line);font-family:var(--f-d);font-size:12.5px;font-weight:600;color:var(--muted)}
@@ -214,7 +217,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 
 /* the panel */
-.tw{position:fixed;right:18px;bottom:18px;z-index:40;display:flex;flex-direction:column;
+.tw{position:fixed;right:18px;bottom:18px;z-index:40;display:none;flex-direction:column;
   align-items:flex-end;gap:10px;font-family:var(--f-d)}
 .tw-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:99px;border:0;
   background:var(--violet);color:#fff;font-size:13.5px;font-weight:600;letter-spacing:-.01em;
@@ -230,6 +233,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   color:var(--muted);transition:background .2s,color .2s}
 .seg button[aria-pressed="true"]{background:#fff;color:var(--violet);
   box-shadow:0 4px 12px -6px rgba(43,29,82,.4)}
+.tw.show{display:flex}
 @media print{.tw{display:none}}
 </style>
 </head>
@@ -250,7 +254,7 @@ button{font:inherit;color:inherit;cursor:pointer}
   <div class="chapters" id="chapters">
 
     <!-- 1 -->
-    <section class="ch on" data-dur="16">
+    <section class="ch on" data-dur="16" data-wait>
       <div class="ch-head">
         <span class="yrs">Ten years · Saudi Aramco</span>
         <h2>Ten years of experience — <em>management appreciation</em></h2>
@@ -262,7 +266,7 @@ button{font:inherit;color:inherit;cursor:pointer}
               allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
               referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
-        <p class="hint"><span>▶</span>Press play — the story pauses while the film runs, and resumes when it ends.</p>
+        <p class="hint"><span>▶</span>Press play — the story waits for the film, then carries on when it ends. Use › to skip ahead.</p>
         <figcaption class="say"><p>Throughout my 10+ year tenure as a QHSE Manager with Saudi Aramco, my core mission has been to ensure that every single worker returns home safely at the end of their shift. Maintaining a zero-fatality record over a decade with a major operator is a significant milestone, but for me, it is the standard. Having recently relocated to Abu Dhabi for family reasons, I am eager to apply my belief that Zero Harm is not an impossible ideal, but an achievable target through rigorous leadership and strong contractor engagement.</p></figcaption>
       </figure>
       <div class="ch-head sub">
@@ -278,7 +282,7 @@ button{font:inherit;color:inherit;cursor:pointer}
             <p>The appreciation handed over in front of the team, filmed on the day.</p>
           </div>
         </figure>
-        <figure class="film">
+        <figure class="film tall">
           <div class="frame"><video src="../media/story/wft-10-years-cakes.mp4" controls playsinline preload="metadata"></video></div>
           <div class="say">
             <b>Ten years · the gathering</b>
@@ -814,6 +818,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     });
   });
   var tw = document.getElementById('tw');
+  if (/[?&]tweaks\b/.test(location.search)) tw.classList.add('show');
   document.getElementById('twBtn').onclick = function(){
     tw.dataset.open = tw.dataset.open === '1' ? '0' : '1';
   };
@@ -840,6 +845,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   var tk = [].slice.call(ticks.children);
 
   function dur(n){ return (parseFloat(chs[n].dataset.dur) || 8) * 1000 * (window.STORY_PACE || 1); }
+  // a chapter marked data-wait holds the reel until its film has been watched through
+  function waiting(n){ return chs[n].hasAttribute('data-wait') && !chs[n].dataset.seen; }
 
   var held = false;
   function paint(scroll){
@@ -853,11 +860,11 @@ button{font:inherit;color:inherit;cursor:pointer}
       t.firstChild.style.transition = 'none';
       t.firstChild.style.width = n < i ? '100%' : '0';
     });
-    if (playing){
+    tk[i].classList.add('now');
+    if (playing && !waiting(i)){
       var fill = tk[i].firstChild;
       tk[i].style.setProperty('--dur', dur(i)/1000 + 's');
       void fill.offsetWidth;
-      tk[i].classList.add('now');
       fill.style.transition = 'width ' + (dur(i)/1000) + 's linear';
       fill.style.width = '100%';
     }
@@ -866,7 +873,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 
   function schedule(){
     clearTimeout(timer);
-    if (!playing || held) return;
+    if (!playing || held || waiting(i)) return;
     timer = setTimeout(function(){ go(i + 1 >= chs.length ? 0 : i + 1); }, dur(i));
   }
   function go(n){ i = n; paint(); schedule(); }
@@ -891,7 +898,8 @@ button{font:inherit;color:inherit;cursor:pointer}
     fill.style.transition = 'none';
     fill.style.width = w + 'px';
   }
-  function release(){
+  function release(done){
+    if (done === true) chs[i].dataset.seen = '1';
     if (!held) return;
     held = false;
     paint(false);
@@ -899,8 +907,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   }
   document.querySelectorAll('video').forEach(function(v){
     v.addEventListener('play',  hold);
-    v.addEventListener('pause', release);
-    v.addEventListener('ended', release);
+    v.addEventListener('pause', function(){ release(false); });
+    v.addEventListener('ended', function(){ release(true); });
   });
   window.STORY_REEL = { hold: hold, release: release };
 
@@ -951,7 +959,8 @@ button{font:inherit;color:inherit;cursor:pointer}
     new YT.Player('ytFilm', { events: { onStateChange: function(e){
       var R = window.STORY_REEL; if (!R) return;
       if (e.data === YT.PlayerState.PLAYING) R.hold();
-      else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) R.release();
+      else if (e.data === YT.PlayerState.PAUSED) R.release(false);
+      else if (e.data === YT.PlayerState.ENDED) R.release(true);
     }}});
   };
 })();
