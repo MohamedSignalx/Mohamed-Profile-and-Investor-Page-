@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beautiful Mind — Cowork OS (v11 · Founder Execution Cockpit)</title>
+<style>
+:root{
+  --teal:#008C84;--green:#00B67A;--gold:#D4AF37;--mist:#F2F4F3;--slate:#2C3E3F;
+  --bg:#F5F8F7;--bg2:#EAF1EF;--card:#FFFFFF;--line:#E5ECE9;--line2:#EFF4F2;
+  --ink:#27332F;--muted:#566560;--faint:#9AA8A4;
+  --s-green:#27A567;--s-orange:#D98A2B;--s-red:#CB4636;--s-grey:#9AA8A4;
+  --s-teal:#008C84;--s-violet:#8B7DC4;--s-blue:#3E7CC2;--s-gold:#B98B1E;
+  --signalx:#008C84;--tre:#0FA36B;--aitools:#3E7CC2;--pets:#8B7DC4;--finance:#1F9E6E;--vault:#3D5A60;--files:#7A8C88;
+  --r-card:18px;--r-cardlet:13px;--r-input:11px;--r-tile:8px;--r-pill:999px;
+  --sp1:4px;--sp2:8px;--sp3:12px;--sp4:16px;--sp5:20px;--sp6:24px;
+  --sh-card:0 1px 2px rgba(39,51,47,.04),0 10px 22px rgba(39,51,47,.05);--sh-soft:0 1px 3px rgba(39,51,47,.05);
+  --fs-h:18px;--fs-cardtitle:12.5px;--fs-item:13.5px;--fs-body:13px;--fs-meta:12px;--fs-micro:11px;--fs-pill:11.5px;--fs-btn:12px;
+  --ls-label:.04em;--maxw:1520px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(1300px 440px at 70% -8%,#E9F4F1,transparent 60%),radial-gradient(1000px 400px at 5% -4%,#F1EBF8,transparent 55%),var(--bg);
+  color:var(--ink);font-family:"IBM Plex Sans Arabic","IBM Plex Sans",ui-sans-serif,system-ui,"Segoe UI",sans-serif;font-size:var(--fs-body);line-height:1.55;-webkit-font-smoothing:antialiased}
+.serif{font-family:"IBM Plex Serif",Georgia,serif;font-style:italic}
+:root[dir="rtl"] .serif{font-style:normal;font-family:"IBM Plex Sans Arabic",sans-serif;font-weight:600}
+:root[dir="rtl"] body{line-height:1.7}
+a{color:inherit;text-decoration:none}svg{display:block}
+.wrap{max-width:var(--maxw);margin:0 auto}
+.muted{color:var(--muted)}.faint{color:var(--faint)}.b{font-weight:600}
+.tip{position:relative}
+.tip:hover::after{content:attr(data-tip);position:absolute;inset-inline-start:50%;top:calc(100% + 6px);transform:translateX(-50%);background:var(--slate);color:#fff;font-size:11px;white-space:nowrap;padding:5px 9px;border-radius:8px;box-shadow:var(--sh-card);z-index:120;pointer-events:none}
+:root[dir="rtl"] .tip:hover::after{transform:translateX(50%)}
+/* icon tile */
+.tile{width:28px;height:28px;border-radius:var(--r-tile);display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--tone,var(--teal)) 12%,var(--card));color:var(--tone,var(--teal));border:1px solid color-mix(in srgb,var(--tone,var(--teal)) 22%,var(--card));font-size:11px;font-weight:700}
+.tile svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.7;fill:none}
+/* capsule + pill */
+.cap{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-pill);line-height:1.4;padding:2px 9px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);color:var(--muted);white-space:nowrap;font-weight:500}
+.cap.tone{background:color-mix(in srgb,var(--tone) 11%,var(--card));color:color-mix(in srgb,var(--tone) 60%,#11201a);border-color:color-mix(in srgb,var(--tone) 28%,var(--card))}
+.cap.x{cursor:pointer}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-pill);padding:2px 9px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);color:var(--muted);font-weight:500}
+.pill.green{color:#1d7a4c;border-color:color-mix(in srgb,var(--s-green) 35%,var(--card));background:color-mix(in srgb,var(--s-green) 9%,var(--card))}
+.pill.orange{color:#915512;border-color:color-mix(in srgb,var(--s-orange) 38%,var(--card));background:color-mix(in srgb,var(--s-orange) 10%,var(--card))}
+.pill.red{color:#9e3327;border-color:color-mix(in srgb,var(--s-red) 38%,var(--card));background:color-mix(in srgb,var(--s-red) 9%,var(--card))}
+.pill.grey{color:var(--s-grey);border-color:var(--line);background:var(--bg2)}
+.pill.gold{color:#8a6612;border-color:color-mix(in srgb,var(--s-gold) 40%,var(--card));background:color-mix(in srgb,var(--s-gold) 11%,var(--card))}
+.xlink{font-size:10.5px;color:color-mix(in srgb,var(--s-blue) 78%,#1d2622);background:color-mix(in srgb,var(--s-blue) 9%,var(--card));border:1px solid color-mix(in srgb,var(--s-blue) 24%,var(--card));border-radius:var(--r-pill);padding:1px 7px}
+/* quiet priority dot (static) */
+.pdot{width:7px;height:7px;border-radius:50%;display:inline-block;flex:none}
+.pdot.hi{background:var(--s-red)}.pdot.md{background:var(--s-orange)}.pdot.lo{background:var(--s-green)}.pdot.grey{background:var(--s-grey)}
+/* button */
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:6px 12px;font:inherit;font-size:var(--fs-btn);font-weight:500;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.btn:hover{border-color:var(--teal)}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn.sm{padding:4px 10px}
+/* card + row */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:var(--sp4);box-shadow:var(--sh-card);position:relative}
+.card[data-lane].accent{border-color:color-mix(in srgb,var(--tone) 45%,var(--line));box-shadow:0 0 0 2px color-mix(in srgb,var(--tone) 15%,transparent),var(--sh-card)}
+.row{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-cardlet);padding:10px 12px;border-inline-start:4px solid var(--tone,var(--line))}
+.row+.row{margin-top:var(--sp2)}.row:hover{box-shadow:var(--sh-soft)}
+.input{width:100%;border:1px solid var(--line);border-radius:var(--r-input);padding:7px 9px;font:inherit;font-size:var(--fs-meta);resize:vertical;min-height:42px;background:var(--card)}
+.locked{opacity:.55;filter:grayscale(.35)}
+/* FLASH SIGNAL — used ONLY for Today's 3 Signals */
+.flash{width:9px;height:9px;border-radius:50%;position:relative;flex:none;background:var(--s-green)}
+.flash.green{background:var(--s-green)}.flash.orange{background:var(--s-orange)}.flash.red{background:var(--s-red)}
+.flash::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:inherit;opacity:.5;animation:pulse 2.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.7);opacity:.5}70%{transform:scale(2.1);opacity:0}100%{opacity:0}}
+.flash.done{background:var(--s-grey)}.flash.done::after{display:none}
+.flash.done::before{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:7px;font-weight:700}
+.flash.parked{background:var(--s-grey)}.flash.parked::after{display:none}
+@media (prefers-reduced-motion: reduce){.flash::after{animation:none;opacity:.22}}
+/* top bar */
+.topbar{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:var(--sp3);padding:6px 20px}
+.logo{display:flex;align-items:center;gap:9px}
+.brainmark{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:conic-gradient(from 200deg,#E9F6F1,#EDE7F7,#E6F1FB,#E9F6F1);border:1px solid var(--line)}
+.logo b{font-size:14px;line-height:1.1;font-weight:600}.logo small{display:block;color:var(--muted);font-size:9px;letter-spacing:.2em}
+.ws{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-pill);padding:4px 11px;cursor:pointer}
+.ws .a{width:19px;height:19px;border-radius:6px;background:linear-gradient(135deg,var(--teal),var(--green))}
+.ws .t b{font-size:12.5px;font-weight:600}.ws .t small{display:block;color:var(--muted);font-size:9.5px;margin-top:-2px}
+.search{flex:1;max-width:440px;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:6px 11px;color:var(--faint)}
+.search input{border:0;outline:0;background:transparent;flex:1;font:inherit;color:var(--ink)}
+.kbd{font-size:10px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted)}
+.spacer{flex:1}
+.ico{position:relative;width:33px;height:33px;border-radius:10px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+.ico:hover{border-color:var(--teal);color:var(--teal)}.ico svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;fill:none}
+.ico .badge{position:absolute;top:-5px;inset-inline-end:-5px;min-width:16px;height:16px;border-radius:8px;background:var(--teal);color:#fff;font-size:9.5px;display:grid;place-items:center;padding:0 4px;font-weight:600}
+.ico .badge.gold{background:var(--s-gold)}
+.prof{display:flex;align-items:center;gap:8px;cursor:pointer}
+.prof .av{width:31px;height:31px;border-radius:50%;background:linear-gradient(135deg,#cfe9e2,#e6e0f4);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;color:var(--teal)}
+.prof b{font-size:12.5px;font-weight:600}.prof small{display:block;color:var(--muted);font-size:10.5px;margin-top:-2px}
+.langbtn{border:1px solid var(--line);background:var(--card);border-radius:9px;padding:6px 10px;font:inherit;font-size:12px;cursor:pointer}
+.mockchip{font-size:10.5px;color:#8a6612;background:color-mix(in srgb,var(--s-gold) 12%,var(--card));border:1px solid color-mix(in srgb,var(--s-gold) 35%,var(--card));border-radius:var(--r-pill);padding:2px 8px;font-weight:600}
+/* tabs — medium weight, consistent */
+.topnav{position:sticky;top:46px;z-index:75;background:rgba(255,255,255,.82);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;gap:3px;padding:4px 20px;overflow:auto}
+.topnav a{padding:5px 13px;border-radius:9px;color:var(--muted);font-size:13px;font-weight:500;white-space:nowrap;cursor:pointer;border:1px solid transparent}
+.topnav a:hover{color:var(--ink)}
+.topnav a.on{background:var(--card);color:var(--ink);font-weight:600;border-color:var(--line);box-shadow:var(--sh-soft)}
+.topnav a.synced{box-shadow:0 0 0 2px color-mix(in srgb,var(--tone,#008C84) 30%,transparent)}
+/* RADAR — quiet, readable, no pulse */
+.radar{position:sticky;top:84px;z-index:70;background:linear-gradient(90deg,#F4FAF9,#F5F1FB);border-bottom:1px solid var(--line)}
+.radar .wrap{display:flex;align-items:center;gap:9px;padding:5px 20px}
+.radar .lead{display:flex;align-items:center;gap:6px;font-size:var(--fs-micro);color:var(--muted);font-weight:600;letter-spacing:.03em;white-space:nowrap}
+.radar .lead .ld{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+.rrow{display:flex;align-items:center;gap:7px;overflow:hidden;flex:1}.radar.open .rrow{flex-wrap:wrap;overflow:visible}
+.rsig{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-pill);padding:3px 11px;white-space:nowrap;cursor:pointer;font-size:var(--fs-pill);line-height:1.4;color:var(--ink);font-weight:500}
+.rsig:hover{border-color:var(--teal)}
+.rsig.crit{border-color:color-mix(in srgb,var(--s-red) 40%,var(--card))}
+.qcat{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:1px 8px;border-radius:6px;
+  color:color-mix(in srgb,var(--tone) 58%,#11201a);background:color-mix(in srgb,var(--tone) 11%,var(--card));border:1px solid color-mix(in srgb,var(--tone) 26%,var(--card))}
+.qcat .qd{width:5px;height:5px;border-radius:50%;background:var(--tone)}
+/* shell */
+.shell{display:grid;grid-template-columns:230px 1fr}.shell.collapsed{grid-template-columns:64px 1fr}
+.side{position:sticky;top:116px;height:calc(100vh - 116px);overflow:auto;padding:10px 9px}
+.lane{display:flex;align-items:center;gap:10px;padding:7px 9px;border-radius:var(--r-cardlet);color:var(--muted);cursor:pointer;margin-bottom:3px;border:1px solid transparent;transition:box-shadow .15s,background .15s}
+.lane:hover{background:var(--bg2);box-shadow:var(--sh-soft)}
+.lane.preview{background:color-mix(in srgb,var(--tone) 7%,var(--card));box-shadow:inset 3px 0 0 color-mix(in srgb,var(--tone) 50%,transparent)}
+.lane.on{background:color-mix(in srgb,var(--tone) 11%,var(--card));color:var(--ink);border-color:color-mix(in srgb,var(--tone) 28%,var(--line));box-shadow:inset 3px 0 0 var(--tone),var(--sh-soft)}
+:root[dir="rtl"] .lane.on,:root[dir="rtl"] .lane.preview{box-shadow:inset -3px 0 0 var(--tone),var(--sh-soft)}
+.lane .txt{flex:1;font-size:13px;font-weight:500}
+.lane.on .txt{font-weight:500}
+.shell.collapsed .txt,.shell.collapsed .head,.shell.collapsed .focus .meta,.shell.collapsed .corehub{display:none}
+.head{font-size:var(--fs-micro);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin:11px 10px 5px;font-weight:600}
+.sep{border-top:1px dashed var(--line);margin:8px 8px}
+.corehub{margin:6px 5px 4px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:10px;border-inline-start:4px solid var(--s-teal)}
+.corehub .ttl{font-size:12px;font-weight:600}
+.corehub .f{font-size:11.5px;color:var(--muted);margin-top:4px}
+.corehub .warn{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#915512;margin-top:6px}
+.corehub .sug{font-size:11.5px;color:var(--teal);margin-top:4px}
+.focus{margin-top:9px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:10px;display:flex;align-items:center;gap:9px;border-inline-start:4px solid var(--s-teal)}
+.focus .play{width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;flex:none}
+.focus .meta small{color:var(--muted);font-size:10.5px}.focus .meta b{display:block;font-size:13px;font-weight:600}
+.collapse{margin:5px 9px 8px;border:1px solid var(--line);background:var(--card);border-radius:9px;padding:6px;width:calc(100% - 18px);cursor:pointer;color:var(--muted);font:inherit;font-size:11.5px}
+/* main */
+.main{padding:12px 20px 60px}
+.hello{color:var(--muted);font-size:var(--fs-body);margin-bottom:11px}.hello b{color:var(--ink);font-weight:600}
+.grid{display:grid;gap:var(--sp4)}
+.r1{grid-template-columns:1.0fr 1.34fr 1.1fr 0.98fr}.r3{grid-template-columns:1.05fr 1.55fr 1.05fr}
+.ch{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ch h3{margin:0;font-size:var(--fs-cardtitle);letter-spacing:var(--ls-label);color:var(--ink);font-weight:600;flex:1}
+.ch .ar{color:var(--faint);font-size:11px}
+.link{color:var(--teal);font-size:var(--fs-meta);cursor:pointer;font-weight:500}
+.bd{flex:1;min-width:0}.bd .t1{font-size:var(--fs-item);font-weight:600}.bd .t2{font-size:var(--fs-meta);color:var(--muted);margin-top:2px}
+.bd .metaline{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;align-items:center}.bd .nx{font-size:11.5px;color:var(--teal);margin-top:4px}
+.itemhead{display:flex;align-items:center;gap:9px;margin-bottom:2px}
+.num{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-weight:700;font-size:12px;flex:none;background:var(--card);border:1px solid var(--line);color:var(--teal)}
+.sigrule{font-size:11.5px;margin-top:8px;color:var(--muted);background:var(--bg2);border:1px solid var(--line2);border-radius:10px;padding:7px 10px}
+.sigacts{display:flex;gap:6px;margin-top:6px}
+.sigready{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.sigready .pill{font-size:10px;padding:1px 7px}
+/* cube */
+.brainmap{position:relative;min-height:286px;border-radius:var(--r-card);background:radial-gradient(circle at 50% 45%,#F4F1FB,#F7FBFA);overflow:hidden;border:1px solid var(--line2)}
+.bm-cube{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:140px;height:140px;perspective:760px}
+.bm-scene{width:140px;height:140px;position:relative;transform-style:preserve-3d;transform:rotateX(-20deg) rotateY(-28deg);animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotateX(-20deg) rotateY(332deg)}}@media (prefers-reduced-motion: reduce){.bm-scene{animation:none}}
+.bm-face{position:absolute;width:140px;height:140px;border-radius:18px;border:1.5px solid rgba(139,125,196,.3);background:linear-gradient(135deg,rgba(191,234,236,.5),rgba(226,218,244,.55),rgba(203,238,221,.5));box-shadow:inset 0 0 34px rgba(255,255,255,.65)}
+.bm-f1{transform:translateZ(70px)}.bm-f2{transform:rotateY(180deg) translateZ(70px)}.bm-f3{transform:rotateY(90deg) translateZ(70px)}.bm-f4{transform:rotateY(-90deg) translateZ(70px)}.bm-f5{transform:rotateX(90deg) translateZ(70px)}.bm-f6{transform:rotateX(-90deg) translateZ(70px)}
+.bm-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:13px;height:13px;border-radius:50%;background:radial-gradient(circle,#fff,#BfeAEC);box-shadow:0 0 13px 4px rgba(120,200,220,.6)}
+.bm-label{position:absolute;background:rgba(255,255,255,.93);border:1px solid var(--line);border-radius:11px;padding:6px 10px;box-shadow:var(--sh-soft);cursor:pointer;font-size:11.5px;z-index:3}
+.bm-label b{display:block;font-size:12px;font-weight:600}.bm-label small{color:var(--muted);font-size:10px}.bm-label:hover{border-color:var(--tone);box-shadow:0 0 0 2px color-mix(in srgb,var(--tone) 25%,transparent),var(--sh-soft)}
+.bm-label .dot{width:7px;height:7px;border-radius:50%;background:var(--tone);display:inline-block;margin-inline-end:5px}
+.bm-svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}.bm-svg line{stroke:#C9D6E6;stroke-width:1;stroke-dasharray:3 3}
+.bm-img-slot{position:absolute;bottom:5px;width:100%;text-align:center;color:var(--faint);font-size:10px;z-index:4}
+.brainmap.expanded .bm-cube,.brainmap.expanded .bm-label,.brainmap.expanded .bm-svg{display:none}
+.bm-mods{display:none;position:absolute;inset:13px;grid-template-columns:1fr 1fr;gap:8px;z-index:5}.brainmap.expanded .bm-mods{display:grid}
+.mod{border:1px solid var(--line);border-radius:var(--r-cardlet);padding:10px;background:var(--card);cursor:pointer;font-size:12.5px;display:flex;align-items:center;gap:8px}.mod:hover{border-color:var(--teal)}.mod .dot{width:8px;height:8px;border-radius:50%}
+.cubebar{display:flex;gap:7px;margin-top:9px;justify-content:center;flex-wrap:wrap}
+/* tools */
+.tool{display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid var(--line2)}.tool:first-child{border-top:0}
+.tool .nm{flex:1}.tool .nm b{font-size:var(--fs-body);font-weight:600}.tool .nm small{display:block;color:var(--faint);font-size:11px}
+.bar{width:54px;height:6px;border-radius:6px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--green))}.bar.hi i{background:linear-gradient(90deg,#D99A2B,var(--s-gold))}
+/* bookmarks */
+.bkgroups{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--sp3)}
+.bkg .gh{display:flex;align-items:center;gap:6px;font-size:var(--fs-micro);letter-spacing:.03em;color:var(--muted);margin-bottom:8px;font-weight:600}
+.bkg .gh .mc{margin-inline-start:auto}
+.bkrow{display:flex;flex-wrap:wrap;gap:7px}
+.bk{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:5px 9px;height:34px;cursor:pointer;font-size:var(--fs-meta)}
+.bk:hover{border-color:var(--teal)}
+/* action center — quiet, no pulse */
+.acgrp{font-size:var(--fs-micro);letter-spacing:.03em;color:var(--faint);margin:9px 0 6px;display:flex;align-items:center;gap:6px;font-weight:600}
+.acgrp.urgent{color:#9e3327}
+.ac{display:flex;gap:9px;align-items:flex-start}.ac+.ac{margin-top:var(--sp2)}
+.ac .right{text-align:end;white-space:nowrap}.ac .when{color:var(--faint);font-size:11px}
+/* calendar */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px;margin-bottom:8px}.cal .dow{color:var(--faint)}.cal .day{padding:5px 0;border-radius:8px}.cal .day.on{background:var(--teal);color:#fff}.cal .day.dim{color:var(--faint)}
+.ev{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line2);font-size:var(--fs-meta)}.ev .t{color:var(--teal);font-weight:600;white-space:nowrap}
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pcol h4{margin:0 0 8px;font-size:var(--fs-micro);letter-spacing:.03em;color:var(--faint);display:flex;justify-content:space-between;font-weight:600}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:9px;margin-bottom:8px;font-size:var(--fs-meta);cursor:pointer}.pc:hover{border-color:var(--teal)}.pc small{display:block;color:var(--faint);font-size:11px}
+/* grids */
+.items,.cre,.avlab{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
+.item-card,.crec,.avc{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:13px;border-inline-start:4px solid var(--tone,var(--teal))}
+.item-card .acts{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.note{margin-top:8px;font-size:11.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px;display:none}
+.crec{background:linear-gradient(180deg,#FBFAFF,var(--card));border-inline-start-color:var(--tone)}
+.crec h4{margin:0 0 4px;font-size:var(--fs-item);font-weight:600}.crec .fl{font-size:11.5px;color:var(--muted);margin:2px 0}.crec .fl b{color:var(--ink)}
+.score{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#1d7a4c}
+.agentbox{display:none;margin-top:9px;border-top:1px dashed var(--line);padding-top:9px;font-size:var(--fs-meta)}.agentbox.show{display:block}.agentbox .k{font-size:var(--fs-micro);letter-spacing:.03em;color:var(--faint);margin-top:6px;font-weight:600}
+.agentbox pre{white-space:pre-wrap;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r-input);padding:8px;font-size:11.5px;font-family:ui-monospace,Menlo,monospace;margin:3px 0}
+.avc{border-top:3px solid var(--aitools);border-inline-start:1px solid var(--line)}.avc h4{margin:0 0 6px;font-size:var(--fs-item);font-weight:600}.avc .r{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin:2px 0}.avc .r b{color:var(--ink)}
+.warn-cap{display:inline-flex;align-items:center;gap:5px;font-size:var(--fs-pill);color:#915512;background:color-mix(in srgb,var(--s-orange) 10%,var(--card));border:1px solid color-mix(in srgb,var(--s-orange) 35%,var(--card));border-radius:var(--r-pill);padding:2px 8px;margin-top:5px}
+.checklist{columns:2;font-size:var(--fs-meta);color:var(--muted);margin-top:6px}.checklist div{margin:3px 0}
+.flowline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:4px 2px 12px;color:var(--muted);font-size:var(--fs-meta)}.flowline span{background:var(--card);border:1px solid var(--line);border-radius:var(--r-pill);padding:3px 10px}
+.vault{display:flex;gap:12px;align-items:center}.shield{width:58px;height:58px;border-radius:15px;background:linear-gradient(135deg,#E7F4F1,#EAE5F6);display:grid;place-items:center;border:1px solid var(--line);flex:none}.shield svg{stroke:var(--teal);stroke-width:1.3;fill:none;width:26px}
+.fin .big{font-size:23px;font-weight:700;color:var(--green)}.progress{height:8px;border-radius:8px;background:var(--line);overflow:hidden;margin-top:6px}.progress i{display:block;height:100%;width:68%;background:linear-gradient(90deg,var(--green),var(--teal))}
+.obl{display:flex;align-items:center;gap:9px;padding:6px 0;border-top:1px solid var(--line2);font-size:var(--fs-meta)}.obl:first-child{border-top:0}.obl .amt{margin-inline-start:auto;color:#9e3327;font-weight:600}.obl .dt{color:var(--faint);font-size:11px;white-space:nowrap}
+.na .det{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:7px 0 0;font-size:var(--fs-meta)}.na .det .k{color:var(--faint);font-size:var(--fs-micro);letter-spacing:.03em;font-weight:600}
+.na .l3{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}.na .open-c{display:none;margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}.na .open-c.show{display:block}.na.done{opacity:.65}
+.lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp4)}
+.blane{border-radius:var(--r-card);padding:15px;border:1px solid var(--line);display:flex;flex-direction:column;gap:7px;min-height:114px;justify-content:space-between;border-inline-start:4px solid var(--tone)}
+.blane .nm{font-weight:700;font-size:15px}.blane .nm .x{color:var(--s-gold)}.blane .sub{color:var(--muted);font-size:var(--fs-meta)}
+.section-title{display:flex;align-items:baseline;gap:10px;margin:20px 2px 8px}.section-title h2{margin:0;font-size:var(--fs-h);font-weight:600}.section-title .lbl{font-size:var(--fs-micro);letter-spacing:.06em;color:var(--faint);font-weight:600}
+.foot{margin-top:24px;text-align:center;color:var(--faint);font-size:var(--fs-meta);border-top:1px solid var(--line);padding-top:14px}
+/* 72h cash sprint */
+.sprintbar{display:flex;align-items:center;gap:12px;background:linear-gradient(100deg,#0E3A33,#10573F);color:#fff;border-radius:var(--r-card);padding:13px 16px;margin-bottom:var(--sp4);box-shadow:var(--sh-card);flex-wrap:wrap}
+.sprintbar .bigt{font-size:16px;font-weight:700;display:flex;align-items:center;gap:9px}
+.sprintbar .bigt .flash{background:var(--s-green)}
+.sprintbar .sub{font-size:12px;color:#CDE7DD;font-weight:500}
+.sprintbar .count{margin-inline-start:auto;display:flex;gap:8px;flex-wrap:wrap}
+.sprintbar .kx{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:var(--r-pill);padding:3px 11px;font-size:11.5px;font-weight:600}
+.sprintbar .kx b{color:#fff}
+.phasebar{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:var(--sp4)}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:8px 9px;font-size:11px;border-top:3px solid var(--line)}
+.phase.now{border-top-color:var(--s-green);box-shadow:0 0 0 2px color-mix(in srgb,var(--s-green) 15%,transparent),var(--sh-soft)}
+.phase.done{opacity:.6;border-top-color:var(--s-grey)}
+.phase b{display:block;font-size:11.5px;color:var(--ink);font-weight:600}.phase small{color:var(--faint);font-size:10.5px}
+/* production assets ready */
+.ready{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.ready .pill{font-size:10.5px}
+.prodassets{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp4)}
+.pa{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:12px;border-top:4px solid var(--tone)}
+.pa .alias{font-family:ui-monospace,Menlo,monospace;font-size:11px;font-weight:700;color:var(--ink);word-break:break-all;display:flex;align-items:center;gap:7px}
+.pa .kv2{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;font-size:11px;margin-top:8px}
+.pa .kv2 .k{color:var(--faint);font-size:10px;letter-spacing:.03em;font-weight:600;white-space:nowrap}
+.pa .kv2 .v{color:var(--ink)}
+.pa .nt{margin-top:8px;font-size:10.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:6px}
+.safechip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:#1d7a4c;background:color-mix(in srgb,var(--s-green) 9%,var(--card));border:1px solid color-mix(in srgb,var(--s-green) 30%,var(--card));border-radius:var(--r-pill);padding:2px 8px;font-weight:600}
+/* customer-ready output card */
+.cro{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
+.croc{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:13px;border-top:4px solid var(--tone)}
+.croc h4{margin:0 0 7px;font-size:var(--fs-item);font-weight:600;display:flex;align-items:center;gap:7px}
+.croc .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:11.5px;margin-top:5px}
+.croc .kv .k{color:var(--faint);font-size:var(--fs-micro);letter-spacing:.03em;font-weight:600;white-space:nowrap}
+.croc .kv .v{color:var(--ink)}
+.croc .stage{display:flex;gap:5px;margin:8px 0;flex-wrap:wrap}
+.croc .stage .st{font-size:10px;padding:2px 7px;border-radius:var(--r-pill);border:1px solid var(--line);color:var(--faint)}
+.croc .stage .st.on{background:color-mix(in srgb,var(--tone) 13%,var(--card));border-color:color-mix(in srgb,var(--tone) 35%,var(--card));color:color-mix(in srgb,var(--tone) 58%,#11201a);font-weight:600}
+.croc .ready{margin:8px 0 4px}
+.croc .ready .pill{font-size:10px;padding:1px 7px}
+.croc .cta{margin-top:8px;background:color-mix(in srgb,var(--gold) 11%,var(--card));border:1px solid color-mix(in srgb,var(--gold) 32%,var(--card));border-radius:10px;padding:7px 9px;font-size:11.5px;color:#7a5e12}
+.croc .cash{margin-top:6px;font-size:11.5px;color:#1d7a4c;font-weight:600}
+/* 3x3 validation */
+.v33{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
+.v33c{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:13px;border-inline-start:4px solid var(--tone)}
+.v33c h4{margin:0 0 8px;font-size:var(--fs-item);font-weight:600}
+.v33grp{margin-top:7px}.v33grp .gl{font-size:var(--fs-micro);letter-spacing:.03em;color:var(--faint);font-weight:600;display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.v33grp .gl .n{margin-inline-start:auto;font-size:10px;color:var(--s-green);font-weight:700}
+.v33 .it{font-size:11.5px;color:var(--ink);padding:3px 0 3px 16px;position:relative}
+.v33 .it::before{content:"☐";position:absolute;inset-inline-start:0;color:var(--faint)}
+.v33 .it.ok::before{content:"☑";color:var(--s-green)}
+/* cash action log */
+.logtable{width:100%;border-collapse:collapse;font-size:11.5px}
+.logtable th{text-align:start;color:var(--faint);font-size:var(--fs-micro);letter-spacing:.03em;font-weight:600;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.logtable td{padding:7px 8px;border-bottom:1px solid var(--line2);vertical-align:top}
+.logtable tr:hover td{background:var(--bg2)}
+.logwrap{overflow:auto}
+@media(max-width:1200px){.r1,.r3{grid-template-columns:1fr 1fr}.items,.cre,.lanes,.pipe,.avlab,.prodassets{grid-template-columns:1fr 1fr}.bkgroups{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:820px){.shell{grid-template-columns:1fr}.side{display:none}.r1,.r3,.items,.cre,.lanes,.pipe,.avlab,.bkgroups,.prodassets{grid-template-columns:1fr}}
+
+/* v10: live mini Brain galaxy in the Cowork Cube panel (visual twin of BRAIN_3D) */
+.bm-galaxy{position:absolute;inset:0;width:100%;height:100%;z-index:0;border-radius:inherit;pointer-events:none}
+#brainmap.live{background:radial-gradient(circle at 50% 42%,#0e1626,#05070d)}
+#brainmap.live .bm-cube,#brainmap.live .bm-svg{opacity:.10}
+#brainmap.live .bm-core{box-shadow:0 0 13px 4px rgba(120,200,220,.22)}
+#brainmap.live .bm-img-slot{color:#bfe0cf}
+
+/* signal parity: gold twinkle + brain deep-link */
+.sigstar{color:var(--gold);display:inline-block;margin-inline-end:5px;animation:sigtw 2.6s ease-in-out infinite;font-size:.9em}
+@keyframes sigtw{0%,100%{opacity:.45;transform:scale(.92)}50%{opacity:1;transform:scale(1.06)}}
+.brainlink{text-decoration:none;font-size:.82em;opacity:.55;margin-inline-start:5px}
+.brainlink:hover{opacity:1}
+@media (prefers-reduced-motion: reduce){.sigstar{animation:none}}
+
+/* ===== view switcher + OS dark theme (toggle, persisted 'bm-theme') ===== */
+.vsw{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;vertical-align:middle}
+.vsw a{font-size:12px;color:var(--muted);padding:6px 9px;text-decoration:none;cursor:pointer}
+.vsw a.on{background:var(--teal);color:#fff}
+.vsw a:not(.on):hover{background:var(--bg2);color:var(--ink)}
+:root[data-theme="dark"]{
+  --bg:#0E1311;--bg2:#161D1A;--card:#1C2521;--line:#2A332E;--line2:#222B27;
+  --ink:#F2F5F3;--muted:#9DA8A2;--faint:#74827C;--mist:#161D1A;--slate:#05080d;
+  --teal:#7FD1A3;--green:#3FB37F;--gold:#D9B24A;
+  --signalx:#7FD1A3;--tre:#3fdc8f;--aitools:#5aa0ff;--pets:#c08cff;--finance:#3FB37F;--vault:#5ad1e0;--files:#9db0d0;
+  --s-teal:#7FD1A3;--s-green:#3FB37F;--s-orange:#E0A24D;--s-red:#E47A6E;--s-grey:#9AA8A4;--s-violet:#bda9f2;--s-blue:#6fb0ff;--s-gold:#D9B24A;
+}
+[data-theme="dark"] body{background:radial-gradient(1300px 440px at 70% -8%,#15231d,transparent 60%),radial-gradient(900px 380px at 5% -4%,#141a2a,transparent 55%),#0E1311}
+[data-theme="dark"] .topnav{background:rgba(14,19,17,.82)}
+[data-theme="dark"] .topbar{background:rgba(14,19,17,.9)}
+[data-theme="dark"] .bm-label{background:rgba(28,37,33,.9);color:var(--ink)}
+[data-theme="dark"] .sprintbar .kx{background:rgba(255,255,255,.10)}
+
+/* P4: collapsible cards + focus mode */
+.chev{background:none;border:0;color:var(--muted);cursor:pointer;font-size:12px;margin-inline-end:6px;padding:2px 4px;line-height:1;border-radius:6px}
+.chev:hover{background:var(--bg2);color:var(--ink)}
+.card.collapsed > :not(.ch){display:none}
+.card.collapsed > .ch{margin-bottom:0}
+body.focus-mode .side,body.focus-mode .topnav,body.focus-mode .sprintbar,body.focus-mode .phasebar,body.focus-mode .radar{display:none!important}
+body.focus-mode .shell{grid-template-columns:1fr}
+body.focus-mode .grid{grid-template-columns:1fr!important}
+body.focus-mode main{max-width:720px;margin:0 auto}
+#focusbtn.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+
+/* P5: Today band + status legend */
+.todayband{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:10px 16px;margin-bottom:var(--sp4);box-shadow:var(--sh-soft)}
+.todayband .tb-title{font-weight:700;font-size:13px;color:var(--ink);letter-spacing:.02em}
+.todayband .tb-stat{font-size:12.5px;color:var(--muted)} .todayband .tb-stat b{color:var(--ink);font-size:15px;font-variant-numeric:tabular-nums;margin-inline-end:2px}
+.todayband .tb-legend{display:flex;gap:12px;margin-inline-start:auto;flex-wrap:wrap}
+.todayband .lg{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted)}
+.todayband .ld{width:9px;height:9px;border-radius:50%;display:inline-block}
+.todayband .ld.ok{background:var(--s-green)} .todayband .ld.mid{background:var(--s-orange)} .todayband .ld.pend{background:var(--s-grey)}
+.todayband .tb-jump{font-size:12px;color:var(--teal);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.todayband .tb-jump:hover{border-color:var(--teal)}
+@media(max-width:760px){.todayband .tb-legend{margin-inline-start:0}}
+
+/* P6: AA contrast — pill text (grey in light; bright in dark) */
+.pill.grey{color:#5f6e69}
+[data-theme="dark"] .pill.green{color:#80e3ae}
+[data-theme="dark"] .pill.orange{color:#f3c488}
+[data-theme="dark"] .pill.red{color:#f3a99e}
+[data-theme="dark"] .pill.gold,[data-theme="dark"] .mockchip{color:#e8c463}
+[data-theme="dark"] .pill.grey{color:#aeb9b4}
+[data-theme="dark"] .xlink{color:#bcd8ff}
+[data-theme="dark"] .cap.tone{color:color-mix(in srgb,var(--tone) 72%,#fff)}
+[data-theme="dark"] .qcat{color:color-mix(in srgb,var(--tone) 72%,#fff)}
+
+/* ================= v11 · FOUNDER EXECUTION COCKPIT ================= */
+/* A · Morning Command Strip */
+.cockpit{background:linear-gradient(120deg,color-mix(in srgb,var(--finance) 6%,var(--card)),var(--card));border:1px solid var(--line);border-radius:var(--r-card);padding:var(--sp4);box-shadow:var(--sh-card);margin-bottom:var(--sp4)}
+.slogans{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.slogan{font-size:11.5px;font-weight:700;letter-spacing:.02em;padding:4px 12px;border-radius:var(--r-pill);color:#0e3a33;background:linear-gradient(100deg,color-mix(in srgb,var(--green) 20%,var(--card)),color-mix(in srgb,var(--teal) 18%,var(--card)));border:1px solid color-mix(in srgb,var(--green) 32%,var(--card))}
+[data-theme="dark"] .slogan{color:#d7f5e6}
+.cmdstrip{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:11px 12px;border-top:3px solid var(--tone,var(--teal))}
+.metric .k{font-size:var(--fs-micro);letter-spacing:.03em;text-transform:uppercase;color:var(--faint);font-weight:600;display:block;line-height:1.3;min-height:26px}
+.metric .v{font-size:22px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1;margin-top:4px}
+.metric .v .u{font-size:11px;font-weight:600;color:var(--muted);margin-inline-start:3px}
+.metric.warn{border-top-color:var(--s-orange)} .metric.warn .v{color:#915512}
+[data-theme="dark"] .metric.warn .v{color:#f3c488}
+.metric.cash .v{color:var(--green)}
+.nba{margin-top:12px;display:flex;gap:11px;align-items:flex-start;background:color-mix(in srgb,var(--gold) 10%,var(--card));border:1px solid color-mix(in srgb,var(--gold) 30%,var(--card));border-radius:var(--r-cardlet);padding:11px 13px}
+.nba .lbl{font-size:var(--fs-micro);letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:#8a6612;white-space:nowrap;padding-top:1px}
+[data-theme="dark"] .nba .lbl{color:#e8c463}
+.nba .txt{font-size:var(--fs-item);font-weight:600;color:var(--ink)}
+/* B · Today's 3 Priority Tasks */
+.pritasks{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
+.pritask{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:14px;border-inline-start:4px solid var(--tone);display:flex;flex-direction:column;gap:6px;position:relative}
+.pritask .no{position:absolute;top:12px;inset-inline-end:12px;font-size:28px;font-weight:800;color:color-mix(in srgb,var(--tone) 22%,transparent);line-height:1}
+.pritask .when{font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:color-mix(in srgb,var(--tone) 60%,#11201a);display:inline-flex;align-items:center;gap:5px}
+[data-theme="dark"] .pritask .when{color:color-mix(in srgb,var(--tone) 74%,#fff)}
+.pritask .ttl{font-size:var(--fs-item);font-weight:700;color:var(--ink);padding-inline-end:30px}
+.pritask .dsc{font-size:var(--fs-meta);color:var(--muted)}
+.pritask .chk{margin-top:auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);cursor:pointer;user-select:none;padding-top:6px}
+.pritask .chk input{width:16px;height:16px;accent-color:var(--green)}
+.pritask.checked{opacity:.62} .pritask.checked .ttl{text-decoration:line-through}
+.accountability{margin-top:var(--sp4);background:linear-gradient(100deg,#0E3A33,#10573F);color:#fff;border-radius:var(--r-cardlet);padding:13px 16px}
+.accountability .q{font-size:14px;font-weight:700;display:flex;align-items:center;gap:9px}
+.accountability .sub{font-size:12px;color:#CDE7DD;margin-top:3px}
+.eveningrev{font-size:12px;color:var(--muted);margin-top:9px;display:flex;align-items:center;gap:7px}
+/* C · Asset-to-Cash Map */
+.assetgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp4)}
+.assetc{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:14px;border-inline-start:4px solid var(--tone)}
+.assetc .top{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.assetc .an{font-size:var(--fs-item);font-weight:700;color:var(--ink);flex:1}
+.state{font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:var(--r-pill);white-space:nowrap}
+.state.active{color:#1d7a4c;background:color-mix(in srgb,var(--s-green) 12%,var(--card));border:1px solid color-mix(in srgb,var(--s-green) 32%,var(--card))}
+.state.park{color:#5f6e69;background:var(--bg2);border:1px solid var(--line)}
+.state.blocked{color:#915512;background:color-mix(in srgb,var(--s-orange) 11%,var(--card));border:1px solid color-mix(in srgb,var(--s-orange) 34%,var(--card))}
+[data-theme="dark"] .state.active{color:#80e3ae}[data-theme="dark"] .state.blocked{color:#f3c488}[data-theme="dark"] .state.park{color:#aeb9b4}
+.assetc .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:11.5px;margin-top:4px}
+.assetc .kv .k{color:var(--faint);font-size:var(--fs-micro);letter-spacing:.02em;font-weight:600;white-space:nowrap}
+.assetc .kv .v{color:var(--ink)}
+.assetc .meters{display:flex;gap:12px;margin-top:8px}
+.assetc .meter{font-size:10.5px;color:var(--muted)}
+.assetc .meter .dots{letter-spacing:1px;color:var(--tone);font-weight:700}
+.assetc .na{margin-top:8px;font-size:11.5px;color:var(--teal);border-top:1px dashed var(--line);padding-top:6px}
+.assetc .validnote{margin-top:7px}
+/* D · Outreach Tracker */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.fchip{font-size:11px;font-weight:600;padding:4px 11px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+.fchip:hover{border-color:var(--teal)} .fchip.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.otable{width:100%;border-collapse:collapse;font-size:11.5px}
+.otable th{text-align:start;color:var(--faint);font-size:var(--fs-micro);letter-spacing:.03em;font-weight:600;padding:7px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+.otable td{padding:8px 9px;border-bottom:1px solid var(--line2);vertical-align:top}
+.otable tr:hover td{background:var(--bg2)}
+.ost{font-size:10px;font-weight:700;padding:2px 8px;border-radius:var(--r-pill);white-space:nowrap;display:inline-block}
+.ost.notcontacted{color:#5f6e69;background:var(--bg2);border:1px solid var(--line)}
+.ost.sent{color:#3E7CC2;background:color-mix(in srgb,var(--s-blue) 10%,var(--card));border:1px solid color-mix(in srgb,var(--s-blue) 30%,var(--card))}
+.ost.replied{color:#8a6612;background:color-mix(in srgb,var(--s-gold) 12%,var(--card));border:1px solid color-mix(in srgb,var(--s-gold) 34%,var(--card))}
+.ost.meeting{color:#7a5eb0;background:color-mix(in srgb,var(--pets) 12%,var(--card));border:1px solid color-mix(in srgb,var(--pets) 34%,var(--card))}
+.ost.proposal{color:#915512;background:color-mix(in srgb,var(--s-orange) 11%,var(--card));border:1px solid color-mix(in srgb,var(--s-orange) 34%,var(--card))}
+.ost.paid{color:#1d7a4c;background:color-mix(in srgb,var(--s-green) 12%,var(--card));border:1px solid color-mix(in srgb,var(--s-green) 34%,var(--card))}
+.ost.parked{color:#5f6e69;background:var(--bg2);border:1px solid var(--line)}
+[data-theme="dark"] .ost.sent{color:#bcd8ff}[data-theme="dark"] .ost.replied,[data-theme="dark"] .ost.proposal{color:#f3c488}[data-theme="dark"] .ost.paid{color:#80e3ae}[data-theme="dark"] .ost.meeting{color:#cbb6f5}[data-theme="dark"] .ost.notcontacted,[data-theme="dark"] .ost.parked{color:#aeb9b4}
+.prob{display:inline-block;min-width:34px;font-variant-numeric:tabular-nums;font-weight:600}
+/* E · Knowledge Bank */
+.kbcats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.kbsearch{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:7px 11px;margin-bottom:11px;color:var(--faint);max-width:420px}
+.kbsearch input{border:0;outline:0;background:transparent;flex:1;font:inherit;color:var(--ink)}
+.kblist{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kbitem{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:11px;border-inline-start:4px solid var(--tone)}
+.kbitem .kn{font-size:12.5px;font-weight:600;color:var(--ink)}
+.kbitem .kc{font-size:10.5px;color:var(--faint);margin-top:2px}
+.kbitem .kd{font-size:11px;color:var(--muted);margin-top:5px}
+.kbempty{font-size:12px;color:var(--faint);padding:14px;text-align:center}
+/* F · Decision Parking Lot */
+.parklot{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp4)}
+.parkcol{background:var(--card);border:1px solid var(--line);border-radius:var(--r-cardlet);padding:13px;border-top:4px solid var(--tone)}
+.parkcol h4{margin:0 0 9px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px;color:var(--ink)}
+.parkcol h4 .n{margin-inline-start:auto;font-size:10px;font-weight:700;color:var(--tone)}
+.parkitem{font-size:11.5px;color:var(--ink);padding:7px 0;border-top:1px solid var(--line2);line-height:1.45}
+.parkitem:first-of-type{border-top:0}
+.parkitem small{display:block;color:var(--muted);font-size:10.5px;margin-top:2px}
+/* G · 7-Day Cash Sprint */
+.sprint7{width:100%;border-collapse:collapse;font-size:11.5px}
+.sprint7 th{text-align:start;color:var(--faint);font-size:var(--fs-micro);letter-spacing:.03em;font-weight:600;padding:7px 9px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sprint7 td{padding:9px;border-bottom:1px solid var(--line2);vertical-align:top}
+.sprint7 tr:hover td{background:var(--bg2)}
+.sprint7 .dcell{font-weight:700;color:var(--ink);white-space:nowrap}
+.sprint7 .dcell small{display:block;color:var(--faint);font-weight:500;font-size:10px}
+.sprint7 td.res{color:var(--faint);font-style:italic}
+@media(max-width:1200px){.cmdstrip{grid-template-columns:repeat(4,1fr)}.assetgrid,.parklot{grid-template-columns:1fr 1fr}.kblist{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){.cmdstrip{grid-template-columns:1fr 1fr}.pritasks,.assetgrid,.parklot,.kblist{grid-template-columns:1fr}}
+</style>
+
+<!--
+  BM_Cowork_OS_Dashboard_v11 — Founder Execution Cockpit (based on BM_Cowork_OS_Dashboard_v10.html).
+  v10 is preserved untouched; v11 is a NEW file per FILE_OWNERSHIP.md (new work = new versioned file).
+  All v10 Brain integration is kept: #bmGalaxy mini-galaxy (window.__BRAIN_NODES__), openMod() deep-links
+  to BM_Cowork_OS_Brain_3D.html#focus=, signal gold twinkle, 2D/3D switcher, refresh_brain.mjs token/node markers.
+  CHANGELOG v11 (adds — all offline / mock / aliases only, no live integrations, nothing sent):
+    A · Morning Command Strip  — cash target, collected, offers, replies, meetings, deals, blockers, Next Best Action + slogans
+    B · Today's 3 Priority Tasks — cash-before-12PM / outreach / follow-up + evening review + accountability question
+    C · Asset-to-Cash Map — 10 named assets (Park / Active / Blocked). 40,000+ DB = credibility/insight asset, contactability requires validation
+    D · Outreach Tracker — mock rows + segment filter chips (Not contacted → Paid / Parked)
+    E · Knowledge Bank Panel — categories + local search over mock entries
+    F · Decision Parking Lot — Active / Parked / Blocked / Stop doing now
+    G · 7-Day Cash Sprint View — day / action / outreach target / offer / cash target / result / lesson
+  Governance: MASTER_INDEX.md, AGENTS.md, FILE_OWNERSHIP.md, TASK_BOARD.md, INTEGRATION_LOG.md.
+  Signals source: sample_data_72h_cash_sprint_v2.json.  Edit this file, then run: node tools/refresh_brain.mjs
+-->
+</head>
+<body>
+
+<header class="topbar"><div class="wrap">
+  <div class="logo"><span class="brainmark"><svg viewBox="0 0 24 24" width="19" fill="none" stroke="#008C84" stroke-width="1.4"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 1 4 3 3 0 0 0 3 4 2.5 2.5 0 0 0 3-2V4.5A1.5 1.5 0 0 0 10.5 3H9Z"/><path d="M15 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-1 4 3 3 0 0 1-3 4 2.5 2.5 0 0 1-3-2"/></svg></span><div><b>BEAUTIFUL MIND</b><small>COWORK OS</small></div></div>
+  <div class="ws tip" data-tip="Switch workspace"><span class="a"></span><div class="t"><b>Beautiful Mind HQ</b><small data-en="Workspace" data-ar="مساحة العمل">Workspace</small></div> ▾</div>
+  <label class="search tip" data-tip="Search (⌘K)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg><input placeholder="Search…"><span class="kbd">⌘K</span></label>
+  <div class="spacer"></div>
+  <span class="mockchip">● v11 · mock</span>
+  <div class="ico tip" data-tip="Inbox (mock)"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg><span class="badge">12</span></div>
+  <div class="ico tip" data-tip="Alerts (mock)"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></svg><span class="badge gold">7</span></div>
+  <div class="ico tip" data-tip="Calendar (future read-only)"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg></div>
+  <div class="ico tip" data-tip="Drive (future read-only)"><svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg></div>
+  <button class="langbtn" id="focusbtn" onclick="toggleFocus()" title="Focus mode — only Today's 3 Signals + Next Actions">◎ Focus</button>
+  <button class="langbtn" id="themebtn" onclick="toggleTheme()" title="Light / dark">☼</button>
+  <span class="vsw" id="vswTop"><a class="on" title="You are here: Dashboard">Dashboard</a><a href="BM_Cowork_OS_Brain_Map.html" title="Open the 2D Brain Map">2D</a><a href="BM_Cowork_OS_Brain_3D.html" title="Open the 3D Brain Galaxy">3D</a></span>
+  <button class="langbtn" id="langbtn" onclick="toggleLang()">عربي</button>
+  <div class="prof tip" data-tip="Account"><span class="av">M</span><div><b>Mohamed Abuzaid</b><small data-en="Founder & Coach" data-ar="مؤسس ومدرب">Founder &amp; Coach</small></div></div>
+</div></header>
+
+<nav class="topnav"><div class="wrap" id="topnav">
+  <a data-tab="overview" class="on" onclick="selectTab('overview')">Overview</a>
+  <a data-tab="signalx" onclick="selectTab('signalx')">SignalX</a>
+  <a data-tab="tre" onclick="selectTab('tre')">TRE Arabia</a>
+  <a data-tab="aitools" onclick="selectTab('aitools')">AI Tools Lab</a>
+  <a data-tab="pets" onclick="selectTab('pets')">GS Pets</a>
+  <a data-tab="content" onclick="selectTab('content')">Content</a>
+  <a data-tab="finance" onclick="selectTab('finance')">Finance</a>
+  <a data-tab="vault" onclick="selectTab('vault')">Vault</a>
+  <a data-tab="analytics" onclick="selectTab('analytics')">Analytics</a>
+  <a data-tab="settings" onclick="selectTab('settings')">Settings</a>
+</div></nav>
+
+<div class="radar" id="radar"><div class="wrap">
+  <span class="lead"><span class="ld"></span><span data-en="RADAR" data-ar="رادار">RADAR</span> <span class="faint" style="font-weight:500" data-en="· opportunity context" data-ar="· سياق الفرص">· opportunity context</span></span>
+  <div class="rrow" id="radarList"></div>
+  <button class="btn sm" id="radarMore" onclick="radarToggle()"><span data-en="More" data-ar="المزيد">More</span></button>
+</div></div>
+
+<div class="shell" id="shell"><div class="wrap" style="display:contents">
+  <aside class="side">
+    <button class="collapse tip" data-tip="Collapse / expand" onclick="toggleSide()">⟨⟩ <span data-en="Collapse" data-ar="طيّ">Collapse</span></button>
+    <div class="corehub">
+      <div class="ttl" data-en="Sprint focus" data-ar="تركيز السباق">Sprint focus</div>
+      <div class="f" data-en="Avatar + voice ready → validate AR pronunciation → render 30s video test." data-ar="الأفاتار والصوت جاهزان → تحقّق من النطق → اختبر تصدير فيديو ٣٠ث.">Avatar + voice ready → validate AR pronunciation → render 30s video test.</div>
+      <div class="warn"><span class="pdot md"></span><span data-en="Arabic pronunciation validation pending." data-ar="بانتظار التحقق من النطق العربي.">Arabic pronunciation validation pending.</span></div>
+      <div class="sug">✦ <span data-en="Suggested: run the 30s AI Cowork AR test first." data-ar="مقترح: ابدأ باختبار ٣٠ث للفيديو العربي.">Suggested: run the 30s AI Cowork AR test first.</span></div>
+    </div>
+    <div class="head">Core Hub</div>
+    <div id="sideLanes"></div>
+    <div class="focus"><span class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><div class="meta"><small data-en="Live Focus" data-ar="تركيز">Live Focus</small><b data-en="Deep Work" data-ar="عمل عميق">Deep Work</b><small>45:00</small></div></div>
+  </aside>
+
+  <main class="main">
+    <div class="hello"><span data-en="Good morning," data-ar="صباح الخير،">Good morning,</span> <b>Mohamed</b> · <span class="muted" data-en="Production readiness · avatar + voice ready · offline · only the 3 cash Signals pulse." data-ar="جاهزية الإنتاج · الأفاتار والصوت جاهزان · غير متصل · تنبض فقط إشارات الدخل الثلاث.">Production readiness · avatar + voice ready · offline · only the 3 cash Signals pulse.</span> <span class="cap" id="ksaclock"></span></div>
+
+    <div class="sprintbar">
+      <div><div class="bigt"><span class="flash green"></span><span data-en="72-Hour Cash Sprint — Production Ready" data-ar="سباق ٧٢ ساعة — جاهزية الإنتاج">72-Hour Cash Sprint — Production Ready</span></div><div class="sub" data-en="Synthesia avatar + ElevenLabs voice ready. Next: validate, test, render." data-ar="أفاتار Synthesia وصوت ElevenLabs جاهزان. التالي: تحقّق، اختبر، صدّر.">Synthesia avatar + ElevenLabs voice ready. Next: validate, test, render.</div></div>
+      <div class="count"><span class="kx"><b>3</b> <span data-en="Signals" data-ar="إشارات">Signals</span></span><span class="kx"><b>2</b> <span data-en="assets ready" data-ar="أصول جاهزة">assets ready</span></span><span class="kx"><b id="hrLeft">—</b> <span data-en="hrs window" data-ar="ساعة">hrs window</span></span><span class="kx" data-en="offline · mock" data-ar="غير متصل · تجريبي">offline · mock</span></div>
+    </div>
+    <div class="phasebar" id="phaseBar"></div>
+<div class="todayband" id="todayband" data-focus="keep">
+  <span class="tb-title" data-en="Today" data-ar="اليوم">Today</span>
+  <span class="tb-stat"><b id="tbSig">—</b> <span data-en="Signals" data-ar="إشارات">Signals</span></span>
+  <span class="tb-stat"><b id="tbReady">—</b> <span data-en="ready" data-ar="جاهز">ready</span></span>
+  <span class="tb-stat"><b id="tbPending">—</b> <span data-en="pending" data-ar="معلّق">pending</span></span>
+  <span class="tb-legend">
+    <span class="lg"><i class="ld ok"></i><span data-en="Built" data-ar="جاهز">Built</span></span>
+    <span class="lg"><i class="ld mid"></i><span data-en="In progress" data-ar="قيد التنفيذ">In progress</span></span>
+    <span class="lg"><i class="ld pend"></i><span data-en="Pending" data-ar="معلّق">Pending</span></span>
+  </span>
+  <a class="tb-jump" href="#naList" data-en="↓ Next Actions" data-ar="↓ الخطوات">↓ Next Actions</a>
+</div>
+
+    <!-- ============ v11 · A · MORNING COMMAND STRIP ============ -->
+    <div class="section-title" data-focus="keep"><span class="lbl">☀</span><h2 class="serif" data-en="Morning Command Strip" data-ar="شريط قيادة الصباح">Morning Command Strip</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="cash before complexity · offline mock" data-ar="الدخل قبل التعقيد · بيانات تجريبية">cash before complexity · offline mock</span></div>
+    <div class="cockpit" data-focus="keep">
+      <div class="slogans" id="slogans"></div>
+      <div class="cmdstrip" id="cmdStrip"></div>
+      <div class="nba"><span class="lbl" data-en="Next Best Action" data-ar="الخطوة الأفضل">Next Best Action</span><span class="txt" id="nbaTxt"></span></div>
+    </div>
+
+    <!-- ============ v11 · B · TODAY'S 3 PRIORITY TASKS ============ -->
+    <div class="section-title" data-focus="keep"><span class="lbl">③</span><h2 class="serif" data-en="Today's 3 Priority Tasks" data-ar="أولويات اليوم الثلاث">Today's 3 Priority Tasks</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="ADHD-simple · one cash action before 12PM" data-ar="مبسّطة · إجراء دخل واحد قبل الظهر">ADHD-simple · one cash action before 12PM</span></div>
+    <div data-focus="keep">
+      <div class="pritasks" id="priTasks"></div>
+      <div class="accountability">
+        <div class="q">🎯 <span data-en="Did I complete all 3? What cash did I collect? What stopped me?" data-ar="هل أنجزت الثلاثة؟ كم جمعت من الدخل؟ ما الذي أوقفني؟">Did I complete all 3? What cash did I collect? What stopped me?</span></div>
+        <div class="sub" data-en="Ask this every evening. Write the honest answer — that's the whole system." data-ar="اسأل نفسك هذا كل مساء. اكتب الإجابة بصدق — هذا هو النظام كله.">Ask this every evening. Write the honest answer — that's the whole system.</div>
+      </div>
+      <div class="eveningrev">🌙 <span data-en="Evening review (5 min): update Cash Collected above, mark the 3 tasks, log 1 lesson in the 7-day sprint." data-ar="مراجعة مسائية (٥ د): حدّث المحصّل بالأعلى، علّم المهام الثلاث، سجّل درسًا واحدًا في سباق الأيام السبعة.">Evening review (5 min): update Cash Collected above, mark the 3 tasks, log 1 lesson in the 7-day sprint.</span></div>
+    </div>
+
+    <div class="grid r1">
+      <!-- TODAY'S 3 SIGNALS — the ONLY pulsing items -->
+      <div class="card" data-focus="keep" data-lane="overview" style="--tone:var(--signalx)"><div class="ch"><h3 data-en="Today's 3 Signals" data-ar="إشارات اليوم">Today's 3 Signals</h3><span class="ar">إشارات اليوم</span></div><div id="sigList"></div><div class="sigrule" id="sigrule"></div></div>
+
+      <div class="card" data-lane="overview" style="--tone:var(--teal)">
+        <div class="ch"><h3 data-en="Cowork Cube — Brain Map" data-ar="مكعّب العمل">Cowork Cube — Brain Map</h3><span class="link tip" data-tip="Click a node to route">?</span></div>
+        <div class="brainmap live" id="brainmap"><canvas id="bmGalaxy" class="bm-galaxy"></canvas>
+          <svg class="bm-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="20" y1="22" x2="50" y2="48"/><line x1="50" y1="16" x2="50" y2="48"/><line x1="80" y1="22" x2="50" y2="48"/><line x1="18" y1="78" x2="50" y2="50"/><line x1="50" y1="86" x2="50" y2="52"/><line x1="82" y1="78" x2="50" y2="50"/></svg>
+          <div class="bm-cube"><div class="bm-scene"><div class="bm-face bm-f1"></div><div class="bm-face bm-f2"></div><div class="bm-face bm-f3"></div><div class="bm-face bm-f4"></div><div class="bm-face bm-f5"></div><div class="bm-face bm-f6"></div></div><div class="bm-core"></div></div>
+          <div class="bm-label tip" style="--tone:var(--signalx);left:3%;top:9%" data-tip="Opens 3D Galaxy → SignalX" onclick="openMod('SignalX','signalx')"><b><span class="dot"></span>SIGNALX</b><small>Coaching</small></div>
+          <div class="bm-label tip" style="--tone:var(--aitools);left:38%;top:2%" data-tip="Opens 3D Galaxy → AI Tools" onclick="openMod('AI Tools','aitools')"><b><span class="dot"></span>AI TOOLS</b><small>Lab</small></div>
+          <div class="bm-label tip" style="--tone:var(--tre);right:2%;top:9%" data-tip="Opens 3D Galaxy → TRE Arabia" onclick="openMod('TRE Arabia','tre')"><b><span class="dot"></span>TRE ARABIA</b><small>Breath</small></div>
+          <div class="bm-label tip" style="--tone:var(--finance);left:2%;bottom:5%" data-tip="Opens 3D Galaxy → Finance" onclick="openMod('Finance','finance')"><b><span class="dot"></span>FINANCE</b><small>Money</small></div>
+          <div class="bm-label tip" style="--tone:var(--vault);left:39%;bottom:1%" data-tip="Opens 3D Galaxy → Vault" onclick="openMod('Vault','vault')"><b><span class="dot"></span>VAULT</b><small>Secure</small></div>
+          <div class="bm-label tip" style="--tone:var(--pets);right:2%;bottom:5%" data-tip="Opens 3D Galaxy → GS Pets" onclick="openMod('GS Pets','pets')"><b><span class="dot"></span>GS PETS</b><small>Separate</small></div>
+          <div class="bm-mods" id="bmMods">
+            <div class="mod" onclick="openMod('SignalX','signalx')"><span class="dot" style="background:var(--signalx)"></span>SignalX</div>
+            <div class="mod" onclick="openMod('TRE Arabia','tre')"><span class="dot" style="background:var(--tre)"></span>TRE Arabia</div>
+            <div class="mod" onclick="openMod('AI Tools','aitools')"><span class="dot" style="background:var(--aitools)"></span>AI Tools Lab</div>
+            <div class="mod" onclick="openMod('GS Pets','pets')"><span class="dot" style="background:var(--pets)"></span>GS Pets (sep.)</div>
+            <div class="mod" onclick="openMod('Finance','finance')"><span class="dot" style="background:var(--finance)"></span>Finance</div>
+            <div class="mod" onclick="openMod('Vault','vault')"><span class="dot" style="background:var(--vault)"></span>Vault</div>
+          </div>
+          <a class="bm-img-slot" href="BM_Cowork_OS_Brain_3D.html" style="cursor:pointer;text-decoration:none;display:grid;place-items:center" data-en="🌌 Open the live Brain Galaxy (3D) →" data-ar="🌌 افتح دماغ المجرّة الحي (3D) ←">🌌 Open the live Brain Galaxy (3D) →</a>
+        </div>
+        <div class="cubebar"><a class="btn primary" href="BM_Cowork_OS_Brain_3D.html" title="Opens the live 3D Brain Galaxy" data-en="🌌 3D Galaxy ↗" data-ar="🌌 المجرّة 3D ↗">🌌 3D Galaxy ↗</a><a class="btn" href="BM_Cowork_OS_Brain_Map.html" title="Opens the 2D Brain Map" data-en="2D Map ↗" data-ar="خريطة 2D ↗">2D Map ↗</a><button class="btn" id="cubeBtn" onclick="toggleCube()" data-en="Expand" data-ar="توسيع">Expand</button><button class="btn tip" data-tip="Park" onclick="cubeMsg()" data-en="Park ⏸" data-ar="تأجيل ⏸">Park ⏸</button><button class="btn" onclick="backCube()" data-en="Back" data-ar="رجوع">Back</button></div>
+        <div id="modNote" class="sm muted" style="margin-top:6px;text-align:center;font-size:var(--fs-meta)"></div>
+      </div>
+
+      <div class="card" data-lane="messages" style="--tone:var(--aitools)"><div class="ch"><h3 data-en="Action Center" data-ar="مركز الإجراءات">Action Center</h3><span class="ar">مركز الإجراءات</span></div><div id="acList"></div><div class="sm muted" style="margin-top:6px;font-size:var(--fs-meta)" data-en="Support — quiet priority dots, no pulse. Promote an item to a Signal to make it pulse." data-ar="دعم — نقاط أولوية هادئة بلا نبض. رقّ العنصر إلى إشارة ليبدأ النبض.">Support — quiet priority dots, no pulse. Promote an item to a Signal to make it pulse.</div></div>
+
+      <div class="card" data-lane="overview" style="--tone:var(--teal)">
+        <div class="ch"><h3 data-en="Reminders + Calendar" data-ar="التذكيرات والتقويم">Reminders + Calendar</h3><span class="link" data-en="View" data-ar="عرض">View</span></div>
+        <div class="sm b" style="margin-bottom:6px">‹ May 2026 ›</div>
+        <div class="cal"><span class="dow">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span><span class="day dim">24</span><span class="day">25</span><span class="day on">26</span><span class="day">27</span><span class="day">28</span><span class="day">29</span><span class="day">30</span></div>
+        <div id="calRows"><div class="ev"><span class="t">10:00</span><span>SignalX Call</span><span class="muted sm" style="margin-inline-start:auto;font-size:var(--fs-meta)">60m</span></div>
+        <div class="ev"><span class="t">15:00</span><span>TRE Session</span><span class="muted sm" style="margin-inline-start:auto;font-size:var(--fs-meta)">90m</span></div>
+        <div class="ev"><span class="t">17:30</span><span>GS Pets Content</span><span class="muted sm" style="margin-inline-start:auto;font-size:var(--fs-meta)">45m</span></div></div>
+        <div class="link" id="calStatus" style="margin-top:7px" data-en="🔌 Connect Calendar (read-only)" data-ar="🔌 ربط التقويم (قراءة فقط)">🔌 Connect Calendar (read-only)</div>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="lbl">🎬</span><h2 class="serif" data-en="Production Assets Ready" data-ar="أصول الإنتاج جاهزة">Production Assets Ready</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="Synthesia + ElevenLabs · safe aliases only · no real IDs/keys" data-ar="Synthesia + ElevenLabs · أسماء آمنة فقط · بلا معرّفات/مفاتيح حقيقية">Synthesia + ElevenLabs · safe aliases only · no real IDs/keys</span></div>
+    <div class="card" data-lane="aitools" style="--tone:var(--aitools);margin-bottom:var(--sp4)">
+      <div class="ready" id="readyStrip"></div>
+      <div class="prodassets" id="prodAssets"></div>
+      <div class="sm muted" style="margin-top:9px;font-size:var(--fs-meta)" data-en="No real IDs, keys, or tokens stored. Real asset IDs live only in your own Synthesia / ElevenLabs accounts. Testing is manual, inside your accounts." data-ar="لا تُخزَّن معرّفات أو مفاتيح حقيقية. المعرّفات الحقيقية تبقى في حساباتك في Synthesia / ElevenLabs. الاختبار يدوي داخل حساباتك.">No real IDs, keys, or tokens stored. Real asset IDs live only in your own Synthesia / ElevenLabs accounts. Testing is manual, inside your accounts.</div>
+    </div>
+
+    <div class="section-title"><span class="lbl">$</span><h2 class="serif" data-en="Customer-Ready Output" data-ar="مخرجات جاهزة للعميل">Customer-Ready Output</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="one card per cash Signal · readiness shown per asset" data-ar="بطاقة لكل إشارة دخل · الجاهزية لكل أصل">one card per cash Signal · readiness shown per asset</span></div>
+    <div class="cro" id="croGrid"></div>
+
+    <div class="section-title"><span class="lbl">3×3</span><h2 class="serif" data-en="3×3 Validation Rule" data-ar="قاعدة التحقق ٣×٣">3×3 Validation Rule</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="validate ≥3 items per automation before it goes out" data-ar="تحقق من ٣ عناصر على الأقل لكل أتمتة">validate ≥3 items per automation before it goes out</span></div>
+    <div class="v33" id="v33Grid"></div>
+
+    <div class="section-title"><span class="lbl">⟳</span><h2 class="serif" data-en="Cash Action Log" data-ar="سجل إجراءات الدخل">Cash Action Log</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="every move that can lead to a customer / revenue" data-ar="كل خطوة قد تقود إلى عميل أو دخل">every move that can lead to a customer / revenue</span></div>
+    <div class="card" style="margin-bottom:var(--sp4)"><div class="logwrap"><table class="logtable" id="cashLog"></table></div></div>
+
+    <!-- ============ v11 · C · ASSET-TO-CASH MAP ============ -->
+    <div class="section-title"><span class="lbl">💰</span><h2 class="serif" data-en="Asset-to-Cash Map" data-ar="خريطة الأصول إلى دخل">Asset-to-Cash Map</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="every asset → how it turns into cash · Park · Active · Blocked" data-ar="كل أصل → كيف يتحوّل إلى دخل · مؤجّل · نشط · محجوب">every asset → how it turns into cash · Park · Active · Blocked</span></div>
+    <div class="assetgrid" id="assetGrid"></div>
+
+    <!-- ============ v11 · D · OUTREACH TRACKER ============ -->
+    <div class="section-title"><span class="lbl">📣</span><h2 class="serif" data-en="Outreach Tracker" data-ar="متتبّع التواصل">Outreach Tracker</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="mock contacts · aliases only · nothing is sent from here" data-ar="جهات تجريبية · أسماء فقط · لا يُرسَل شيء من هنا">mock contacts · aliases only · nothing is sent from here</span></div>
+    <div class="card" style="margin-bottom:var(--sp4)">
+      <div class="filters" id="outFilters"></div>
+      <div class="logwrap"><table class="otable"><thead><tr>
+        <th data-en="Contact" data-ar="جهة">Contact</th><th data-en="Segment" data-ar="القطاع">Segment</th><th data-en="Channel" data-ar="القناة">Channel</th><th data-en="Offer" data-ar="العرض">Offer</th><th data-en="Status" data-ar="الحالة">Status</th><th data-en="Follow-up" data-ar="المتابعة">Follow-up</th><th data-en="Prob." data-ar="احتمال">Prob.</th><th data-en="Next action" data-ar="الخطوة التالية">Next action</th>
+      </tr></thead><tbody id="outRows"></tbody></table></div>
+      <div class="sm muted" style="margin-top:8px;font-size:var(--fs-meta)" data-en="Tracking only. Messages are written and sent manually by you — the dashboard never contacts anyone." data-ar="تتبّع فقط. الرسائل تُكتب وتُرسَل يدويًا منك — اللوحة لا تتواصل مع أحد.">Tracking only. Messages are written and sent manually by you — the dashboard never contacts anyone.</div>
+    </div>
+
+    <!-- ============ v11 · E · KNOWLEDGE BANK PANEL ============ -->
+    <div class="section-title"><span class="lbl">🏦</span><h2 class="serif" data-en="Knowledge Bank" data-ar="بنك المعرفة">Knowledge Bank</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="Knowledge Base = Bank · search your own assets" data-ar="قاعدة المعرفة = بنك · ابحث في أصولك">Knowledge Base = Bank · search your own assets</span></div>
+    <div class="card" style="margin-bottom:var(--sp4)">
+      <div class="kbcats" id="kbCats"></div>
+      <label class="kbsearch"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg><input id="kbSearch" placeholder="Search knowledge…" oninput="renderKB()"></label>
+      <div class="kblist" id="kbList"></div>
+    </div>
+
+    <!-- ============ v11 · F · DECISION PARKING LOT ============ -->
+    <div class="section-title"><span class="lbl">🅿️</span><h2 class="serif" data-en="Decision Parking Lot" data-ar="موقف القرارات">Decision Parking Lot</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="parked ≠ forgotten · protect focus, don't lose ideas" data-ar="مؤجّل ≠ منسيّ · احمِ التركيز دون فقدان الأفكار">parked ≠ forgotten · protect focus, don't lose ideas</span></div>
+    <div class="parklot" id="parkLot"></div>
+
+    <!-- ============ v11 · G · 7-DAY CASH SPRINT VIEW ============ -->
+    <div class="section-title"><span class="lbl">📅</span><h2 class="serif" data-en="7-Day Cash Sprint" data-ar="سباق الدخل ٧ أيام">7-Day Cash Sprint</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="one primary action per day → result → lesson" data-ar="إجراء رئيسي واحد كل يوم → نتيجة → درس">one primary action per day → result → lesson</span></div>
+    <div class="card" style="margin-bottom:var(--sp4)"><div class="logwrap"><table class="sprint7"><thead><tr>
+      <th data-en="Day" data-ar="اليوم">Day</th><th data-en="Primary action" data-ar="الإجراء الرئيسي">Primary action</th><th data-en="Outreach target" data-ar="هدف التواصل">Outreach target</th><th data-en="Offer sent" data-ar="عرض مُرسل">Offer sent</th><th data-en="Cash target" data-ar="هدف الدخل">Cash target</th><th data-en="Result" data-ar="النتيجة">Result</th><th data-en="Lesson" data-ar="الدرس">Lesson</th>
+    </tr></thead><tbody id="sprint7Rows"></tbody></table></div></div>
+
+    <div class="grid r3" style="margin-top:var(--sp4)">
+      <div class="card" data-lane="aitools" style="--tone:var(--aitools)"><div class="ch"><h3 data-en="Tool Stack Control Center" data-ar="مركز التحكم بالأدوات">Tool Stack Control Center</h3><span class="link" data-en="Manage" data-ar="إدارة">Manage</span></div><div id="toolList"></div></div>
+      <div class="card" data-lane="content" style="--tone:var(--teal)">
+        <div class="ch"><h3 data-en="Content Pipeline" data-ar="خط الإنتاج">Content Pipeline</h3><span class="cap">All Channels ▾</span></div>
+        <div class="pipe"><div class="pcol"><h4>Draft <span>3</span></h4><div class="pc">SignalX: Mindset Tips<small>YT Short</small></div><div class="pc">TRE Breath Basics<small>Reel</small></div></div><div class="pcol"><h4>Ready <span>4</span></h4><div class="pc">SignalX Story<small>YouTube</small></div></div><div class="pcol"><h4>Scheduled <span>2</span></h4><div class="pc">Mindful Monday<small>Short</small></div></div><div class="pcol"><h4>Published <span>6</span></h4><div class="pc">SignalX — Focus<small>May 24</small></div></div></div>
+        <div class="sm muted" style="margin-top:8px;font-size:var(--fs-meta)" data-en="Publishing is manual & confirmed." data-ar="النشر يدوي.">Publishing is manual &amp; confirmed.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp4)">
+        <div class="card" data-lane="vault" style="--tone:var(--vault)"><div class="ch"><h3 data-en="Security Vault" data-ar="الخزنة">Security Vault</h3><span class="link" data-en="Open" data-ar="فتح">Open</span></div><div class="vault"><span class="shield"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span><div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill green">🔒 Encrypted</span><span class="pill green">2FA</span><span class="pill" data-en="Aliases only" data-ar="أسماء فقط">Aliases only</span></div><p class="sm muted" style="margin-top:6px;font-size:var(--fs-meta)" data-en="Asset aliases only. Real Synthesia/ElevenLabs IDs stay in your accounts." data-ar="أسماء الأصول فقط. المعرّفات الحقيقية تبقى في حساباتك.">Asset aliases only. Real Synthesia/ElevenLabs IDs stay in your accounts.</p></div></div></div>
+        <div class="card fin" data-lane="finance" style="--tone:var(--finance)"><div class="ch"><h3 data-en="Finance Board" data-ar="اللوحة المالية">Finance Board</h3><span class="link" data-en="Details" data-ar="تفاصيل">Details</span></div><div class="sm muted" style="font-size:var(--fs-meta)" data-en="Support — obligation context (no pulse)" data-ar="دعم — سياق الالتزامات (بلا نبض)">Support — obligation context (no pulse)</div><div class="big">+18,450 <span class="sm muted" style="font-size:var(--fs-meta)">SAR</span> <span class="pill green">▲ 24%</span></div><div class="sm muted" style="margin-top:7px;font-size:var(--fs-meta)" data-en="Debt Reduction" data-ar="خفض الديون">Debt Reduction</div><div class="progress"><i></i></div><div class="sm"><b>68%</b> <span class="muted" data-en="of plan" data-ar="من الخطة">of plan</span></div><div style="border-top:1px solid var(--line2);margin-top:9px;padding-top:7px"><div class="obl"><span class="tile" style="--tone:var(--finance)"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></span><span data-en="Loan Payment" data-ar="قسط القرض">Loan Payment</span><span class="pill red" style="margin-inline-start:8px">May 31</span><span class="amt">2,450</span></div><div class="obl"><span class="tile" style="--tone:var(--finance)"><svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/></svg></span><span data-en="Office Rent" data-ar="إيجار">Office Rent</span><span class="pill orange" style="margin-inline-start:8px">Jun 10</span><span class="amt">3,500</span></div></div></div>
+      </div>
+    </div>
+
+    <div class="section-title"><span class="lbl">◧</span><h2 class="serif" data-en="Cowork Items" data-ar="عناصر العمل">Cowork Items</h2></div>
+    <div class="items" id="itemsGrid"></div>
+
+    <div class="section-title"><span class="lbl">✦</span><h2 class="serif" data-en="Creativity Agent — Experiment Builder" data-ar="وكيل الإبداع">Creativity Agent — Experiment Builder</h2></div>
+    <div class="flowline"><span data-en="Opportunity Radar" data-ar="رادار الفرص">Opportunity Radar</span>→<span data-en="Creativity Agent" data-ar="وكيل الإبداع">Creativity Agent</span>→<span data-en="Content Experiment" data-ar="تجربة">Content Experiment</span>→<span data-en="Pipeline" data-ar="الإنتاج">Pipeline</span>→<span data-en="Results / Archive" data-ar="نتائج">Results / Archive</span></div>
+    <div class="cre" id="creGrid"></div>
+
+    <div class="section-title"><span class="lbl">🎙️</span><h2 class="serif" data-en="Arabic Voice & Dubbing Lab" data-ar="مختبر الصوت والدبلجة">Arabic Voice &amp; Dubbing Lab</h2></div>
+    <div class="card" data-lane="aitools" style="--tone:var(--aitools);margin-bottom:var(--sp4)"><div class="ch"><h3 data-en="Saudi / GCC Pronunciation Checklist (mock)" data-ar="قائمة نطق سعودية/خليجية">Saudi / GCC Pronunciation Checklist (mock)</h3></div><div class="checklist" id="checklist"></div></div>
+    <div class="avlab" id="avLab"></div>
+
+    <div class="section-title" data-focus="keep"><span class="lbl">→</span><h2 class="serif" data-en="Next Actions — Intelligence" data-ar="الخطوات التالية">Next Actions — Intelligence</h2><span class="sm muted" style="font-size:var(--fs-meta)" data-en="status pills only · pulse only if linked to a Signal" data-ar="حالات فقط · النبض فقط إذا ارتبطت بإشارة">status pills only · pulse only if linked to a Signal</span></div>
+    <div id="naList" data-focus="keep"></div>
+
+    <div class="section-title"><span class="lbl">🔒</span><h2 class="serif" data-en="Product Truth Agent" data-ar="وكيل التحقق">Product Truth Agent</h2></div>
+    <div class="card locked"><div style="display:flex;align-items:center;gap:10px"><span class="pdot grey"></span><b data-en="Locked — coming soon" data-ar="مقفل — قريبًا">Locked — coming soon</b><span class="muted sm" style="font-size:var(--fs-meta)" data-en="Verifies claims before publishing. Not built." data-ar="غير مُفعّل.">Verifies claims before publishing. Not built.</span></div></div>
+
+    <div class="section-title"><span class="lbl" data-en="BRAND LANES" data-ar="العلامات">BRAND LANES</span><h2 class="serif" data-en="Project Lanes" data-ar="مسارات">Project Lanes</h2></div>
+    <div class="lanes">
+      <div class="blane" data-lane="signalx" style="--tone:var(--signalx);background:linear-gradient(135deg,#F0FAF7,var(--card))"><div><div class="nm">SIGNAL<span class="x">X</span></div><div class="sub" data-en="Empowering minds." data-ar="نُمكّن العقول.">Empowering minds.</div></div><button class="btn primary" onclick="selectLane('signalx')" data-en="Open Hub" data-ar="افتح">Open Hub</button></div>
+      <div class="blane" data-lane="tre" style="--tone:var(--tre);background:linear-gradient(135deg,#F3FBEF,var(--card))"><div><div class="nm">TRE Arabia</div><div class="sub" data-en="Breath. Release. Renew." data-ar="تنفّس. تفريغ. تجدّد.">Breath. Release. Renew.</div></div><button class="btn primary" style="background:var(--tre);border-color:var(--tre)" onclick="selectLane('tre')" data-en="Open Hub" data-ar="افتح">Open Hub</button></div>
+      <div class="blane" data-lane="pets" style="--tone:var(--pets);background:linear-gradient(135deg,#F3EEFB,var(--card))"><div><span class="cap tone" style="--tone:var(--pets)" data-en="separate brand" data-ar="علامة منفصلة">separate brand</span><div class="nm" style="margin-top:6px">🐾 GS PETS</div><div class="sub" data-en="Adopt. Love. Rescue." data-ar="تبنَّ. أحبب. أنقذ.">Adopt. Love. Rescue.</div></div><button class="btn primary" style="background:var(--pets);border-color:var(--pets)" onclick="selectLane('pets')" data-en="Open Hub" data-ar="افتح">Open Hub</button></div>
+      <div class="blane" data-lane="aitools" style="--tone:var(--aitools);background:linear-gradient(135deg,#EEF5FC,var(--card))"><div><div class="nm">AI TOOLS LAB</div><div class="sub" data-en="Create. Automate. Elevate." data-ar="أنشئ. أتمت. ارتقِ.">Create. Automate. Elevate.</div></div><button class="btn primary" style="background:var(--aitools);border-color:var(--aitools)" onclick="selectLane('aitools')" data-en="Open Hub" data-ar="افتح">Open Hub</button></div>
+    </div>
+
+    <div class="foot" data-en="Beautiful Mind Cowork OS — v11 (Founder Execution Cockpit) · cash-first cockpit + v10 Brain layer · all data is mock / aliases only · offline · no API calls · no secrets · nothing rendered, published, or sent automatically. · Brain: BM_Cowork_OS_Brain_3D.html / BM_Cowork_OS_Brain_Map.html." data-ar="نظام Beautiful Mind Cowork — الإصدار v11 (قمرة قيادة المؤسس) · قمرة تركّز على الدخل + طبقة الدماغ v10 · كل البيانات تجريبية / أسماء فقط · غير متصل · لا استدعاءات · لا أسرار · لا تصدير/نشر/إرسال تلقائي. · الدماغ: BM_Cowork_OS_Brain_3D.html / BM_Cowork_OS_Brain_Map.html.">Beautiful Mind Cowork OS — v11 (Founder Execution Cockpit) · cash-first cockpit + v10 Brain layer · all data is mock / aliases only · offline · no API calls · no secrets · nothing rendered, published, or sent automatically. · Brain: BM_Cowork_OS_Brain_3D.html / BM_Cowork_OS_Brain_Map.html.</div>
+  </main>
+</div></div>
+
+<script>
+var lang="en";
+function laneVar(l){return {signalx:'var(--signalx)',tre:'var(--tre)',aitools:'var(--aitools)',pets:'var(--pets)',finance:'var(--finance)',vault:'var(--vault)',files:'var(--files)',content:'var(--teal)',overview:'var(--teal)',bookmarks:'var(--gold)',messages:'var(--aitools)'}[l]||'var(--teal)';}
+function laneName(l){return {signalx:'SignalX',tre:'TRE',aitools:'AI Tools',pets:'GS Pets',finance:'Finance',vault:'Vault',files:'Files',content:'Content'}[l]||l;}
+function ksaNow(){var n=new Date();return new Date(n.getTime()+n.getTimezoneOffset()*60000+3*3600000);}
+function tile(svgInner,tone){return '<span class="tile" style="--tone:'+(tone||'var(--teal)')+'">'+svgInner+'</span>';}
+function badge(letter,tone){return '<span class="tile" style="--tone:'+tone+'">'+letter+'</span>';}
+function rdyChip(it){var s=it[2];var col=s=="ok"?"green":s=="partial"?"orange":"grey";var ic=s=="ok"?"✓":s=="partial"?"~":"⌛";return '<span class="pill '+col+'">'+ic+' '+(lang=="ar"?it[1]:it[0])+'</span>';}
+var SVG={grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',signal:'<path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14V7"/>',breath:'<path d="M3 12h4l2-6 4 12 2-6h6"/>',spark:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/>',paw:'<circle cx="8" cy="9" r="1.6"/><circle cx="16" cy="9" r="1.6"/><circle cx="6" cy="14" r="1.4"/><circle cx="18" cy="14" r="1.4"/><path d="M9 18c0-2 1.5-3 3-3s3 1 3 3-1.5 2-3 2-3 0-3-2z"/>',file:'<path d="M4 7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>',book:'<path d="M6 3h12v18l-6-4-6 4z"/>',inbox:'<path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/>',money:'<path d="M4 18l5-5 4 4 8-9"/>',vault:'<rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="12" cy="12" r="3"/>',call:'<path d="M4 5c0 8 7 15 15 15l-2-4-4 1-6-6 1-4z"/>',session:'<path d="M3 12h4l2-6 4 12 2-6h6"/>',meeting:'<circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5"/>',reminder:'<circle cx="12" cy="13" r="7"/><path d="M12 9v4l2 2M9 3l-2 2M15 3l2 2"/>',cal:'<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/>'};
+var LANES=[['overview','Overview','نظرة عامة','grid'],['signalx','SignalX','SignalX','signal'],['tre','TRE Arabia','TRE Arabia','breath'],['aitools','AI Tools','أدوات الذكاء','spark'],['SEP1','Separate brand','علامة منفصلة'],['pets','GS Pets','GS Pets','paw'],['SEP2'],['files','Files & Drive','الملفات','file'],['bookmarks','Bookmarks','المفضلة','book'],['messages','Action Center','مركز الإجراءات','inbox'],['finance','Finance & Money','المالية','money'],['vault','Security Vault','الخزنة','vault']];
+function renderLanes(){var h="";LANES.forEach(function(l){if(l[0]=='SEP1'){h+='<div class="sep"></div><div class="head">'+(lang=="ar"?l[2]:l[1])+'</div>';return;}if(l[0]=='SEP2'){h+='<div class="sep"></div>';return;}var on=l[0]=='overview'?' on':'';var prev=['signalx','tre','aitools','pets','finance','vault'].indexOf(l[0])>-1;h+='<div class="lane'+on+'" style="--tone:'+laneVar(l[0])+'" data-lane="'+l[0]+'" onclick="selectLane(\''+l[0]+'\')"'+(prev?' onmouseenter="previewLane(\''+l[0]+'\')" onmouseleave="clearPreview()"':'')+'>'+tile('<svg viewBox="0 0 24 24">'+(SVG[l[3]]||'')+'</svg>',laneVar(l[0]))+'<span class="txt">'+(lang=="ar"?l[2]:l[1])+'</span></div>';});document.getElementById("sideLanes").innerHTML=h;}
+/* SIGNALS — only pulsing items; done/park stops pulse. Signal 1 & 3 show production readiness. */
+var SIG=[
+ ["AI Cowork Arabic Video","Avatar ✓ · Voice ✓ — validate script + AR pronunciation","12:00",["Customer-Ready #1","Also in Next Action"],"open",[["avatar","الأفاتار","ok"],["voice","الصوت","ok"],["script","النص","partial"],["pronunciation","النطق","pending"],["CTA","الدعوة","pending"],["render","التصدير","pending"]]],
+ ["Arabic AI Book / Guide","Title + outline + sample + sales page","16:00",["Customer-Ready #2"],"open",[]],
+ ["SignalX / Birkman TikTok","Avatar ✓ · Voice ✓ — select asset + validate Birkman wording","18:00",["Customer-Ready #3","Also in Pipeline"],"open",[["avatar opt.","الأفاتار","ok"],["voice opt.","الصوت","ok"],["asset","الأصل","pending"],["hook","الخطاف","partial"],["Birkman","صياغة Birkman","pending"],["CTA","الدعوة","pending"]]]
+];
+function sigState(s){if(s[4]=="done")return["done","Done","تم"];if(s[4]=="parked")return["parked","Parked","مؤجّل"];var k=ksaNow();var hr=k.getHours()+k.getMinutes()/60;var due=parseFloat(s[2].split(":")[0]);if(hr>=17&&hr>due)return["red","Overdue Signal","متأخرة"];if(due-hr<=2&&due>=hr)return["orange","Due soon","قريب"];if(hr>due)return["red","Overdue Signal","متأخرة"];return["green","On track","في المسار"];}
+function renderSig(){var h="";SIG.forEach(function(s,i){var st=sigState(s);var cl=s[3].map(function(x){return '<span class="xlink">'+x+'</span>';}).join(' ');
+ var pillcls=(st[0]=="done"||st[0]=="parked")?"grey":st[0];
+ var ready=(s[5]&&s[5].length)?'<div class="sigready">'+s[5].map(rdyChip).join('')+'</div>':'';
+ h+='<div class="row" style="--tone:'+(st[0]=="red"?'var(--s-red)':st[0]=="orange"?'var(--s-orange)':st[0]=="green"?'var(--s-green)':'var(--s-grey)')+'"><div class="itemhead"><span class="flash '+st[0]+'"></span><span class="num">'+(i+1)+'</span><div class="bd"><div class="t1"><span class="sigstar" title="Signal">✨</span>'+s[0]+' <a class="brainlink" href="BM_Cowork_OS_Brain_3D.html#focus='+encodeURIComponent(s[0])+'" title="Opens 3D Galaxy → '+s[0]+'">🌌</a></div><div class="t2">'+s[2]+' — '+s[1]+'</div><div class="metaline"><span class="pill '+pillcls+'">'+(lang=="ar"?st[2]:st[1])+'</span>'+cl+'</div>'+ready+(s[4]=="open"?'<div class="sigacts"><button class="btn primary sm" onclick="sigDo('+i+',\'done\')">✓ '+(lang=="ar"?"تم":"Done")+'</button><button class="btn sm" onclick="sigDo('+i+',\'parked\')">⏸ '+(lang=="ar"?"تأجيل":"Park")+'</button></div>':'')+'</div></div></div>';});
+ document.getElementById("sigList").innerHTML=h;
+ var hr=ksaNow().getHours();document.getElementById("sigrule").innerHTML=(lang=="ar"?"<b>الإشارات فقط تنبض.</b> ":"<b>Only Signals pulse.</b> ")+(hr>=17?(lang=="ar"?"بعد ٥م — إشارة غير منجزة = نبضة حمراء.":"After 5PM KSA — an unfinished Signal pulses red."):(lang=="ar"?"إشارة غير منجزة قبل ٥م → تنبض أخضر/برتقالي ثم أحمر.":"A Signal not done before 5PM KSA pulses green/orange then red."));}
+function sigDo(i,a){SIG[i][4]=a;renderSig();}
+/* RADAR — quiet, no pulse */
+var RADAR=[["CapCut voice-changer trending","content","aitools","Test SignalX clip",false],["Arabic coaching clips rising","trend","signalx","Make carousel",false],["GS Pets adoption performing","product","pets","Weekly reel",false],["Supplier price gap","supplier","pets","Review before buy",true],["Subscription renewal due","finance","finance","Review tool cost",false],["TRE nervous-system topic","content","tre","Prepare AR explainer",false],["Competitor strong hook","competitor","aitools","Capture pattern",false],["Synthesia AR pronunciation","aitool","aitools","Make tutorial",false]];
+var catTone={trend:'var(--s-blue)',product:'var(--tre)',supplier:'var(--s-gold)',competitor:'var(--pets)',content:'var(--teal)',finance:'var(--finance)',risk:'var(--s-red)',aitool:'#5B43D6'};
+var radarOpen=false;
+function renderRadar(){var h="";RADAR.forEach(function(r,i){if(!radarOpen&&i>=5)return;var tone=catTone[r[1]]||'var(--muted)';h+='<span class="rsig'+(r[4]?' crit':'')+' tip" data-tip="'+(lang=="ar"?"يفتح وكيل الإبداع":"Opens Creativity Agent")+'" onclick="radarClick(\''+r[2]+'\')"><span class="qcat" style="--tone:'+tone+'"><span class="qd"></span>'+r[1]+'</span>'+r[0]+(radarOpen?' <span class="muted" style="font-size:10.5px">· '+r[3]+'</span>':'')+'</span>';});document.getElementById("radarList").innerHTML=h;document.getElementById("radarMore").querySelector("span").textContent=radarOpen?(lang=="ar"?"أقل":"Less"):(lang=="ar"?"المزيد ("+(RADAR.length-5)+")":"More ("+(RADAR.length-5)+")");}
+function radarToggle(){radarOpen=!radarOpen;document.getElementById("radar").classList.toggle("open",radarOpen);renderRadar();}
+function radarClick(lane){document.getElementById("creGrid").scrollIntoView({behavior:'smooth',block:'center'});selectLane(lane);}
+/* PRODUCTION ASSETS READY — safe aliases only, no real IDs */
+var READINESS=[["Synthesia avatar","أفاتار Synthesia","ok"],["ElevenLabs voice clone","صوت ElevenLabs","ok"],["Arabic pronunciation test","اختبار النطق العربي","pending"],["Script approval","اعتماد النص","pending"],["Render / export test","اختبار التصدير","pending"],["CTA approval","اعتماد الدعوة","pending"]];
+var PRODASSETS=[
+ ["SYNTHESIA_AVATAR_MAIN_AR","Synthesia","avatar","Arabic / English","high","ready","Video · TikTok","30s avatar render test","Main avatar · real ID external","#5B43D6"],
+ ["ELEVENLABS_VOICE_MOHAMED_AR","ElevenLabs","cloned voice / narration","Arabic / GCC","ready for test","ready","Narration · Video · TikTok","AR pronunciation + tone test","Cloned voice · real ID external","#1d1d1d"],
+ ["SYNTHESIA_AVATAR_BUSINESS_EN","Synthesia","avatar","English / bilingual","high","ready","optional bilingual clips","bilingual render test","Business avatar · real ID external","#5B43D6"],
+ ["ELEVENLABS_VOICE_NARRATION_AR","ElevenLabs","narration voice","Arabic","ready for test","ready","Book promo · tutorial · TRE/SignalX","narration clarity test","Narration voice · real ID external","#1d1d1d"]
+];
+function renderReady(){document.getElementById("readyStrip").innerHTML=READINESS.map(rdyChip).join('');}
+function renderProdAssets(){var h="";PRODASSETS.forEach(function(p){var stcol=p[5]=="ready"?"green":"orange";h+='<div class="pa" style="--tone:var(--aitools)"><div class="alias">'+badge(p[1]=="Synthesia"?"SY":"EL",p[9])+'<span>'+p[0]+'</span></div><div class="kv2"><span class="k">'+(lang=="ar"?"الأداة":"Tool")+'</span><span class="v">'+p[1]+'</span><span class="k">'+(lang=="ar"?"النوع":"Type")+'</span><span class="v">'+p[2]+'</span><span class="k">'+(lang=="ar"?"اللغة":"Lang")+'</span><span class="v">'+p[3]+'</span><span class="k">'+(lang=="ar"?"الجودة":"Quality")+'</span><span class="v">'+p[4]+'</span><span class="k">'+(lang=="ar"?"الجاهزية":"Status")+'</span><span class="v"><span class="pill '+stcol+'">'+p[5]+'</span></span><span class="k">'+(lang=="ar"?"الأتمتة":"Used by")+'</span><span class="v">'+p[6]+'</span><span class="k">'+(lang=="ar"?"الاختبار":"Test")+'</span><span class="v">'+p[7]+'</span></div><div class="nt"><span class="safechip">🔒 '+(lang=="ar"?"اسم آمن — بلا معرّف حقيقي":"safe alias — no real ID")+'</span><div style="margin-top:5px">'+p[8]+'</div></div></div>';});document.getElementById("prodAssets").innerHTML=h;}
+/* tools + bookmarks */
+var TOOLS=[["Synthesia","Sy","#5B43D6","avatar · ready",92,1],["ElevenLabs","EL","#1d1d1d","voice clone · ready",88,1],["CapCut","CC","#111","editing",48,1],["VEED","VE","#2B7CFF","online video",70,0],["Mage.Space","MG","#7A3FF2","image gen",42,0],["Moises","MO","#00A98F","audio",35,1],["Gemini","GE","#1A73E8","AI",80,1],["ChatGPT","GP","#10A37F","AI",88,1],["Grok","GK","#2b2b2b","AI",42,0]];
+function renderTools(){var h="";TOOLS.forEach(function(t){var st=t[5]?'<span class="pill green">'+(lang=="ar"?"نشط":"Active")+'</span>':'<span class="pill orange">'+(lang=="ar"?"مراجعة":"Review")+'</span>';h+='<div class="tool">'+badge(t[1],t[2])+'<div class="nm"><b>'+t[0]+'</b><small>'+t[3]+'</small></div>'+st+'<span class="bar'+(t[5]?'':' hi')+'"><i style="width:'+t[4]+'%"></i></span></div>';});document.getElementById("toolList").innerHTML=h;}
+var BKG=[["Workspace",[["Drive","DR","#1FA463"],["Files","FI","#7A8C88"],["HQ","HQ","#008C84"]]],["AI Tools",[["ChatGPT","GP","#10A37F"],["Gemini","GE","#1A73E8"],["Grok","GK","#2b2b2b"]]],["Content Tools",[["Synthesia","SY","#5B43D6"],["CapCut","CC","#111"],["VEED","VE","#2B7CFF"],["ElevenLabs","EL","#1d1d1d"]]],["Google Tools",[["Gmail","GM","#D14836"],["Calendar","CA","#1A73E8"],["YouTube","YT","#E0203A"]]],["Business Tools",[["Notion","NO","#222"],["Airtable","AT","#D69A12"],["Bitly","BL","#D2562B"]]]];
+function renderBookmarks(){var _b=document.getElementById("bkgroups");if(!_b)return;var h="";BKG.forEach(function(g){var rows=g[1].map(function(b){return '<span class="bk tip" data-tip="'+b[0]+'">'+badge(b[1],b[2])+b[0]+'</span>';}).join('');h+='<div class="bkg"><div class="gh">'+g[0]+'<span class="cap mc">'+g[1].length+'</span></div><div class="bkrow">'+rows+'</div></div>';});_b.innerHTML=h;}
+/* ACTION CENTER — quiet static priority dots, NO pulse */
+var AC=[["inbox","New 1:1 booking: Sarah A.","Inbox","10:24","hi","Confirm","Reply & add to calendar",["Also in Calendar"],1,"signalx"],["money","Loan payment due","Finance · 2,450 SAR","May 31","hi","Plan","Move-funds plan",[],1,"finance"],["call","Discovery call — pilot lead","SignalX · 16:30","Today","md","Prep","Open proposal first",["Also in Next Action"],1,"aitools"],["session","TRE Live Session","TRE Arabia · 15:00","Today","md","Open","Prepare room + script",[],0,"tre"],["meeting","Team sync — TRE Arabia","Calendar · Wed","Wed","lo","View","Send agenda",[],0,"tre"],["reminder","Review one TRE asset","Reminder · Drive","Today","lo","Do","Pick from Drive library",[],0,"tre"],["cal","GS Pets content plan","Calendar · 17:30","Today","lo","View","Approve caption (AR)",["Separate brand"],0,"pets"]];
+function renderAC(){var urg=AC.filter(function(a){return a[8]==1}),oth=AC.filter(function(a){return a[8]==0});function row(a){var cl=a[7].map(function(x){return '<span class="xlink">'+x+'</span>';}).join(' ');return '<div class="ac">'+tile('<svg viewBox="0 0 24 24">'+(SVG[a[0]]||SVG.inbox)+'</svg>',laneVar(a[9]))+'<div class="bd"><div class="itemhead"><span class="pdot '+a[4]+'"></span><div class="t1">'+a[1]+'</div></div><div class="t2">'+a[2]+' '+cl+'</div><div class="nx">→ '+(lang=="ar"?"التالي: ":"Next: ")+a[6]+'</div></div><div class="right"><div class="when">'+a[3]+'</div><span class="link">'+a[5]+'</span></div></div>';}document.getElementById("acList").innerHTML='<div class="acgrp urgent"><span class="pdot hi"></span>'+(lang=="ar"?"عاجل":"Urgent")+'</div>'+urg.map(row).join('')+'<div class="acgrp">'+(lang=="ar"?"تذكيرات وجلسات":"Reminders & sessions")+'</div>'+oth.map(row).join('');}
+/* cowork items (no pulse) */
+var ITEMS=[["SignalX pilot proposal","signalx","proposal_v3.md","Active","Send to firm","Mohamed","May 28","green"],["TRE workshop — Khobar","tre","tre_workshop.md","Draft","Pick a date","Mohamed","Jun 3","orange"],["AI Tools tutorial #4","aitools","tutorial4.md","Active","Record avatar intro","Mohamed","May 30","green"],["GS Pets adoption reel","pets","reel_pets.mp4","Review","Approve caption","Team","May 27","orange"],["Debt plan — June","finance","june_plan.md","Active","Confirm loan payment","Mohamed","May 31","red"],["Rotate Supabase key","vault","—","Important","Rotate + move to vault","Mohamed","Today","red"]];
+function renderItems(){var h="";ITEMS.forEach(function(it,i){h+='<div class="item-card" style="--tone:'+laneVar(it[1])+'"><div class="itemhead"><span class="cap tone" style="--tone:'+laneVar(it[1])+'">'+laneName(it[1])+'</span><div class="t1" style="flex:1">'+it[0]+'</div><span class="pill '+it[7]+'">'+it[3]+'</span></div><div class="metaline"><span class="muted" style="font-size:var(--fs-meta)">'+(lang=="ar"?"المسؤول":"Owner")+': '+it[5]+'</span><span class="muted" style="font-size:var(--fs-meta)">'+(lang=="ar"?"الاستحقاق":"Due")+': '+it[6]+'</span><span class="muted" style="font-size:var(--fs-meta)">'+(lang=="ar"?"المصدر":"Src")+': '+it[2]+'</span></div><div class="nx" style="margin-top:4px;font-size:var(--fs-meta);color:var(--teal)">'+(lang=="ar"?"التالي":"Next")+': <b style="color:var(--ink)">'+it[4]+'</b></div><div class="acts"><button class="btn primary sm" onclick="itemMsg('+i+',\'open\')">'+(lang=="ar"?"فتح":"Open")+'</button><button class="btn sm" onclick="itemMsg('+i+',\'park\')">'+(lang=="ar"?"تأجيل":"Park")+'</button><button class="btn sm" onclick="itemMsg('+i+',\'ask\')">✦ '+(lang=="ar"?"اسأل Claude":"Ask Claude")+'</button></div><div class="note" id="cinote'+i+'"></div></div>';});document.getElementById("itemsGrid").innerHTML=h;syncAccent();}
+function itemMsg(i,a){var n=document.getElementById("cinote"+i);n.style.display="block";n.textContent={open:"Opened (mock).",park:"Parked (mock).",ask:"Claude would suggest the next step (mock)."}[a];}
+/* CUSTOMER-READY OUTPUT — one per cash Signal, with readiness strip */
+var CRO=[
+ ["AI Cowork Arabic Video","aitools","ai_cowork_ar_video","Hour 6–18","Mohamed","Test 30s avatar render","Arabic pronunciation validation","2 of 3 checkpoints","/Work/projects/AI Tools/output/ (link later)","Book Beautiful Mind / AI Tools session","1 paid session booking","validate",[["avatar","الأفاتار","ok"],["voice","الصوت","ok"],["script","النص","partial"],["pronunciation","النطق","pending"],["CTA","الدعوة","pending"],["render","التصدير","pending"]]],
+ ["Arabic AI Book / Guide","signalx","ar_ai_book","Hour 18–30","Mohamed","Write sample chapter","Pick final title + price","1 of 3 checkpoints","/Work/projects/SignalX/output/ (link later)","Buy the guide / join AI Tools Lab","First guide sale (39–79 SAR)","draft",[["title","العنوان","partial"],["outline","الهيكل","ok"],["sample","نموذج","pending"],["sales page","صفحة البيع","partial"],["price","السعر","pending"]]],
+ ["SignalX / Birkman TikTok","signalx","signalx_birkman_tiktok","Hour 30–42","Mohamed","Select 3 best assets + write hook","Asset selection pending","0 of 3 checkpoints","/Work/projects/SignalX/output/ (link later)","Register / book SignalX assessment","Assessment lead or booking","draft",[["avatar opt.","الأفاتار","ok"],["voice opt.","الصوت","ok"],["asset","الأصل","pending"],["hook","الخطاف","partial"],["Birkman","صياغة Birkman","pending"],["CTA","الدعوة","pending"]]]
+];
+var CRO_STAGES=["draft","validate","customer-ready","launched"];
+function renderCRO(){var h="";CRO.forEach(function(c){var stages=CRO_STAGES.map(function(s){return '<span class="st'+(s==c[11]?' on':'')+'">'+s+'</span>';}).join('');var ready=(c[12]&&c[12].length)?'<div class="ready">'+c[12].map(rdyChip).join('')+'</div>':'';h+='<div class="croc" style="--tone:'+laneVar(c[1])+'"><h4><span class="cap tone" style="--tone:'+laneVar(c[1])+'">'+laneName(c[1])+'</span>'+c[0]+'</h4><div class="stage">'+stages+'</div>'+ready+'<div class="kv"><span class="k">'+(lang=="ar"?"الأصل":"Asset")+'</span><span class="v">'+c[2]+'</span><span class="k">'+(lang=="ar"?"المرحلة":"Stage")+'</span><span class="v">'+c[3]+'</span><span class="k">'+(lang=="ar"?"المسؤول":"Owner")+'</span><span class="v">'+c[4]+'</span><span class="k">'+(lang=="ar"?"التالي":"Next")+'</span><span class="v"><b>'+c[5]+'</b></span><span class="k">'+(lang=="ar"?"عائق":"Blocker")+'</span><span class="v">'+c[6]+'</span><span class="k">'+(lang=="ar"?"التحقق":"Validation")+'</span><span class="v">'+c[7]+'</span><span class="k">'+(lang=="ar"?"المخرج":"Output")+'</span><span class="v faint">'+c[8]+'</span></div><div class="cta">▸ '+(lang=="ar"?"دعوة العميل: ":"Customer CTA: ")+c[9]+'</div><div class="cash">＄ '+(lang=="ar"?"إجراء الدخل: ":"Cash action: ")+c[10]+'</div></div>';});document.getElementById("croGrid").innerHTML=h;}
+/* 3x3 validation */
+var V33=[
+ ["AI Cowork Arabic Video","aitools",[["3 script hooks",[["Hook A: 'كيف تشغّل وكيل ذكاء يعمل بدلاً منك'",1],["Hook B: 'أسرع طريقة لاستخدام AI في شغلك ومحتواك'",1],["Hook C: 'سرّ إدارة عملك بوكلاء ذكاء'",0]]],["3 Arabic phrasing checks",[["Brand terms (Beautiful Mind / AI Tools Lab)",1],["GCC tone, not formal MSA only",0],["No literal English calques",0]]],["3 avatar/voice checks",[["Synthesia avatar lip-sync to AR",0],["ElevenLabs AR voice naturalness",0],["Mixed AR/EN names pronunciation",0]]]]],
+ ["Arabic AI Book / Guide","signalx",[["3 book titles",[["دليل الذكاء الاصطناعي العملي لرواد الأعمال والمدربين في الخليج",1],["Beautiful Mind AI Tools Guide: من الفكرة إلى المحتوى والدخل",1],["خريطة العمل بالذكاء الاصطناعي للمدرب الخليجي",0]]],["3 chapter ideas",[["من الفكرة إلى المحتوى",1],["بناء وكيل عمل شخصي (Cowork)",0],["تحويل المحتوى إلى دخل",0]]],["3 pricing/offer options",[["39 SAR intro guide",1],["79 SAR guide + templates",0],["149 SAR guide + 1 session",0]]]]],
+ ["SignalX / Birkman TikTok","signalx",[["3 TikTok hooks",[["لماذا يتصرّف الأذكياء بشكل مختلف تحت الضغط؟",1],["تقييمك لا يُظهر شخصيتك فقط — بل كيف تدير صورتك",1],["إدارة الصورة هي الإشارة الخفية خلف السلوك",0]]],["3 asset candidates",[["Birkman session photo set (authorized)",1],["SignalX explainer clip (existing)",0],["Avatar talking-head version",0]]],["3 CTA options",[["احجز جلسة Beautiful Mind",1],["سجّل اهتمامك بتقييم SignalX",0],["اطلب الدليل الرقمي",0]]]]]
+];
+function renderV33(){var h="";V33.forEach(function(a){var groups=a[2].map(function(g){var done=g[1].filter(function(x){return x[1]}).length;var items=g[1].map(function(it){return '<div class="it'+(it[1]?' ok':'')+'">'+it[0]+'</div>';}).join('');return '<div class="v33grp"><div class="gl">'+g[0]+'<span class="n">'+done+'/'+g[1].length+'</span></div>'+items+'</div>';}).join('');h+='<div class="v33c" style="--tone:'+laneVar(a[1])+'"><h4>'+a[0]+'</h4>'+groups+'</div>';});document.getElementById("v33Grid").innerHTML=h;}
+/* cash action log */
+var CASHLOG=[
+ ["Day1","aitools","AI Cowork AR Video","Free value clip → session","GCC founders / coaches","Book Beautiful Mind session","DM 'أوافق' / click link","Send to 10 warm contacts","draft","Med","Arabic pronunciation validation pending"],
+ ["Day1","signalx","Arabic AI Guide","39 SAR intro guide","Arabic creators / SMB","Buy guide","Reply to sales page","Finish sample chapter","draft","High","Title not finalized"],
+ ["Day2","signalx","SignalX/Birkman Reel","Assessment lead magnet","Leaders / HR / coaches","Register interest","Comment 'SignalX'","Confirm Birkman wording","draft","Med","Asset selection pending"],
+ ["Day2","aitools","AI Tools Lab session","Paid live AI session","Existing audience","Join next session","Register form","Pick date + price","idea","Med","Date not set"],
+ ["Day3","signalx","Soft launch #1","First public output","Warm list","Watch + reply","Choose winner asset","Prepare launch message","planned","High","Awaiting your go"]
+];
+function renderCashLog(){var head=[["date","التاريخ"],["lane","المسار"],["asset","الأصل"],["offer","العرض"],["audience","الجمهور"],["CTA","الدعوة"],["expected action","الإجراء المتوقع"],["next follow-up","المتابعة"],["status","الحالة"],["revenue","احتمال الدخل"],["blocker","العائق"]];var h="<thead><tr>";head.forEach(function(x){h+="<th>"+(lang=="ar"?x[1]:x[0])+"</th>";});h+="</tr></thead><tbody>";CASHLOG.forEach(function(r){var rev=r[9]=="High"?"green":r[9]=="Med"?"orange":"grey";h+="<tr><td>"+r[0]+'</td><td><span class="cap tone" style="--tone:'+laneVar(r[1])+'">'+laneName(r[1])+'</span></td><td><b>'+r[2]+"</b></td><td>"+r[3]+"</td><td>"+r[4]+"</td><td>"+r[5]+"</td><td>"+r[6]+"</td><td>"+r[7]+'</td><td><span class="pill '+(r[8]=="draft"?"orange":"grey")+'">'+r[8]+'</span></td><td><span class="pill '+rev+'">'+r[9]+'</span></td><td class="faint">'+r[10]+"</td></tr>";});h+="</tbody>";document.getElementById("cashLog").innerHTML=h;}
+/* creativity */
+var CRE=[["CapCut voice-changer 'dump' short","TikTok","CapCut","aitools",86,"Yes","Low","High","Create a 30s SignalX raw tip with a voice-changer hook in Arabic.","1) Pick 1 tip 2) raw selfie clip 3) CapCut voice-changer + AR captions 4) hook in 2s.","CapCut (+ ElevenLabs AR VO)","30s vertical AR short.","C:\\Work\\projects\\SignalX\\output","A/B AR vs EN hook · ≥1k views","Keep authentic."],["AI Cowork Arabic — avatar version","YouTube/Reel","Synthesia","aitools",90,"Yes","Med","High","Render a 30s Arabic AI Cowork intro with SYNTHESIA_AVATAR_MAIN_AR + ELEVENLABS_VOICE_MOHAMED_AR.","1) Final AR script 2) Synthesia 30s render 3) ElevenLabs AR VO 4) compare voices 5) captions+CTA.","Synthesia + ElevenLabs (manual, own accounts)","30s avatar AR video.","C:\\Work\\projects\\AI Tools\\output","Pronunciation OK + 1 booking","Avatar+voice ready — validate pronunciation first."],["GS Pets 'happy tails' before/after","Instagram","CapCut","pets",78,"Yes","Low","Med","Weekly GS Pets adoption reel.","1) 2 photos 2) CapCut template 3) AR caption + CTA 4) schedule (manual).","CapCut","20s reel, AR caption.","C:\\Work\\projects\\GSPets\\output","Adoption inquiries","Separate brand — no coaching tone."]];
+function renderCre(){var h="";CRE.forEach(function(c,i){h+='<div class="crec" style="--tone:'+laneVar(c[3])+'"><h4>'+c[0]+'</h4><div class="metaline"><span class="cap">'+c[1]+'</span><span class="cap tone" style="--tone:var(--teal)">'+c[2]+'</span><span class="cap tone" style="--tone:'+laneVar(c[3])+'">'+laneName(c[3])+'</span><span class="score">★ '+c[4]+'/100</span></div><div class="fl">'+(lang=="ar"?"إعادة":"Reusable")+': <b>'+c[5]+'</b> · '+(lang=="ar"?"التكلفة":"Cost")+': <b>'+c[6]+'</b> · '+(lang=="ar"?"الجودة":"Quality")+': <b>'+c[7]+'</b></div><button class="btn primary sm" style="margin-top:8px" onclick="document.getElementById(\'ag'+i+'\').classList.toggle(\'show\')">✦ '+(lang=="ar"?"بناء التجربة":"Build experiment")+' ▸</button><div class="agentbox" id="ag'+i+'"><div class="k">'+(lang=="ar"?"البرومبت":"Exact prompt")+'</div><pre>'+c[8]+'</pre><div class="k">'+(lang=="ar"?"تعليمات":"Work instruction")+'</div><pre>'+c[9]+'</pre><div class="k">'+(lang=="ar"?"الأداة":"Best tool")+'</div>'+c[10]+'<div class="k">'+(lang=="ar"?"المخرج":"Expected output")+'</div>'+c[11]+'<div class="k">'+(lang=="ar"?"الحفظ":"Save to")+'</div>'+c[12]+'<div class="k">'+(lang=="ar"?"النجاح":"Success metric")+'</div>'+c[13]+'<div class="k">'+(lang=="ar"?"تحذير":"Risk")+'</div>'+c[14]+'<div style="margin-top:8px"><button class="btn primary sm" onclick="this.textContent=\''+(lang=="ar"?"أُرسلت (محاكاة)":"Pushed (mock)")+'\'">→ '+(lang=="ar"?"ادفع للإنتاج":"Push to Experiment")+'</button></div></div></div>';});document.getElementById("creGrid").innerHTML=h;syncAccent();}
+/* arabic voice lab */
+var AV=[["Synthesia — avatar (READY)","Synthesia","SY","#5B43D6","SYNTHESIA_AVATAR_MAIN_AR","Brand-term phonemes","30s render test","High","Med",false,"Avatar asset ready — render test pending."],["ElevenLabs — AR voice (READY)","ElevenLabs","EL","#1d1d1d","ELEVENLABS_VOICE_MOHAMED_AR","Saudi vs formal tone","Stability + SSML pauses","High","Low",false,"Voice clone ready — pronunciation test pending."],["ElevenLabs — narration (READY)","ElevenLabs","EL","#1d1d1d","ELEVENLABS_VOICE_NARRATION_AR","Diacritics + pacing","Clear slow narration","High","Low",false,"For book promo + tutorials."],["Gemini — compare","Gemini","GE","#1A73E8","AR voice","Mixed AR/EN names","Compare naturalness","Med","Med",false,""],["CapCut — voice changer","CapCut","CC","#111","Effect voices","TRE safety wording","Slow + clear delivery","Med","Low",false,""],["Comparison test","All tools","∑","#008C84","Same script","Synthesia vs ElevenLabs","Rate 1–5 naturalness","—","—",false,"Pick a winner per use-case."]];
+function renderAV(){var h="";AV.forEach(function(a){h+='<div class="avc" style="--tone:var(--aitools)"><div class="itemhead">'+badge(a[2],a[3])+'<h4 style="flex:1">'+a[0]+'</h4></div><div class="r"><span>'+(lang=="ar"?"الأصل":"Asset")+'</span><b>'+a[4]+'</b></div><div class="r"><span>'+(lang=="ar"?"النطق":"Issue")+'</span><b>'+a[5]+'</b></div><div class="r"><span>'+(lang=="ar"?"التصحيح":"Fix")+'</span><b>'+a[6]+'</b></div><div class="r"><span>'+(lang=="ar"?"الجودة/التكلفة":"Quality/Cost")+'</span><b>'+a[7]+' / '+a[8]+'</b></div>'+(a[9]?'<div class="warn-cap"><span class="pdot md"></span>'+(lang=="ar"?"غير متاح بعد / تحقق لاحقًا":"not available yet / check later")+'</div>':'')+(a[10]?'<div class="muted" style="font-size:11.5px;margin-top:4px">'+a[10]+'</div>':'')+'</div>';});document.getElementById("avLab").innerHTML=h;}
+var CHECK=["SignalX","Birkman","Beautiful Mind","TRE Arabia","Cowork OS","AI Tools Lab","Image Management","nervous system","stress release","خريطة السلوك","الذكاء السلوكي","mixed AR/EN brand names"];
+function renderCheck(){document.getElementById("checklist").innerHTML=CHECK.map(function(c){return '<div>☐ '+c+'</div>';}).join('');}
+/* NEXT ACTIONS — status pills only, NO pulse */
+var NA=[["Finalize AI Cowork AR script","Lock the 2.5–3 min script for render","ai_cowork_ar_video","AI Tools Lab","aitools","12:00","task"],["Test 30s Synthesia avatar render","Use SYNTHESIA_AVATAR_MAIN_AR (manual)","Synthesia (own account)","—","aitools","13:00","task"],["Test ElevenLabs AR narration","Use ELEVENLABS_VOICE_MOHAMED_AR (manual)","ElevenLabs (own account)","—","signalx","14:00","task"],["Select 3 SignalX/Birkman assets","No private data; authorized only","SignalX library","—","signalx","16:00","task"],["Park: Birkman Arabic guide","Resume next week","—","—","signalx","—","parked"]];
+function naColor(a){if(a[6]=="parked")return"grey";var k=ksaNow();var hr=k.getHours()+k.getMinutes()/60;if(a[5]!=="—"){var due=parseFloat(a[5].split(":")[0]);if(due-hr<=2&&due>=hr)return"orange";if(hr>due)return"orange";}return"green";}
+function renderNA(){var h="";NA.forEach(function(a,i){var col=naColor(a);var st=a[6]=="parked"?(lang=="ar"?"مؤجّل":"Parked"):(col=="orange"?(lang=="ar"?"قريب":"Due soon"):(lang=="ar"?"في المسار":"On track"));
+ h+='<div class="row na '+(col=="grey"?"done":"")+'" id="na'+i+'" style="--tone:'+(col=="orange"?'var(--s-orange)':col=="grey"?'var(--s-grey)':'var(--s-green)')+'"><div class="itemhead"><span class="cap tone" style="--tone:'+laneVar(a[4])+'">'+laneName(a[4])+'</span><div class="t1" style="flex:1">'+a[0]+'</div><span class="pill '+col+'">'+st+'</span><span class="muted sm" style="font-size:11px">'+(a[5]!=="—"?"⏱ "+a[5]:"")+'</span></div><div class="det"><div><div class="k">'+(lang=="ar"?"كيف":"How")+'</div>'+a[1]+'</div><div><div class="k">'+(lang=="ar"?"افتح":"Open")+'</div>'+a[2]+'</div><div><div class="k">'+(lang=="ar"?"اتصل":"Call")+'</div>'+a[3]+'</div></div><div class="l3"><button class="btn primary sm" onclick="naMsg('+i+',\'done\')">✓ '+(lang=="ar"?"تم":"Done")+'</button><button class="btn sm" onclick="naMsg('+i+',\'park\')">⏸ '+(lang=="ar"?"تأجيل":"Park")+'</button><button class="btn sm" onclick="document.getElementById(\'nac'+i+'\').classList.toggle(\'show\')">💬 '+(lang=="ar"?"تعليق":"Comment")+'</button><button class="btn sm" onclick="naMsg('+i+',\'ask\')">✦ '+(lang=="ar"?"اسأل Claude":"Ask Claude")+'</button></div><div class="open-c" id="nac'+i+'"><textarea class="input" placeholder="'+(lang=="ar"?"تعليق…":"Comment…")+'"></textarea><div class="sm muted" id="namsg'+i+'" style="font-size:var(--fs-meta)"></div></div></div>';});document.getElementById("naList").innerHTML=h;}
+function naMsg(i,a){var el=document.getElementById("nac"+i);el.classList.add("show");document.getElementById("namsg"+i).textContent={done:"Marked done (mock).",park:"Parked (mock).",ask:"Claude would suggest next step (mock)."}[a];if(a=="done"||a=="park"){document.getElementById("na"+i).classList.add("done");}}
+/* cube */
+function toggleCube(){var b=document.getElementById("brainmap"),btn=document.getElementById("cubeBtn");var ex=b.classList.toggle("expanded");btn.textContent=ex?(lang=="ar"?"طيّ":"Collapse"):(lang=="ar"?"توسيع":"Expand");document.getElementById("modNote").textContent="";}
+function openMod(name,lane){var Q={signalx:"signalx",tre:"tre arabia",aitools:"cowork",pets:"gs pets",finance:"finance",vault:"vault"};document.getElementById("modNote").textContent=(lang=="ar"?"فتح الدماغ: ":"Opening Brain: ")+name;location.href="BM_Cowork_OS_Brain_3D.html#focus="+encodeURIComponent(Q[lane]||name);}
+function cubeMsg(){document.getElementById("modNote").textContent="Parked (mock).";}
+function backCube(){var b=document.getElementById("brainmap");if(b.classList.contains("expanded"))toggleCube();document.getElementById("modNote").textContent="";}
+/* sidebar<->tab */
+function previewLane(lane){document.querySelectorAll(".lane").forEach(function(l){l.classList.toggle("preview",l.dataset.lane==lane&&!l.classList.contains("on"));});document.querySelectorAll("#topnav a").forEach(function(a){a.classList.toggle("synced",a.dataset.tab==lane);a.style.setProperty("--tone",laneVar(lane));});}
+function clearPreview(){document.querySelectorAll(".lane.preview").forEach(function(l){l.classList.remove("preview");});document.querySelectorAll("#topnav a").forEach(function(a){if(!a.classList.contains("on"))a.classList.remove("synced");});}
+function selectLane(lane){document.querySelectorAll(".lane").forEach(function(l){l.classList.toggle("on",l.dataset.lane==lane);l.classList.remove("preview");});var map={messages:'overview',bookmarks:'overview',files:'overview'};selectTab(map[lane]||lane,true);syncAccent(lane);}
+function selectTab(tab,fromLane){document.querySelectorAll("#topnav a").forEach(function(a){var on=a.dataset.tab==tab;a.classList.toggle("on",on);a.classList.toggle("synced",on);if(on)a.style.setProperty("--tone",laneVar(tab));});if(!fromLane){document.querySelectorAll(".lane").forEach(function(l){l.classList.toggle("on",l.dataset.lane==tab);});syncAccent(tab);}}
+function syncAccent(active){if(active===undefined){var on=document.querySelector(".lane.on");active=on?on.dataset.lane:'overview';}document.querySelectorAll(".card[data-lane]").forEach(function(c){c.classList.toggle("accent",c.dataset.lane==active&&active!='overview');});}
+function toggleSide(){document.getElementById("shell").classList.toggle("collapsed");}
+function clock(){var k=ksaNow();document.getElementById("ksaclock").textContent="KSA "+String(k.getHours()).padStart(2,'0')+":"+String(k.getMinutes()).padStart(2,'0');}
+var SPRINT_START=new Date(ksaNow().getFullYear(),ksaNow().getMonth(),ksaNow().getDate(),6,0,0);
+var PHASES=[["0–6","Setup + assets","الإعداد"],["6–18","Automation 1 · Video","فيديو"],["18–30","Automation 2 · Book","كتاب"],["30–42","Automation 3 · TikTok","تيكتوك"],["42–54","Production prep","تجهيز"],["54–66","Review & refine","مراجعة"],["66–72","Cash decision","قرار الدخل"]];
+function renderPhases(){var k=ksaNow();var hrs=(k-SPRINT_START)/3600000;var bounds=[0,6,18,30,42,54,66,72];var h="";for(var i=0;i<PHASES.length;i++){var lo=bounds[i],hi=bounds[i+1];var cls=hrs>=hi?"done":(hrs>=lo&&hrs<hi?"now":"");h+='<div class="phase '+cls+'"><b>'+(lang=="ar"?PHASES[i][2]:PHASES[i][1])+'</b><small>'+(lang=="ar"?"ساعة ":"H ")+PHASES[i][0]+'</small></div>';}document.getElementById("phaseBar").innerHTML=h;var left=Math.max(0,Math.min(72,72-hrs));document.getElementById("hrLeft").textContent=hrs<0?72:Math.round(left);}
+function toggleLang(){lang=(lang=="ar")?"en":"ar";document.documentElement.lang=lang;document.documentElement.dir=(lang=="ar")?"rtl":"ltr";document.getElementById("langbtn").textContent=(lang=="ar")?"English":"عربي";document.querySelectorAll("[data-en]").forEach(function(el){var v=el.getAttribute(lang=="ar"?"data-ar":"data-en");if(v!=null)el.textContent=v;});renderAll();}
+function renderAll(){renderLanes();renderSig();renderRadar();renderReady();renderProdAssets();renderTools();renderBookmarks();renderAC();renderItems();renderCRO();renderV33();renderCashLog();renderCre();renderAV();renderCheck();renderNA();renderPhases();clock();syncAccent('overview');}
+renderAll();
+</script>
+<script>/*__BRAIN_NODES_START__*/window.__BRAIN_NODES__=[{"c":"Signal","d":41,"h":0,"s":1},{"c":"Signal","d":11,"h":0,"s":1},{"c":"Signal","d":5,"h":0,"s":1},{"c":"YouTube","d":4,"h":1,"s":0},{"c":"Sprint","d":10,"h":1,"s":0},{"c":"Specs","d":15,"h":1,"s":0},{"c":"Router","d":11,"h":1,"s":0},{"c":"Arabic/Voice","d":8,"h":1,"s":0},{"c":"Dashboard","d":20,"h":1,"s":0},{"c":"Design","d":17,"h":1,"s":0},{"c":"Ops","d":9,"h":1,"s":0},{"c":"Notes","d":1,"h":1,"s":0},{"c":"GS Pets","d":7,"h":1,"s":0},{"c":"YouTube","d":2,"h":0,"s":0},{"c":"YouTube","d":3,"h":0,"s":0},{"c":"YouTube","d":2,"h":0,"s":0},{"c":"YouTube","d":7,"h":0,"s":0},{"c":"Sprint","d":4,"h":0,"s":0},{"c":"Specs","d":1,"h":0,"s":0},{"c":"Router","d":14,"h":0,"s":0},{"c":"Arabic/Voice","d":9,"h":0,"s":0},{"c":"Arabic/Voice","d":6,"h":0,"s":0},{"c":"Arabic/Voice","d":6,"h":0,"s":0},{"c":"Arabic/Voice","d":4,"h":0,"s":0},{"c":"Arabic/Voice","d":6,"h":0,"s":0},{"c":"Arabic/Voice","d":4,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Sprint","d":5,"h":0,"s":0},{"c":"Sprint","d":4,"h":0,"s":0},{"c":"Sprint","d":5,"h":0,"s":0},{"c":"Sprint","d":4,"h":0,"s":0},{"c":"Sprint","d":3,"h":0,"s":0},{"c":"Design","d":11,"h":0,"s":0},{"c":"Dashboard","d":5,"h":0,"s":0},{"c":"Dashboard","d":7,"h":0,"s":0},{"c":"Dashboard","d":2,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Dashboard","d":2,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Dashboard","d":2,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Dashboard","d":2,"h":0,"s":0},{"c":"Dashboard","d":6,"h":0,"s":0},{"c":"Dashboard","d":2,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Dashboard","d":3,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Dashboard","d":4,"h":0,"s":0},{"c":"Dashboard","d":11,"h":0,"s":0},{"c":"Dashboard","d":8,"h":0,"s":0},{"c":"Dashboard","d":12,"h":0,"s":0},{"c":"Dashboard","d":10,"h":0,"s":0},{"c":"Design","d":3,"h":0,"s":0},{"c":"Sprint","d":5,"h":0,"s":0},{"c":"Router","d":6,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Ops","d":8,"h":0,"s":0},{"c":"Specs","d":5,"h":0,"s":0},{"c":"Specs","d":3,"h":0,"s":0},{"c":"Specs","d":3,"h":0,"s":0},{"c":"Design","d":8,"h":0,"s":0},{"c":"Design","d":8,"h":0,"s":0},{"c":"Specs","d":2,"h":0,"s":0},{"c":"Specs","d":1,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Ops","d":4,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Router","d":10,"h":0,"s":0},{"c":"Specs","d":2,"h":0,"s":0},{"c":"Ops","d":5,"h":0,"s":0},{"c":"Design","d":3,"h":0,"s":0},{"c":"Design","d":2,"h":0,"s":0},{"c":"Ops","d":18,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Notes","d":3,"h":0,"s":0},{"c":"Router","d":18,"h":0,"s":0},{"c":"Router","d":9,"h":0,"s":0},{"c":"Specs","d":1,"h":0,"s":0},{"c":"Specs","d":1,"h":0,"s":0},{"c":"Specs","d":1,"h":0,"s":0},{"c":"Design","d":4,"h":0,"s":0},{"c":"Router","d":6,"h":0,"s":0},{"c":"Specs","d":3,"h":0,"s":0},{"c":"Specs","d":1,"h":0,"s":0},{"c":"Ops","d":7,"h":0,"s":0},{"c":"Arabic/Voice","d":4,"h":0,"s":0},{"c":"Specs","d":8,"h":0,"s":0},{"c":"Sprint","d":10,"h":0,"s":0},{"c":"Design","d":2,"h":0,"s":0},{"c":"Specs","d":3,"h":0,"s":0},{"c":"Design","d":2,"h":0,"s":0},{"c":"Arabic/Voice","d":5,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Design","d":1,"h":0,"s":0},{"c":"Router","d":10,"h":0,"s":0},{"c":"Ops","d":1,"h":0,"s":0},{"c":"Ops","d":2,"h":0,"s":0},{"c":"Ops","d":2,"h":0,"s":0},{"c":"Ops","d":6,"h":0,"s":0},{"c":"GS Pets","d":3,"h":0,"s":0},{"c":"Specs","d":2,"h":0,"s":0},{"c":"GS Pets","d":2,"h":0,"s":0},{"c":"GS Pets","d":2,"h":0,"s":0},{"c":"GS Pets","d":2,"h":0,"s":0},{"c":"GS Pets","d":2,"h":0,"s":0},{"c":"GS Pets","d":2,"h":0,"s":0},{"c":"GS Pets","d":2,"h":0,"s":0},{"c":"Router","d":2,"h":0,"s":0},{"c":"Sprint","d":6,"h":0,"s":0},{"c":"Sprint","d":11,"h":0,"s":0}];/*__BRAIN_NODES_END__*/</script>
+<script>
+(function(){
+ var cv=document.getElementById('bmGalaxy'); if(!cv) return;
+ var ctx=cv.getContext('2d'), DPR=Math.min(2,window.devicePixelRatio||1);
+ var CMAP={Signal:'#ffd23f',Router:'#ffb01f',Dashboard:'#7FD1A3',Design:'#5aa0ff',Specs:'#9d8cff',Sprint:'#3fdc8f','Arabic/Voice':'#c08cff',Ops:'#ffb35c','GS Pets':'#ff7d8a',YouTube:'#ff5d73',Data:'#5ad1e0',Notes:'#9db0d0'};
+ var RAW=(window.__BRAIN_NODES__&&window.__BRAIN_NODES__.length)?window.__BRAIN_NODES__:null;
+ var stars=[], sig=[];
+ if(RAW){ var M=RAW.length;
+   for(var i=0;i<M;i++){var n=RAW[i];var t=(i+0.5)/M,phi=Math.acos(1-2*t),th=i*2.399963,R=22+((i*53)%44);
+     var nd={x:R*Math.sin(phi)*Math.cos(th),y:R*Math.sin(phi)*Math.sin(th),z:R*Math.cos(phi),c:CMAP[n.c]||'#9db0d0',big:(n.h||n.d>=8),sig:!!n.s};
+     stars.push(nd); if(n.s) sig.push(nd);}
+ } else {
+   var COLORS=['#7FD1A3','#5aa0ff','#9d8cff','#3fdc8f','#c08cff','#ffb35c','#ff7d8a','#ff5d73','#5ad1e0'];
+   for(var k=0;k<72;k++){var tk=k/72,pk=Math.acos(1-2*tk),hk=k*2.399963,Rk=26+((k*53)%42);
+     stars.push({x:Rk*Math.sin(pk)*Math.cos(hk),y:Rk*Math.sin(pk)*Math.sin(hk),z:Rk*Math.cos(pk),c:COLORS[k%COLORS.length],big:(k%6===0)});}
+   sig=[{x:0,y:0,z:0},{x:20,y:-6,z:12},{x:-15,y:11,z:-9}];
+ }
+ var yaw=0.4, ph=0, w=0, hh=0;
+ function size(){var b=cv.getBoundingClientRect(); w=b.width; hh=b.height; cv.width=w*DPR; cv.height=hh*DPR; ctx.setTransform(DPR,0,0,DPR,0,0);}
+ function proj(p,cy0,sy0,cx,cyc,sc){var x1=p.x*cy0+p.z*sy0, z1=-p.x*sy0+p.z*cy0, zc=z1+120, s=120/zc; return {sx:cx+x1*sc*s, sy:cyc+p.y*sc*s, d:zc};}
+ function frame(){
+   if(!w){size(); if(!w){requestAnimationFrame(frame);return;}}
+   ctx.clearRect(0,0,w,hh); yaw+=0.0026; ph=(ph+0.01)%1;
+   var cx=w/2, cyc=hh/2, sc=Math.min(w,hh)/120, cy0=Math.cos(yaw), sy0=Math.sin(yaw);
+   var ps=stars.map(function(p){var q=proj(p,cy0,sy0,cx,cyc,sc); q.c=p.c; q.big=p.big; return q;}).sort(function(a,b){return b.d-a.d;});
+   for(var i=0;i<ps.length;i++){var q=ps[i], f=Math.max(.18,1-(q.d-78)/120);
+     ctx.globalAlpha=f*0.92; ctx.beginPath(); ctx.arc(q.sx,q.sy,(q.big?2.1:1.2)*Math.max(.6,sc*0.55),0,7); ctx.fillStyle=q.c; ctx.fill();}
+   for(var j=0;j<sig.length;j++){var q=proj(sig[j],cy0,sy0,cx,cyc,sc), tw=Math.pow(0.5+0.5*Math.sin(ph*6.283*1.4+j*2.1),3);
+     ctx.globalAlpha=0.25+0.55*tw; ctx.shadowBlur=8+12*tw; ctx.shadowColor='#ffd23f';
+     ctx.beginPath(); ctx.arc(q.sx,q.sy,1.6*Math.max(.7,sc*0.6)+1,0,7); ctx.fillStyle='#ffd23f'; ctx.fill(); ctx.shadowBlur=0;}
+   ctx.globalAlpha=1; requestAnimationFrame(frame);
+ }
+ window.addEventListener('resize',size); size(); requestAnimationFrame(frame);
+})();
+</script>
+<script>
+function applyThemeBM(k){document.documentElement.dataset.theme=k;try{localStorage.setItem('bm-theme',k)}catch(e){} var b=document.getElementById('themebtn'); if(b)b.textContent=(k==='dark'?'☾':'☼');}
+function toggleTheme(){var cur=(document.documentElement.dataset.theme==='dark')?'dark':'light';applyThemeBM(cur==='dark'?'light':'dark');}
+(function(){var k='light';try{k=localStorage.getItem('bm-theme')||'light'}catch(e){} applyThemeBM(k);})();
+</script>
+<script>
+(function(){
+  // collapsible cards (persisted)
+  document.querySelectorAll('.card > .ch').forEach(function(ch){
+    var card=ch.parentElement, hd=ch.querySelector('h3');
+    var key='bm-collapse:'+((hd&&(hd.getAttribute('data-en')||hd.textContent))||ch.textContent||'').trim().slice(0,48);
+    var btn=document.createElement('button'); btn.className='chev'; btn.type='button'; btn.title='Collapse / expand';
+    ch.insertBefore(btn,ch.firstChild);
+    function set(c){card.classList.toggle('collapsed',c);btn.textContent=c?'▸':'▾';btn.setAttribute('aria-expanded',String(!c));}
+    var saved=false; try{saved=localStorage.getItem(key)==='1'}catch(e){}
+    set(saved);
+    btn.addEventListener('click',function(e){e.stopPropagation();var c=!card.classList.contains('collapsed');set(c);try{localStorage.setItem(key,c?'1':'0')}catch(e){}});
+  });
+  // remember sidebar collapsed state
+  try{ if(localStorage.getItem('bm-side')==='1'){var sh=document.getElementById('shell');if(sh)sh.classList.add('collapsed');} }catch(e){}
+  var col=document.querySelector('[onclick="toggleSide()"]');
+  if(col)col.addEventListener('click',function(){setTimeout(function(){try{localStorage.setItem('bm-side',document.getElementById('shell').classList.contains('collapsed')?'1':'0')}catch(e){}},0);});
+})();
+function toggleFocus(){
+  var on=!document.body.classList.contains('focus-mode');
+  document.body.classList.toggle('focus-mode',on);
+  var btn=document.getElementById('focusbtn'); if(btn){btn.classList.toggle('on',on);btn.textContent=on?'◉ Focus':'◎ Focus';}
+  if(on){
+    document.querySelectorAll('main .card, main .section-title').forEach(function(e){
+      if(!e.closest('[data-focus="keep"]') && !e.querySelector('[data-focus="keep"]')){ e.dataset._fh=e.style.display||''; e.style.display='none'; }
+    });
+  } else {
+    document.querySelectorAll('[data-_fh]').forEach(function(e){ e.style.display=e.dataset._fh; e.removeAttribute('data-_fh'); });
+  }
+  window.scrollTo(0,0);
+}
+</script>
+<script>
+(function(){try{
+  var sig=(typeof SIG!=='undefined')?SIG.length:0;
+  var ready=(typeof READINESS!=='undefined')?READINESS.filter(function(r){return r[2]=='ok'}).length:0;
+  var pend=(typeof READINESS!=='undefined')?READINESS.filter(function(r){return r[2]=='pending'}).length:0;
+  var set=function(id,v){var e=document.getElementById(id);if(e)e.textContent=v;};
+  set('tbSig',sig); set('tbReady',ready); set('tbPending',pend);
+}catch(e){}})();
+</script>
+<script>
+(function(){
+  if(!/^https?:$/.test(location.protocol)) return;        // live data only via local server
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  fetch('live_data.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d) return;
+    if(Array.isArray(d.ac)&&d.ac.length){
+      window.AC=d.ac.map(function(a){return [a.icon||'inbox',a.title||'',a.source||'',a.when||'',a.priority||'md',a.action||'Open',a.next||'',a.chips||[],a.urgent?1:0,a.lane||'signalx'];});
+      if(typeof renderAC==='function') renderAC();
+    }
+    if(Array.isArray(d.events)){
+      var rows=d.events.map(function(e){return '<div class="ev"><span class="t">'+esc(e.time||'')+'</span><span>'+esc(e.title||'')+'</span><span class="muted sm" style="margin-inline-start:auto;font-size:var(--fs-meta)">'+esc(e.dur||'')+'</span></div>';}).join('');
+      var cr=document.getElementById('calRows'); if(cr&&rows)cr.innerHTML=rows;
+    }
+    if(d.calLabel){var lab=document.querySelector('.card .sm.b'); if(lab)lab.textContent=d.calLabel;}
+    var st=document.getElementById('calStatus'); if(st){st.textContent='🟢 Live · synced '+((d.generated||'').slice(11,16)||'now');st.removeAttribute('data-en');st.removeAttribute('data-ar');}
+    var mc=document.querySelector('.mockchip'); if(mc)mc.textContent='● v11 · live data';
+  }).catch(function(){});
+})();
+</script>
+<script>
+/* ============================================================
+   v11 · FOUNDER EXECUTION COCKPIT — data + renderers
+   All values are MOCK / aliases only. No real IDs, no live calls,
+   nothing is sent. Editable in one place, offline-first.
+   ============================================================ */
+function bmEsc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function bmDots(n){n=Math.max(0,Math.min(5,n||0));return '<span class="dots">'+'●●●●●'.slice(0,n)+'○○○○○'.slice(0,5-n)+'</span>';}
+
+/* A · Morning Command Strip */
+var SLOGANS=["Cash Before Complexity","Stop Building. Start Selling.","Knowledge Base = Bank"];
+var CMD=[
+ ["Today's Cash Target","1,500","SAR","target"],
+ ["Cash Collected","0","SAR","cash"],
+ ["Offers Sent","2","","num"],
+ ["Replies","1","","num"],
+ ["Meetings Booked","1","","num"],
+ ["Deals Closed","0","","num"],
+ ["Blockers","2","","warn"]
+];
+var NBA="Send the SignalX paid-report + Birkman workshop offer to 3 warm HR contacts before 12:00 PM.";
+function renderCockpit(){
+  document.getElementById('slogans').innerHTML=SLOGANS.map(function(s){return '<span class="slogan">'+bmEsc(s)+'</span>';}).join('');
+  document.getElementById('cmdStrip').innerHTML=CMD.map(function(m){
+    var cls=m[3]=='warn'?'metric warn':m[3]=='cash'?'metric cash':'metric';
+    var u=m[2]?'<span class="u">'+bmEsc(m[2])+'</span>':'';
+    return '<div class="'+cls+'" style="--tone:var(--finance)"><span class="k">'+bmEsc(m[0])+'</span><div class="v">'+bmEsc(m[1])+u+'</div></div>';
+  }).join('');
+  document.getElementById('nbaTxt').textContent=NBA;
+}
+
+/* B · Today's 3 Priority Tasks */
+var PRI=[
+ ["cash","before 12:00 PM","Cash action before noon","Send 3 paid-offer messages to warm contacts (SignalX report / Birkman workshop / TRE pack). One of them must be a direct ask for money."],
+ ["outreach","2:00 – 2:30 PM","Outreach block (30 min)","Contact 10 new or relevant people across Corporate HR, QHSE/HSE and Coaching. Short, specific, one clear offer."],
+ ["followup","4:00 PM","Follow-up block","Reply to everyone who responded today and move exactly one deal one step forward (call booked, proposal sent, or paid)."]
+];
+var PRITONE={cash:'var(--finance)',outreach:'var(--aitools)',followup:'var(--tre)'};
+function renderPri(){
+  document.getElementById('priTasks').innerHTML=PRI.map(function(t,i){
+    return '<div class="pritask" style="--tone:'+PRITONE[t[0]]+'"><span class="no">'+(i+1)+'</span>'+
+      '<span class="when">◷ '+bmEsc(t[1])+'</span>'+
+      '<div class="ttl">'+bmEsc(t[2])+'</div>'+
+      '<div class="dsc">'+bmEsc(t[3])+'</div>'+
+      '<label class="chk"><input type="checkbox" onchange="this.closest(\'.pritask\').classList.toggle(\'checked\',this.checked)"> <span>Done</span></label></div>';
+  }).join('');
+}
+
+/* C · Asset-to-Cash Map (10 assets) */
+var ASSETS=[
+ {n:"GS Pets — Bahrain / KSA",tone:"var(--pets)",sep:1,sell:"Content-commerce: pet products + adoption content, affiliate + local retail deals.",buyer:"GCC pet owners · local pet shops · adoption NGOs",speed:3,conf:3,na:"Post 3 pieces + DM 5 local pet shops for a stock/affiliate deal.",state:"active"},
+ {n:"SignalX / Beautiful Mind AI Coach",tone:"var(--signalx)",sell:"Paid behavioral-coaching subscription + 1:1 report readouts.",buyer:"Coaching clients · HR teams · self-development buyers",speed:3,conf:4,na:"Send 3 warm leads the paid report + intro-call offer.",state:"active"},
+ {n:"Birkman / Corporate Workshops",tone:"var(--aitools)",sell:"Half-day team workshops + assessment debriefs, invoiced per seat.",buyer:"Corporate HR / L&D · QHSE teams",speed:2,conf:4,na:"Email 3 HR contacts a 1-page workshop outline + price.",state:"active"},
+ {n:"TRE Coaching",tone:"var(--tre)",sell:"TRE tension-release sessions, sold in packs of 4–6.",buyer:"Stress / burnout clients · corporate wellness",speed:3,conf:3,na:"Offer a paid intro session to 2 warm contacts.",state:"active"},
+ {n:"Batumi Flat",tone:"var(--finance)",sell:"Short-term rental income or resale.",buyer:"Tenants · property buyers (Georgia)",speed:2,conf:3,na:"Confirm occupancy + list on 1 rental platform (manual).",state:"park"},
+ {n:"Abu Dhabi / Airbnb",tone:"var(--finance)",sell:"Short-stay rental cash flow.",buyer:"Visitors · relocation stays",speed:3,conf:3,na:"Refresh listing photos + set the weekly rate.",state:"park"},
+ {n:"Arabic Personality Book / KDP",tone:"var(--tre)",sell:"Self-published book + lead magnet funnelling to coaching.",buyer:"Arabic self-development readers",speed:2,conf:3,na:"Finalise title + upload sample chapter to a KDP draft.",state:"active"},
+ {n:"AI Automation Agency",tone:"var(--aitools)",sell:"Done-for-you automations for SMEs, monthly retainer.",buyer:"GCC SMEs · clinics · agencies",speed:2,conf:3,na:"Package 1 offer (lead-reply bot) + pitch 3 SMEs.",state:"active"},
+ {n:"Akhlagi / Content Factory",tone:"var(--signalx)",sell:"Arabic content-production service / subscription.",buyer:"Coaches · small brands needing Arabic content",speed:3,conf:3,na:"Publish 1 sample series + offer a monthly content pack.",state:"park"},
+ {n:"40,000+ Assessment Database",tone:"var(--vault)",sell:"Credibility & insight: aggregate trends, anonymised case studies, positioning proof — NOT a mass-contact list.",buyer:"Strengthens SignalX / workshop pitches (insight, not outreach)",speed:2,conf:4,na:"Extract 3 anonymised insight stats for the workshop deck.",state:"blocked",valid:"Credibility / insight asset — contactability requires validation (consent + legal basis). No mass outreach."}
+];
+var STATELBL={active:"Active",park:"Park",blocked:"Blocked"};
+function renderAssets(){
+  document.getElementById('assetGrid').innerHTML=ASSETS.map(function(a){
+    var sep=a.sep?' <span class="cap tone" style="--tone:'+a.tone+';font-size:9.5px;padding:1px 6px">separate brand</span>':'';
+    var valid=a.valid?'<div class="validnote"><span class="warn-cap">⚠ '+bmEsc(a.valid)+'</span></div>':'';
+    return '<div class="assetc" style="--tone:'+a.tone+'">'+
+      '<div class="top"><span class="an">'+bmEsc(a.n)+sep+'</span><span class="state '+a.state+'">'+STATELBL[a.state]+'</span></div>'+
+      '<div class="kv"><span class="k">Sell</span><span class="v">'+bmEsc(a.sell)+'</span>'+
+      '<span class="k">Buyer</span><span class="v">'+bmEsc(a.buyer)+'</span></div>'+
+      '<div class="meters"><span class="meter">Speed '+bmDots(a.speed)+'</span><span class="meter">Confidence '+bmDots(a.conf)+'</span></div>'+
+      '<div class="na">→ '+bmEsc(a.na)+'</div>'+valid+'</div>';
+  }).join('');
+}
+
+/* D · Outreach Tracker */
+var OUT_SEGMENTS=["All","Corporate HR","QHSE/HSE","Coaching/TRE","Pet retail","Real estate","AI automation","Warm personal"];
+var OUT=[
+ ["HR Lead — GCC Bank (alias)","Corporate HR","Email","Birkman team workshop","replied","Jul 6",55,"Send 1-page outline + price"],
+ ["L&D Manager — Telco (alias)","Corporate HR","LinkedIn","Half-day workshop","sent","Jul 7",35,"Follow up if no reply"],
+ ["QHSE Lead — Contractor (alias)","QHSE/HSE","Email","Safety-culture workshop","notcontacted","Jul 5",20,"Write the first message"],
+ ["HSE Coordinator — Oilfield (alias)","QHSE/HSE","LinkedIn","Behavioral-safety session","sent","Jul 8",30,"Share a case snippet"],
+ ["Coaching client — warm (alias)","Coaching/TRE","WhatsApp","TRE 4-session pack","meeting","Jul 4",70,"Confirm time + deposit"],
+ ["Burnout referral (alias)","Coaching/TRE","WhatsApp","Paid intro session","replied","Jul 6",50,"Send the booking link"],
+ ["Pet shop owner — Manama (alias)","Pet retail","DM","Affiliate / stock deal","notcontacted","Jul 5",25,"DM 5 shops"],
+ ["Adoption NGO (alias)","Pet retail","Email","Content partnership","parked","—",15,"Revisit next week"],
+ ["Property manager — Batumi (alias)","Real estate","Email","Rental management","parked","—",20,"Decide: list vs hold"],
+ ["SME clinic owner (alias)","AI automation","LinkedIn","Lead-reply automation","proposal","Jul 7",45,"Follow up on the quote"],
+ ["Agency founder (alias)","AI automation","Email","Content-automation retainer","sent","Jul 8",30,"Send a sample"],
+ ["Friend / referrer (alias)","Warm personal","WhatsApp","Ask for 2 intros","paid",""+"—",100,"Thank + ask for referral"]
+];
+var OUT_STCLASS={notcontacted:"Not contacted",sent:"Sent",replied:"Replied",meeting:"Meeting booked",proposal:"Proposal sent",paid:"Paid",parked:"Parked"};
+var outFilter="All";
+function renderOutFilters(){
+  document.getElementById('outFilters').innerHTML=OUT_SEGMENTS.map(function(s){
+    return '<span class="fchip'+(s==outFilter?' on':'')+'" onclick="setOutFilter(\''+s.replace(/'/g,"\\'")+'\')">'+bmEsc(s)+'</span>';
+  }).join('');
+}
+function setOutFilter(s){outFilter=s;renderOutFilters();renderOut();}
+function renderOut(){
+  var rows=OUT.filter(function(r){return outFilter=="All"||r[1]==outFilter;});
+  document.getElementById('outRows').innerHTML=rows.map(function(r){
+    return '<tr><td><b>'+bmEsc(r[0])+'</b></td><td>'+bmEsc(r[1])+'</td><td>'+bmEsc(r[2])+'</td><td>'+bmEsc(r[3])+'</td>'+
+      '<td><span class="ost '+r[4]+'">'+OUT_STCLASS[r[4]]+'</span></td><td>'+bmEsc(r[5])+'</td>'+
+      '<td><span class="prob">'+r[6]+'%</span></td><td>'+bmEsc(r[7])+'</td></tr>';
+  }).join('')||'<tr><td colspan="8" class="kbempty">No contacts in this segment.</td></tr>';
+}
+
+/* E · Knowledge Bank */
+var KB_CATS=["All","Assessments & Insights","Coaching & TRE","Corporate / Birkman","Content & Arabic","AI & Automation","GS Pets","Finance & Assets","Ops & System"];
+var KB=[
+ {n:"40,000+ assessment insights (anonymised)",cat:"Assessments & Insights",d:"Aggregate behavioral trends for decks + credibility — insight only, not a contact list."},
+ {n:"Birkman debrief framework",cat:"Corporate / Birkman",d:"Talk-track + slides for a paid team debrief."},
+ {n:"SignalX report readout script",cat:"Coaching & TRE",d:"Structure for a 1:1 paid report call."},
+ {n:"TRE 4-session program outline",cat:"Coaching & TRE",d:"Package + pricing for tension-release coaching."},
+ {n:"Arabic personality book — outline",cat:"Content & Arabic",d:"Chapters + lead-magnet funnel to coaching."},
+ {n:"Arabic content pillars",cat:"Content & Arabic",d:"Reusable hooks + topics for the content factory."},
+ {n:"Lead-reply automation blueprint",cat:"AI & Automation",d:"SME offer: auto-triage + reply drafts (human-sent)."},
+ {n:"AI Cowork Arabic video kit",cat:"AI & Automation",d:"Avatar + voice ready (aliases only) — script pending."},
+ {n:"GS Pets content-commerce playbook",cat:"GS Pets",d:"Affiliate + local-shop deal structure (separate brand)."},
+ {n:"Asset ledger (Batumi / Abu Dhabi)",cat:"Finance & Assets",d:"Rental vs resale options + monthly cash-flow notes."},
+ {n:"72h cash-sprint template",cat:"Ops & System",d:"The repeatable sprint that drives this cockpit."},
+ {n:"Cowork OS traffic-control rules",cat:"Ops & System",d:"AGENTS.md · FILE_OWNERSHIP.md · INTEGRATION_LOG.md."}
+];
+var kbCat="All";
+function renderKBCats(){
+  document.getElementById('kbCats').innerHTML=KB_CATS.map(function(c){
+    return '<span class="fchip'+(c==kbCat?' on':'')+'" onclick="setKBCat(\''+c.replace(/'/g,"\\'")+'\')">'+bmEsc(c)+'</span>';
+  }).join('');
+}
+function setKBCat(c){kbCat=c;renderKBCats();renderKB();}
+function renderKB(){
+  var q=(document.getElementById('kbSearch').value||'').toLowerCase().trim();
+  var items=KB.filter(function(k){
+    if(kbCat!="All"&&k.cat!=kbCat) return false;
+    if(q&&(k.n+' '+k.cat+' '+k.d).toLowerCase().indexOf(q)<0) return false;
+    return true;
+  });
+  var tone={"Assessments & Insights":"var(--vault)","Coaching & TRE":"var(--tre)","Corporate / Birkman":"var(--aitools)","Content & Arabic":"var(--signalx)","AI & Automation":"var(--aitools)","GS Pets":"var(--pets)","Finance & Assets":"var(--finance)","Ops & System":"var(--teal)"};
+  document.getElementById('kbList').innerHTML=items.map(function(k){
+    return '<div class="kbitem" style="--tone:'+(tone[k.cat]||'var(--teal)')+'"><div class="kn">'+bmEsc(k.n)+'</div><div class="kc">'+bmEsc(k.cat)+'</div><div class="kd">'+bmEsc(k.d)+'</div></div>';
+  }).join('')||'<div class="kbempty">Nothing matches — try another word or category.</div>';
+}
+
+/* F · Decision Parking Lot */
+var PARK=[
+ {t:"var(--s-green)",h:"Active this week",items:[["SignalX paid-report offers","3 warm leads → intro call"],["Birkman workshop outreach","3 HR contacts → outline + price"],["TRE intro sessions","2 warm contacts → paid intro"]]},
+ {t:"var(--s-grey)",h:"Parked (not forgotten)",items:[["Batumi flat listing","revisit after cash sprint"],["Akhlagi content factory","after first paying client"],["Book launch funnel","draft ready, launch later"]]},
+ {t:"var(--s-orange)",h:"Blocked — needs validation",items:[["40,000+ DB outreach","consent + legal basis required — no mass send"],["Any automated sending","manual + confirmed only"],["New brand builds","validate demand before building"]]},
+ {t:"var(--s-red)",h:"Stop doing now",items:[["Over-building dashboards / tools","ship, then sell"],["Endless research","decide with 80% info"],["Polishing before selling","offer first, refine after cash"]]}
+];
+function renderPark(){
+  document.getElementById('parkLot').innerHTML=PARK.map(function(c){
+    var body=c.items.map(function(it){return '<div class="parkitem">'+bmEsc(it[0])+'<small>'+bmEsc(it[1])+'</small></div>';}).join('');
+    return '<div class="parkcol" style="--tone:'+c.t+'"><h4>'+bmEsc(c.h)+'<span class="n">'+c.items.length+'</span></h4>'+body+'</div>';
+  }).join('');
+}
+
+/* G · 7-Day Cash Sprint */
+var SPRINT7=[
+ ["Day 1","Mon","Send 3 direct paid offers","10 HR + coaching","Birkman + report","1,500 SAR","—","—"],
+ ["Day 2","Tue","Follow up every reply","10 QHSE/HSE","Safety workshop","1,500 SAR","—","—"],
+ ["Day 3","Wed","Book 2 calls","10 warm personal","Intro session","1,000 SAR","—","—"],
+ ["Day 4","Thu","Send 2 proposals","10 SME / agency","Automation retainer","2,000 SAR","—","—"],
+ ["Day 5","Fri","Close 1 deal","5 hottest leads","Whatever they need","2,500 SAR","—","—"],
+ ["Day 6","Sat","Content + GS Pets DMs","5 pet shops","Affiliate deal","500 SAR","—","—"],
+ ["Day 7","Sun","Review + plan next sprint","—","—","Tally week","—","—"]
+];
+function renderSprint7(){
+  document.getElementById('sprint7Rows').innerHTML=SPRINT7.map(function(r){
+    return '<tr><td class="dcell">'+bmEsc(r[0])+'<small>'+bmEsc(r[1])+'</small></td><td>'+bmEsc(r[2])+'</td><td>'+bmEsc(r[3])+'</td><td>'+bmEsc(r[4])+'</td><td><b>'+bmEsc(r[5])+'</b></td><td class="res">'+bmEsc(r[6])+'</td><td class="res">'+bmEsc(r[7])+'</td></tr>';
+  }).join('');
+}
+
+(function(){
+  try{
+    renderCockpit();renderPri();renderAssets();
+    renderOutFilters();renderOut();
+    renderKBCats();renderKB();
+    renderPark();renderSprint7();
+  }catch(e){/* offline-safe */}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Second Brain — personal &amp; organisational efficiency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --violet:#7A1FEA; --lift:#B872FF; --teal:#16B3AC; --teal-ink:#14807B;
+  --ink:#1B1830; --muted:#514C6B; --dim:#847FA0;
+  --ground:#FAFAFC; --paper:#FFF; --line:#ECE8F6;
+  --f:"Plus Jakarta Sans",system-ui,sans-serif;
+  --f-d:"Space Grotesk",var(--f);
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--violet);text-decoration:none}
+a:hover{color:#5D12BC}
+
+.wrap{max-width:1580px;margin:0 auto;padding:clamp(20px,3vw,40px) clamp(16px,3vw,40px) 64px}
+
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 17px;border-radius:99px;border:1px solid var(--line);
+  background:var(--paper);font-family:var(--f-d);font-size:13.5px;font-weight:600;text-decoration:none;color:var(--ink);
+  transition:border-color .2s,transform .2s,box-shadow .2s}
+.btn:hover{border-color:var(--lift);transform:translateY(-1px);box-shadow:0 10px 24px -16px rgba(122,31,234,.6);color:var(--ink)}
+.btn-p{background:linear-gradient(120deg,#2A0A52,#5D12BC);border-color:transparent;color:#fff}
+.btn-p:hover{color:#fff}
+.btn-sm{padding:7px 13px;font-size:12.5px}
+
+.head{max-width:940px;margin:0 0 30px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:#F4F1FB;
+  border:1px solid var(--line);font-family:var(--f-d);font-size:12px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--violet)}
+h1{margin:16px 0 12px;font-family:var(--f-d);font-size:clamp(30px,4.2vw,50px);line-height:1.05;letter-spacing:-.03em;font-weight:700}
+h1 em{font-style:normal;background:linear-gradient(100deg,var(--violet),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin:0;font-size:clamp(15.5px,1.7vw,18px);color:var(--muted);text-wrap:pretty}
+.note{margin:14px 0 0;font-size:13.5px;color:var(--dim)}
+
+.grid{display:grid;gap:18px;grid-template-columns:1fr 1fr}
+.panel{grid-column:1/-1;background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:0 26px 60px -44px rgba(27,24,48,.5)}
+.panel.half{grid-column:auto}
+.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--line);background:#FDFCFF}
+.pnum{flex:0 0 auto;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;
+  background:#F4F1FB;color:var(--violet);font-family:var(--f-d);font-size:13px;font-weight:700}
+.pttl{display:flex;flex-direction:column;min-width:0;margin-right:auto}
+.pttl b{font-family:var(--f-d);font-size:15px;font-weight:600;letter-spacing:-.01em}
+.pttl span{font-size:12.8px;color:var(--muted);line-height:1.45}
+.pacts{display:flex;gap:8px;flex-wrap:wrap}
+.seg{display:flex;padding:3px;gap:3px;border-radius:99px;background:#F4F1FB;border:1px solid var(--line)}
+.seg button{padding:6px 15px;border:0;border-radius:99px;background:transparent;font-family:var(--f-d);font-size:12.5px;font-weight:600;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--paper);color:var(--violet);box-shadow:0 2px 8px -4px rgba(27,24,48,.4)}
+
+.stage{position:relative;background:#F2F1F7}
+.panel .stage{height:var(--h,560px)}
+.stage iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.stage iframe[hidden]{display:none}
+.ph{position:absolute;inset:0;display:grid;place-items:center;gap:10px;text-align:center;padding:24px;
+  font-family:var(--f-d);font-size:13.5px;color:var(--dim);background:
+  radial-gradient(60% 60% at 50% 40%,#fff,transparent),#F2F1F7}
+.ph button{margin-top:10px}
+
+.expanded{position:fixed;inset:14px;z-index:60;border-radius:22px;box-shadow:0 60px 120px -40px rgba(27,24,48,.75)}
+.expanded{display:flex;flex-direction:column}
+.expanded .stage{height:auto!important;flex:1 1 auto;min-height:0}
+.scrim{position:fixed;inset:0;z-index:55;background:rgba(27,24,48,.55);backdrop-filter:blur(3px)}
+.scrim[hidden]{display:none}
+
+.legend{margin:26px 0 0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.leg{padding:18px 20px;border-radius:18px;background:var(--paper);border:1px solid var(--line)}
+.leg b{display:block;font-family:var(--f-d);font-size:14px;font-weight:600;margin-bottom:5px}
+.leg p{margin:0;font-size:13.5px;color:var(--muted)}
+
+@media (max-width:1020px){
+  .panel.half{grid-column:1/-1}
+  .panel .stage{height:var(--hm,460px)}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="top">
+    <button class="btn" id="back">← Back to the profile</button>
+    <a class="btn btn-sm" href="./brain/dashboard.html" target="_blank" rel="noopener">Dashboard in a new tab ↗</a>
+  </div>
+
+  <div class="head">
+    <span class="pill">Second Brain · Cowork OS</span>
+    <h1>One dashboard runs the day. <em>A brain underneath shows why.</em></h1>
+    <p class="lede">Two live surfaces, both on this page. The dashboard turns the day's signals into three tasks and one cash action; the brain underneath holds every file, note and signal as a connected graph, so any decision can be traced back to its source. Nothing below is a screenshot — click, drag, filter and search inside each panel.</p>
+    <p class="note">Offline demo · mock data and aliases only · nothing is sent, published or connected to a live account.</p>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel" style="--h:760px;--hm:560px">
+      <div class="pbar">
+        <span class="pnum">1</span>
+        <span class="pttl">
+          <b>The founder dashboard</b>
+          <span>Morning strip, today's three tasks, asset-to-cash map, outreach tracker and the 7-day sprint — with the brain embedded in the top bar.</span>
+        </span>
+        <div class="pacts">
+          <a class="btn btn-sm" href="./brain/dashboard.html" target="_blank" rel="noopener">New tab ↗</a>
+          <button class="btn btn-sm" data-expand>Expand</button>
+        </div>
+      </div>
+      <div class="stage">
+        <iframe src="./brain/dashboard.html" title="Cowork OS dashboard"></iframe>
+      </div>
+    </section>
+
+    <section class="panel" style="--h:680px;--hm:520px">
+      <div class="pbar">
+        <span class="pnum">2</span>
+        <span class="pttl">
+          <b>Second Brain — 3D galaxy and 2D map</b>
+          <span>Every file, note and signal as one connected graph — 304 links across 112 notes. Click a node to see what it connects to; drag to spin.</span>
+        </span>
+        <div class="pacts">
+          <a class="btn btn-sm" href="./brain/brain-3d.html" target="_blank" rel="noopener">New tab ↗</a>
+          <div class="seg" id="brainSeg">
+            <button type="button" data-v="3d" aria-pressed="true">3D</button>
+            <button type="button" data-v="2d" aria-pressed="false">2D</button>
+          </div>
+          <button class="btn btn-sm" data-expand>Expand</button>
+        </div>
+      </div>
+      <div class="stage">
+        <iframe src="./brain/brain-3d.html" data-view="3d" title="Brain galaxy — 3D"></iframe>
+        <iframe src="./brain/brain-map-2d.html" data-view="2d" title="Brain map — 2D" hidden></iframe>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="legend">
+    <div class="leg"><b>How the two halves talk</b><p>Every dashboard item carries its brain node. Open a task and the graph focuses on the file behind it, so a decision always has its source attached.</p></div>
+    <div class="leg"><b>For one person</b><p>The repeating part of the day — triage, follow-ups, reminders, filing — runs itself. What is left is the work only you can do.</p></div>
+    <div class="leg"><b>For a team</b><p>The same structure scales to a department: shared signals, one set of priorities, and a record of why each call was made.</p></div>
+    <div class="leg"><b>Built, not proposed</b><p>Eleven dashboard versions, a generated graph rebuilt from the notes themselves, and a governance rulebook that keeps the demo offline.</p></div>
+  </div>
+
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<script>
+// 2D / 3D switch
+var seg = document.getElementById('brainSeg');
+seg.addEventListener('click', function(e){
+  var b = e.target.closest('button[data-v]');
+  if (!b) return;
+  var v = b.dataset.v;
+  seg.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+  seg.closest('.panel').querySelectorAll('iframe[data-view]').forEach(function(fr){
+    fr.hidden = fr.dataset.view !== v;
+  });
+});
+
+// expand a panel to fill the container, without leaving the page
+var scrim = document.getElementById('scrim'), open = null;
+function collapse(){
+  if (!open) return;
+  open.classList.remove('expanded');
+  open.querySelector('[data-expand]').textContent = 'Expand';
+  scrim.hidden = true;
+  open = null;
+}
+document.querySelectorAll('[data-expand]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var p = b.closest('.panel');
+    if (p === open){ collapse(); return; }
+    collapse();
+    open = p;
+    p.classList.add('expanded');
+    b.textContent = 'Collapse';
+    scrim.hidden = false;
+  });
+});
+scrim.addEventListener('click', collapse);
+
+// back to the profile: close the overlay when embedded, navigate when standalone
+var embedded = window.parent !== window;
+document.getElementById('back').addEventListener('click', function(){
+  if (embedded){
+    try { window.parent.postMessage({type:'close-showcase'}, '*'); return; } catch(err){}
+  }
+  location.href = new URL('../index.html', location.href).href;
+});
+addEventListener('keydown', function(e){
+  if (e.key !== 'Escape') return;
+  if (open){ collapse(); return; }
+  if (embedded){ try { window.parent.postMessage({type:'close-showcase'}, '*'); } catch(err){} }
+});
+</script>
+</body>
+</html>
