@@ -1,0 +1,127 @@
+/* ==========================================================================
+   LEAP BRIGHT — portable design tokens + primitives
+   Drop this file anywhere and link it before your own stylesheet:
+
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="leap.css">
+
+   Everything below is self-contained: no build step, no dependencies.
+   ========================================================================== */
+
+:root{
+  /* --- brand ------------------------------------------------------------ */
+  --leap-purple:#7A1FEA;   /* primary */
+  --leap-blue:#9B47FF;     /* mid-gradient */
+  --leap-lift:#B872FF;     /* hover / highlight */
+  --leap-cyan:#14807B;     /* signal teal — safe as TEXT on light */
+  --leap-teal:#16B3AC;     /* sage, brightened — GRAPHICS only, not text */
+  --gold:#C29B5B;          /* awards, recognition */
+
+  /* --- pastels (dashboards, soft fills) --------------------------------- */
+  --lavender:#E4DBFB; --aqua:#D6F6F6; --blush:#FDDCF2; --cream:#FEF0DE;
+
+  /* --- surfaces & ink ---------------------------------------------------- */
+  --ink:#FAFAFC;           /* page ground */
+  --ink-2:#F4F1FB;         /* tinted panel */
+  --line:rgba(27,24,48,.10);
+  --text:#1B1830; --muted:#514C6B; --dim:#847FA0;
+  --card:rgba(255,255,255,.78); --card-h:#FFFFFF;
+
+  /* --- gradients --------------------------------------------------------- */
+  --grad:linear-gradient(120deg,var(--leap-purple) 0%,var(--leap-blue) 40%,var(--leap-teal) 78%,#0FA79F 100%);
+  --grad-line:linear-gradient(90deg,var(--leap-purple),var(--leap-lift),var(--leap-teal),#0FA79F);
+  --grad-soft:linear-gradient(140deg,rgba(122,31,234,.12),rgba(184,114,255,.10) 45%,rgba(214,246,246,.60) 78%,rgba(253,220,242,.50));
+
+  /* --- shape & depth ----------------------------------------------------- */
+  --r-lg:22px; --r-md:18px; --r-sm:12px;
+  --shadow:0 12px 34px -18px rgba(43,29,82,.30);
+  --lift:0 22px 48px -22px rgba(107,34,217,.35);
+  --pad:clamp(18px,4vw,60px); --maxw:1200px;
+
+  /* --- type -------------------------------------------------------------- */
+  --f-en:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-dis:"Space Grotesk",var(--f-en);
+  --f-ar:"IBM Plex Sans Arabic","Noto Sans Arabic",var(--f-en);
+
+  color-scheme:light;
+}
+
+/* practice accents — set --pc on any subtree */
+.p-ai{--pc:var(--leap-cyan)}
+.p-safety{--pc:#B4791E}
+
+/* powers the running-light border */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes ang{to{--ang:360deg}}
+
+/* --- base ----------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-block-start:84px}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--f-en);
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--leap-purple);text-decoration:none}
+a:hover{color:#5D12BC}
+button{font:inherit;color:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+[hidden]{display:none!important}
+:where(a,button,[tabindex]):focus-visible{outline:2px solid var(--leap-purple);outline-offset:3px;border-radius:8px}
+
+/* --- helpers -------------------------------------------------------------- */
+.wrap{width:min(100% - (var(--pad)*2),var(--maxw));margin-inline:auto}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.ar{font-family:var(--f-ar);direction:rtl;unicode-bidi:isolate}
+.num{font-variant-numeric:tabular-nums}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* --- type scale ----------------------------------------------------------- */
+.eyebrow{font-family:var(--f-dis);font-size:13px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--leap-purple);font-weight:700;margin:0 0 12px}
+.h1{font-family:var(--f-dis);font-size:clamp(36px,6.6vw,74px);line-height:1.05;font-weight:700;
+  margin:0 0 16px;letter-spacing:-.035em}
+.h2{font-family:var(--f-dis);font-size:clamp(30px,4.6vw,54px);line-height:1.1;font-weight:700;
+  margin:0 0 14px;letter-spacing:-.025em}
+.lead{color:var(--muted);font-size:clamp(15px,1.6vw,18.5px);max-width:68ch;margin:0;text-wrap:pretty}
+
+/* gradient-filled words */
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* split headline: second half outlined instead of filled */
+.h1 .stroke,.h2 .stroke{color:transparent;-webkit-text-stroke:1.6px var(--leap-purple);paint-order:stroke fill}
+
+/* --- buttons -------------------------------------------------------------- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+  border:1px solid #DCD5F2;background:#fff;font-family:var(--f-dis);font-size:14.5px;font-weight:600;
+  letter-spacing:-.01em;color:var(--text);transition:transform .2s,box-shadow .2s,border-color .2s}
+.btn:hover{transform:translateY(-1px);border-color:var(--leap-lift);box-shadow:var(--shadow);color:var(--text)}
+.btn-p{background:linear-gradient(120deg,#2A0A52,#5D12BC);border-color:transparent;color:#fff}
+.btn-p:hover{color:#fff;box-shadow:var(--lift)}
+.btn-sm{padding:7px 14px;font-size:12.5px}
+
+/* --- pill / tag ----------------------------------------------------------- */
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:var(--ink-2);border:1px solid var(--line);font-family:var(--f-dis);font-size:12px;
+  font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--leap-purple)}
+
+/* --- card ----------------------------------------------------------------- */
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(8px);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background .3s}
+.card:hover{transform:translateY(-3px);background:var(--card-h);box-shadow:var(--lift)}
+
+/* running-light border — add .runner to any .card */
+.card.runner::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:conic-gradient(from var(--ang),transparent 0 62%,var(--leap-lift) 78%,var(--leap-teal) 88%,transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s;pointer-events:none}
+.card.runner:hover::before{opacity:1;animation:ang 3.6s linear infinite}
+
+/* --- soft section ground -------------------------------------------------- */
+.ground-soft{position:relative;isolation:isolate}
+.ground-soft::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--grad-soft)}
+
+/* --- hairline rule -------------------------------------------------------- */
+.rule{height:2px;border:0;border-radius:2px;background:var(--grad-line);opacity:.9}

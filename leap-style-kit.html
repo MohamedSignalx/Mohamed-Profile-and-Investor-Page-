@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LEAP Bright — brand reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="leap.css">
+<style>
+  section{padding-block:clamp(40px,6vw,72px)}
+  .swatches{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .sw{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:#fff}
+  .sw i{display:block;height:74px}
+  .sw b{display:block;padding:10px 12px 2px;font-family:var(--f-dis);font-size:13px;font-weight:600}
+  .sw code{display:block;padding:0 12px 11px;font-size:11.5px;color:var(--dim);font-family:ui-monospace,monospace}
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+  .kv{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .kv div{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-md);background:#fff}
+  .kv b{display:block;font-family:var(--f-dis);font-size:13.5px;margin-bottom:3px}
+  .kv span{font-size:12.5px;color:var(--muted)}
+  pre{margin:0;padding:16px 18px;border-radius:var(--r-md);background:#F4F1FB;border:1px solid var(--line);
+    overflow-x:auto;font-size:12.5px;line-height:1.7;font-family:ui-monospace,SFMono-Regular,monospace;color:#332B52}
+</style>
+</head>
+<body>
+
+<section class="ground-soft">
+  <div class="wrap">
+    <p class="eyebrow">Design reference</p>
+    <h1 class="h1">LEAP Bright <span class="stroke">Style Kit</span></h1>
+    <p class="lead">The palette, type and components behind the Mohamed Abuzaid profile and the SignalX pages. Everything here comes from one file — <code>leap.css</code> — which you can drop into any page, repo or deployment.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Colour</p>
+    <h2 class="h2">Violet leads, teal answers</h2>
+    <p class="lead" style="margin-bottom:26px">Near-white ground, one violet family, sage-teal for signal, gold for recognition. Pastels stay as fills, never as text.</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:#7A1FEA"></i><b>Primary</b><code>--leap-purple · #7A1FEA</code></div>
+      <div class="sw"><i style="background:#9B47FF"></i><b>Mid gradient</b><code>--leap-blue · #9B47FF</code></div>
+      <div class="sw"><i style="background:#B872FF"></i><b>Hover lift</b><code>--leap-lift · #B872FF</code></div>
+      <div class="sw"><i style="background:#14807B"></i><b>Signal teal (text-safe)</b><code>--leap-cyan · #14807B</code></div>
+      <div class="sw"><i style="background:#16B3AC"></i><b>Sage (graphics only)</b><code>--leap-teal · #16B3AC</code></div>
+      <div class="sw"><i style="background:#C29B5B"></i><b>Recognition</b><code>--gold · #C29B5B</code></div>
+      <div class="sw"><i style="background:#1B1830"></i><b>Ink</b><code>--text · #1B1830</code></div>
+      <div class="sw"><i style="background:#FAFAFC;box-shadow:inset 0 0 0 1px #ECE8F6"></i><b>Ground</b><code>--ink · #FAFAFC</code></div>
+      <div class="sw"><i style="background:#E4DBFB"></i><b>Lavender</b><code>--lavender</code></div>
+      <div class="sw"><i style="background:#D6F6F6"></i><b>Aqua</b><code>--aqua</code></div>
+      <div class="sw"><i style="background:#FDDCF2"></i><b>Blush</b><code>--blush</code></div>
+      <div class="sw"><i style="background:#FEF0DE"></i><b>Cream</b><code>--cream</code></div>
+    </div>
+    <hr class="rule" style="margin:26px 0 0">
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Type</p>
+    <h2 class="h2">Space Grotesk sets, <span class="stroke">Jakarta reads</span></h2>
+    <div class="kv" style="margin-top:22px">
+      <div><b>Display — Space Grotesk 700</b><span>Headlines, buttons, labels. Tight tracking: −.025em to −.035em.</span></div>
+      <div><b>Body — Plus Jakarta Sans 400/600</b><span>Paragraphs and UI text at 16px / 1.7.</span></div>
+      <div><b>Arabic — IBM Plex Sans Arabic</b><span>Apply <code>.ar</code> for RTL blocks; isolation handled.</span></div>
+    </div>
+    <p style="margin-top:22px" class="lead">Two headline treatments: gradient fill with <code>.grad</code>, or outline with <code>.stroke</code> on the second half of a split headline.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Components</p>
+    <h2 class="h2">Buttons, pills, cards</h2>
+    <div class="row" style="margin:22px 0 26px">
+      <button class="btn btn-p">Primary action</button>
+      <button class="btn">Secondary</button>
+      <button class="btn btn-sm">Small</button>
+      <span class="pill">Eyebrow pill</span>
+    </div>
+    <div class="cards">
+      <div class="card"><b style="font-family:var(--f-dis)">Plain card</b><p class="lead" style="font-size:14px;margin-top:6px">Translucent white on the near-white ground, hairline border, soft lift on hover.</p></div>
+      <div class="card runner"><b style="font-family:var(--f-dis)">Running-light card</b><p class="lead" style="font-size:14px;margin-top:6px">Add <code>.runner</code> — a light travels the border on hover. Used for the showcase cards.</p></div>
+      <div class="card p-ai" style="border-color:var(--pc)"><b style="font-family:var(--f-dis);color:var(--pc)">Practice accent</b><p class="lead" style="font-size:14px;margin-top:6px">Set <code>.p-ai</code> or <code>.p-safety</code> on a subtree and read <code>--pc</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Reuse</p>
+    <h2 class="h2">Two lines to bring LEAP anywhere</h2>
+    <p class="lead" style="margin-bottom:20px">Copy <code>leap.css</code> into any project, link it before your own stylesheet, and every token above is available.</p>
+<pre>&lt;link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"&gt;
+&lt;link rel="stylesheet" href="leap.css"&gt;</pre>
+    <p class="lead" style="margin-top:18px">In the profile repo it already ships at the root, next to <code>theme.css</code>. In a new repo, drop the file in and start with <code>&lt;div class="wrap"&gt;</code>.</p>
+  </div>
+</section>
+
+</body>
+</html>
