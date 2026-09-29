@@ -32,7 +32,7 @@ const spy = new IntersectionObserver(es => es.forEach(e => {
     l.setAttribute('aria-current','true');
   }
 }), { rootMargin:'-45% 0px -50% 0px' });
-['products','safety','progress','contact']
+['products','safety','engagements','contact']
   .forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
 
 /* ---------- 2. REVEAL ---------- */
@@ -90,13 +90,26 @@ if (!reduce && matchMedia('(hover:hover) and (pointer:fine)').matches){
 }
 
 /* ---------- 5. PRODUCT GRID (products = showcases) ---------- */
-let CASES = [], lane = 'all';
+let CASES = [], lane = 'ai';
+const NOTE = {
+  ai: 'Software you can deploy. Each card opens the live product, a running pipeline, or its demo films.',
+  practice: 'Programmes I deliver in person, and the record behind each certification. Kept apart from the software on purpose.'
+};
 
 function badge(c){
-  if (c.gated)                    return '<span class="chip soon">Client portal · access code</span>';
-  if (c.open.type === 'local')    return '<span class="chip live">Plays here</span>';
+  if (c.status === 'soon')   return '<span class="chip soon">Deployment stage</span>';
+  if (c.status === 'client') return '<span class="chip live">Client delivery</span>';
+  if (c.open.type === 'local') return '<span class="chip live">Plays here</span>';
   if (c.open.type === 'external') return '<span class="chip live">Live</span>';
   return '<span class="chip">The record</span>';
+}
+/* the "peek": what happens when you click, before you click */
+function peek(c){
+  const n = Array.isArray(c.videos) ? c.videos.length : 0;
+  if (n)                          return { ico:'▷', txt: n === 1 ? 'Watch a short film' : `Watch ${n} short films` };
+  if (c.open.type === 'local')    return { ico:'▣', txt:'Plays here, full screen' };
+  if (c.open.type === 'external') return { ico:'↗', txt:'Opens the live site' };
+  return { ico:'≡', txt:'The record, one page' };
 }
 
 function cardHTML(c){
@@ -109,22 +122,45 @@ function cardHTML(c){
     <h3>${esc(c.headline)}</h3>
     <p>${esc(c.pitch)}</p>
     <span class="who">For: ${esc(c.who)}</span>
-    <span class="svc-cta">${esc(c.cta)} <i aria-hidden="true">→</i></span>
+    <span class="foot">
+      <span class="svc-cta">${esc(c.cta)} <i aria-hidden="true">→</i></span>
+      <span class="peek"><i aria-hidden="true">${peek(c).ico}</i>${peek(c).txt}</span>
+    </span>
   </article>`;
 }
 
 function renderGrid(){
-  const list = CASES.filter(c => lane === 'all' || c.lane === lane);
+  const list = CASES.filter(c => c.lane === lane);
   const grid = $('#productGrid');
   grid.innerHTML = list.map(cardHTML).join('');
+  grid.setAttribute('aria-labelledby', 'tab-' + lane);
+  $('#tabNote').textContent = NOTE[lane] || '';
+  $$('#tabs .tab').forEach(x => x.setAttribute('aria-selected', String(x.dataset.lane === lane)));
   watchReveal(grid);
 }
-
-$('#filters').addEventListener('click', e => {
-  const b = e.target.closest('.filt'); if (!b) return;
-  lane = b.dataset.lane;
-  $$('#filters .filt').forEach(x => x.setAttribute('aria-selected', String(x === b)));
-  renderGrid();
+function setLane(l, scroll){
+  if (!NOTE[l]) return;
+  lane = l; renderGrid();
+  if (scroll){
+    const el = $('#products');
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+}
+$('#tabs').addEventListener('click', e => {
+  const b = e.target.closest('.tab'); if (!b) return;
+  setLane(b.dataset.lane, false);
+});
+// any button elsewhere can switch the lane and jump to it (e.g. "See the executive programmes")
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]'); if (!b) return;
+  setLane(b.dataset.tab, true);
+});
+// arrow keys move between the two tabs
+$('#tabs').addEventListener('keydown', e => {
+  if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  const tabs = $$('#tabs .tab'), i = tabs.findIndex(t => t.dataset.lane === lane);
+  const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+  next.focus(); setLane(next.dataset.lane, false);
 });
 
 /* ---------- 6. FULL-SCREEN OVERLAY ---------- */
@@ -162,9 +198,12 @@ function richPanel(c){
     <ul class="bullets">
       ${c.bullets.map(b => `<li><span>${esc(b)}</span></li>`).join('')}
     </ul>
+    ${Array.isArray(c.links) && c.links.length ? `<div class="links">
+      ${c.links.map(l => `<a class="btn btn-g" href="${esc(l.src)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}
+    </div>` : ''}
     <div class="acts">
-      ${c.open.src ? `<a class="btn btn-p" href="${esc(c.open.src)}" target="_blank" rel="noopener">${c.gated ? 'Open the client portal ↗' : 'Open the live product ↗'}</a>` : ''}
-      <a class="btn btn-g" href="mailto:info@beautifulmindlifestyle.com?subject=${encodeURIComponent(c.tab)}">Ask about this</a>
+      ${c.open.src ? `<a class="btn btn-p" href="${esc(c.open.src)}" target="_blank" rel="noopener">${esc(c.cta)} ↗</a>` : ''}
+      <a class="btn btn-g" href="https://wa.me/966504995475?text=${encodeURIComponent('Hi Mohamed, I want to talk about ' + c.tab)}" target="_blank" rel="noopener">Ask about this on WhatsApp</a>
     </div>
   </div>`;
 }
@@ -199,6 +238,7 @@ function openCase(id){
   }
 
   ov.hidden = false;
+  document.body.classList.add('ov-open');
   document.body.style.overflow = 'hidden';
   $('#ovClose').focus();
   document.addEventListener('keydown', trap);
@@ -206,6 +246,7 @@ function openCase(id){
 
 function closeOv(){
   ov.hidden = true;
+  document.body.classList.remove('ov-open');
   ovBody.innerHTML = '';                     // stop any iframe media
   document.body.style.overflow = '';
   document.removeEventListener('keydown', trap);
@@ -244,10 +285,11 @@ document.addEventListener('keydown', e => {
 (window.SHOWCASES ? Promise.resolve(window.SHOWCASES) : fetch('./data/showcases.json').then(r => r.json()))
   .then(d => {
     CASES = d;
-    const n = l => d.filter(c => l === 'all' || c.lane === l).length;
-    $$('#filters .filt').forEach(b => {
+    const n = l => d.filter(c => c.lane === l).length;
+    $$('#tabs .tab').forEach(b => {
       const s = b.querySelector('span'); if (s) s.textContent = n(b.dataset.lane);
     });
+    if (location.hash === '#practice') lane = 'practice';
     renderGrid();
   })
   .catch(() => {
@@ -255,6 +297,15 @@ document.addEventListener('keydown', e => {
       '<p class="lead">Could not load the product list. Email ' +
       '<a href="mailto:info@beautifulmindlifestyle.com">info@beautifulmindlifestyle.com</a> and I will send it directly.</p>';
   });
+
+/* ---------- 8. STICKY QUICK ACTIONS ---------- */
+const sticky = $('#sticky'), hero = $('#hero');
+if (sticky && hero){
+  new IntersectionObserver(es => es.forEach(e => {
+    sticky.hidden = e.isIntersecting;
+    requestAnimationFrame(() => sticky.classList.toggle('on', !e.isIntersecting));
+  }), { rootMargin: '-120px 0px 0px 0px' }).observe(hero);
+}
 
 /* Smooth in-page scroll with focus move (accessibility) */
 $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {

@@ -437,3 +437,164 @@ section{padding-block:clamp(56px,8vw,104px);position:relative}
 /* a YouTube Short keeps its 9:16 frame and never stretches */
 .vids .vid-short{max-width:300px}
 .vid-short .vid-frame{aspect-ratio:9/16}
+
+/* ==========================================================================
+   ONE THESIS, TWO TABS — hero hierarchy, compact stats, trust banner,
+   tabbed showcase with peek badges, engagements, sticky quick actions.
+   (appended — overrides the rules above where they meet)
+   ========================================================================== */
+
+/* ---------- HERO: headline first, sub-thesis second, one primary action ---------- */
+.h1{font-size:clamp(34px,5.6vw,66px)}
+.h1 .sub{font-size:clamp(16px,2vw,22px);font-weight:600;max-width:60ch;line-height:1.4}
+#hero .lead{max-width:58ch}
+.hero-cta .btn-p span,.hero-cta .btn-g span{font-size:13px}
+@media (max-width:900px){
+  #hero{padding-block:clamp(28px,6vw,56px) 24px}
+  .portrait{width:min(40%,150px);margin-bottom:26px}
+  .h1{font-size:clamp(30px,8.6vw,40px);margin-bottom:12px}
+  .h1 .sub{font-size:15.5px;margin-top:8px}
+  #hero .lead{font-size:15px}
+  .hero-cta{margin-top:18px;gap:10px}
+  .hero-cta .btn{padding:12px 20px;font-size:14.5px}
+}
+
+/* ---------- COMPACT 4-STAT GRID: 4-up desktop, 2x2 mobile, number > label ---------- */
+.metrics.compact{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:28px}
+.metrics.compact .metric{padding:16px 18px;display:flex;flex-direction:column;gap:4px;border-radius:var(--r-md)}
+.metrics.compact .metric b{font-size:clamp(24px,2.6vw,34px)}
+.metrics.compact .metric span{margin-top:0;font-size:12.5px;line-height:1.35;color:var(--dim);
+  font-family:var(--f-dis);font-weight:600;letter-spacing:.01em;text-transform:uppercase;font-size:11px}
+@media (max-width:900px){
+  .metrics.compact{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:22px}
+  .metrics.compact .metric{padding:13px 14px}
+  .metrics.compact .metric b{font-size:24px}
+  .metrics.compact .metric span{font-size:10.5px}
+}
+
+/* ---------- TRUST BANNER: grayscale wordmarks, then the credentials ---------- */
+.trust{padding-block:22px 18px}
+.trust-label{margin:0 0 12px;text-align:center;font-family:var(--f-dis);font-size:11.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.logos{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;
+  gap:6px clamp(14px,2.6vw,34px)}
+.logos li{display:flex;align-items:center}
+.wm{font-family:var(--f-dis);font-weight:700;font-size:clamp(14px,1.5vw,18px);letter-spacing:-.01em;
+  color:#8E89A6;filter:grayscale(1);transition:color .25s,transform .25s;white-space:nowrap}
+.wm sup{font-size:.55em;margin-left:1px}
+.logos li:hover .wm{color:var(--text);transform:translateY(-1px)}
+.trust-row{gap:8px}
+.trust-row .cred{padding:7px 13px;font-size:12.5px}
+@media (max-width:900px){
+  .trust{padding-block:18px 14px}
+  .logos{gap:4px 16px}
+  .trust-row{display:flex;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:6px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .trust-row::-webkit-scrollbar{display:none}
+  .trust-row .cred{flex:0 0 auto}
+}
+
+/* ---------- SHOWCASE TABS: two lanes, distinct states, counts ---------- */
+.showcase-tabs{margin-top:26px;padding:5px;gap:5px;border-radius:999px;background:#F0ECFA;
+  display:inline-flex;overflow:visible;border:1px solid #E4DDF6}
+.showcase-tabs .tab{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border:0;
+  background:transparent;box-shadow:none;font-family:var(--f-dis);font-size:15px;font-weight:600;color:var(--muted)}
+.showcase-tabs .tab i{font-style:normal;font-size:14px;opacity:.7}
+.showcase-tabs .tab span{font-size:11.5px;font-variant-numeric:tabular-nums;padding:1px 8px;border-radius:999px;
+  background:rgba(27,24,48,.07);color:inherit}
+.showcase-tabs .tab:hover{background:rgba(255,255,255,.7);color:var(--text)}
+.showcase-tabs .tab[aria-selected="true"]{background:#FFFFFF;color:var(--leap-purple);
+  box-shadow:0 8px 22px -14px rgba(107,34,217,.55),0 0 0 1px #DCD5F2}
+.showcase-tabs .tab[aria-selected="true"] i{opacity:1}
+.showcase-tabs .tab[aria-selected="true"] span{background:var(--leap-purple);color:#fff}
+.showcase-tabs .tab:focus-visible{outline:2px solid var(--leap-purple);outline-offset:2px;border-radius:999px}
+.tab-note{margin:12px 0 0;font-size:14px;color:var(--muted);max-width:70ch}
+@media (max-width:560px){
+  .showcase-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;border-radius:18px}
+  .showcase-tabs .tab{justify-content:center;padding:11px 10px;font-size:13.5px;border-radius:14px;white-space:normal;text-align:center}
+  .showcase-tabs .tab i{display:none}
+}
+
+/* ---------- CARD: the peek badge says what the click does ---------- */
+.svc .foot{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.svc .svc-cta{margin-top:0}
+.svc .peek{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-dis);font-size:12px;font-weight:600;
+  color:var(--dim);white-space:nowrap}
+.svc .peek i{font-style:normal;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+  background:#F0ECFA;color:var(--leap-purple);font-size:11px}
+.svc:hover .peek{color:var(--text)}
+.svc:hover .peek i{background:var(--aqua);color:var(--leap-cyan)}
+@media (max-width:900px){
+  .grid{gap:12px;margin-top:18px}
+  .svc{padding:20px;gap:9px}
+  .svc h3{font-size:19px}
+}
+
+/* ---------- ENGAGEMENTS ---------- */
+.eng{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:28px}
+.ecard{display:flex;flex-direction:column;gap:9px;padding:22px;border-radius:var(--r-md);
+  border:2px solid transparent;background:#FFFFFF;color:inherit;
+  background-image:linear-gradient(#FFFFFF,#FBFAFE),
+    conic-gradient(from var(--ang),rgba(122,31,234,.10) 0deg,var(--leap-purple) 120deg,var(--leap-teal) 215deg,
+      rgba(22,179,172,.10) 310deg,rgba(122,31,234,.10) 360deg);
+  background-origin:border-box;background-clip:padding-box,border-box;animation:ang 6s linear infinite;
+  box-shadow:var(--shadow);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.ecard:nth-child(2n){animation-delay:-2s} .ecard:nth-child(3n){animation-delay:-4s}
+.ecard:hover{transform:translateY(-5px);box-shadow:var(--lift)}
+.ecard .chip{align-self:flex-start}
+.ecard h4{margin:4px 0 0;font-family:var(--f-dis);font-size:18px;font-weight:700;letter-spacing:-.02em}
+.ecard p{margin:0;font-size:13.5px;color:var(--muted)}
+.ecta{margin-top:auto;padding-top:10px;font-family:var(--f-dis);font-size:13.5px;font-weight:700;color:var(--leap-purple);
+  display:inline-flex;gap:6px;align-items:center}
+.ecta i{font-style:normal;transition:transform .25s}
+.ecard:hover .ecta i{transform:translate(2px,-2px)}
+@media (prefers-reduced-motion:reduce){.ecard{animation:none;background-image:linear-gradient(#FFFFFF,#FBFAFE),var(--grad-line)}}
+
+/* ---------- OVERLAY: linked engagements inside a record panel ---------- */
+.ov-rich .links{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+
+/* ---------- STICKY QUICK ACTIONS ---------- */
+.sticky{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));z-index:60;transform:translate(-50%,24px);
+  display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(255,255,255,.9);backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid #DCD5F2;box-shadow:0 18px 44px -18px rgba(43,29,82,.45);opacity:0;
+  transition:opacity .3s ease,transform .3s cubic-bezier(.2,.8,.2,1)}
+.sticky.on{opacity:1;transform:translate(-50%,0)}
+.sticky .btn{white-space:nowrap}
+body.ov-open .sticky{display:none}
+@media (max-width:560px){
+  .sticky{left:12px;right:12px;transform:translateY(24px);justify-content:stretch}
+  .sticky.on{transform:none}
+  .sticky .btn{flex:1;justify-content:center;padding:11px 12px;font-size:13.5px}
+}
+
+/* ---------- SPACING on phones: tighter sections, same rhythm ---------- */
+@media (max-width:900px){
+  section{padding-block:clamp(40px,9vw,64px)}
+  .h2{font-size:clamp(27px,7.4vw,36px)}
+  .wins{gap:10px;margin-top:20px}
+  .win{padding:16px}
+  .win b{font-size:23px}
+  .contact{padding:24px 18px}
+  .ways .btn{width:100%;justify-content:center}
+  .ft{margin-top:32px;padding-bottom:84px}
+}
+
+/* ---------- polish after the first render ---------- */
+/* the gradient span's last glyph was clipped by the tight tracking */
+.h1 .grad{padding-inline-end:.08em;margin-inline-end:-.08em}
+/* desktop: the quick actions sit in the corner, off the card grid */
+@media (min-width:561px){
+  .sticky{left:auto;right:24px;transform:translateY(24px)}
+  .sticky.on{transform:none}
+}
+/* phones: the thesis line already says it — drop the third block of copy so the actions
+   and the stats land above the fold; keep the name plate to one compact line each */
+@media (max-width:900px){
+  #hero .lead{display:none}
+  .portrait{width:min(38%,140px);margin-bottom:22px}
+  .portrait figcaption{padding:7px 12px;border-radius:14px;bottom:-14px;max-width:min(300px,80vw);
+    box-shadow:0 10px 26px -14px rgba(122,31,234,.4),0 0 0 4px rgba(255,255,255,.7)}
+  .portrait figcaption b{font-size:13px}
+  .portrait figcaption span{font-size:10.5px;line-height:1.35}
+  .pill{font-size:11.5px;padding:6px 12px;margin-bottom:14px}
+}
