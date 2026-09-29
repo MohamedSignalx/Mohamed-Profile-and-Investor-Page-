@@ -40,7 +40,7 @@ card appears, already wired to its overlay. Fields:
 | field      | what it does |
 |------------|--------------|
 | `id`       | unique key, used by `data-open-case` |
-| `lane`     | `ai` or `practice` — drives the filter chips and their counts |
+| `lane`     | `ai` or `practice` — the two showcase tabs. Software stays in `ai`, the executive practice in `practice`; they are never mixed |
 | `practice` | `ai` (cyan accent) or `safety` (amber accent) |
 | `icon`     | one glyph shown in the card tile |
 | `from`     | the small line above the title — the platform or the certification |
@@ -48,14 +48,20 @@ card appears, already wired to its overlay. Fields:
 | `pitch`    | one sentence on the card |
 | `who`      | the "For:" line |
 | `tab`/`title`/`kicker`/`lede`/`bullets`/`tags` | the full-screen panel |
-| `gated`    | optional. `true` marks it as a client portal needing an access code |
+| `status`   | optional. `soon` shows a "Deployment stage" chip, `client` shows "Client delivery"; omit for a live product |
+| `links`    | optional. `[{label, src}]` — extra outbound links rendered inside the record panel (used by the Masters Legacy card) |
+| `cta`      | the card button. Name the outcome ("Explore SignalX live", "Play the 22-year story"), never a generic verb |
 | `open`     | `{"type":"local","src":"./showcases/x.html"}` iframes the file, `{"type":"external","src":"https://…"}` renders a panel plus an outbound link, `{"type":"inline"}` renders the panel only |
 
-The three "In progress" cards are plain HTML in `index.html`. When one is accepted,
-move it into `showcases.js` and delete its `.pcard`.
+The "Live engagements" cards (Al Rabie, Ministry of Education, Saudi Ceramics, Leap Connect) are
+plain HTML in `index.html` under `#engagements`. They link out; commercial terms stay in the
+proposal documents and never appear on this page.
 
 ## Notes
 
+- **The page leads with one thesis** — "AI systems built on 22 years of enterprise rigor" — then a
+  compact 4-stat grid (2×2 on phones), a grayscale trust strip of the organisations delivered for, and
+  the two-tab showcase. Tabs, not an audience toggle: the same buyer often needs both lanes.
 - **The QHSSE card sits at position 02**, right after SignalX, and opens `showcases/story.html`
   — a five-chapter auto-advancing story film (foundations → Lean/Kaizen → the field →
   recognition → what the managers said). Chapter durations are set per `<section data-dur>`;
@@ -68,8 +74,12 @@ move it into `showcases.js` and delete its `.pcard`.
 - **Avatar videos are served from this repo** (`media/avatar/`, ~20 MB, moov atom moved
   to the front so playback starts before the download finishes). They used to point at
   Google Drive. Do not point them back.
-- **The Saudi Ceramics page is gated on purpose.** Its own footer says "Confidential &
-  Proprietary … not for publication in this form" and it names client staff, so the
-  Campaign Engine card is labelled as a client portal rather than opened to the public.
+- **The Saudi Ceramics page is open.** The access-code gate and the "Confidential & Proprietary"
+  footer were removed on 2026-09-29 (unpaid demo prototype concept); the Campaign Engine card links
+  straight to it and carries a "Client delivery" chip.
+- **The story film is served from this repo.** `showcases/story.html` opens on the portrait
+  `media/story/wft-10-years-appreciation.mp4` (with a poster frame), not the YouTube embed — the
+  upload on YouTube has blurred side-pillars baked in. The reel waits on that chapter until the film
+  has been watched through.
 - `22 years` (graduated 2004) is the correct figure — not 17.
 - MISA is shown as **Active Investor Registration 272796**, with no outbound link.

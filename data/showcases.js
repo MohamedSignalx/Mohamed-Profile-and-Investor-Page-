@@ -44,7 +44,7 @@ window.SHOWCASES = [
   "type": "external",
   "src": "https://beautifulmindlifestyle.com/"
  },
- "cta": "Open the platform"
+ "cta": "Explore SignalX live"
 },
 {
  "id": "qhsse",
@@ -109,7 +109,7 @@ window.SHOWCASES = [
   "type": "local",
   "src": "./showcases/avatar.html"
  },
- "cta": "Play the reel"
+ "cta": "Play the Avatar Studio reel"
 },
 {
  "id": "second-brain",
@@ -140,13 +140,12 @@ window.SHOWCASES = [
   "type": "local",
   "src": "./showcases/second-brain.html"
  },
- "cta": "Explore the brain"
+ "cta": "Open the Second Brain"
 },
 {
  "id": "campaign",
  "lane": "ai",
  "practice": "ai",
- "status": "live",
  "icon": "◐",
  "tab": "Campaign Engine",
  "from": "Campaign Engine",
@@ -160,19 +159,19 @@ window.SHOWCASES = [
   "A complete internal campaign — stills and film — generated on a monthly or quarterly cycle.",
   "Fully automated end to end, tuned for finish quality rather than speed alone.",
   "Human sign-off at every stage; nothing publishes itself.",
-  "Client work, shipped — not a demo. The same engine runs product, recruitment or safety campaigns."
+  "Client work, shipped — the Saudi Ceramics porcelain campaign is open to view. The same engine runs product, recruitment or safety campaigns."
  ],
  "tags": [
   "Client delivery",
   "Full automation",
   "Image + video"
  ],
- "gated": true,
+ "status": "client",
  "open": {
   "type": "external",
   "src": "https://saudi-ceramics-campaign.vercel.app/"
  },
- "cta": "See the campaign"
+ "cta": "See the Saudi Ceramics campaign"
 },
 {
  "id": "academy",
@@ -196,7 +195,8 @@ window.SHOWCASES = [
  "bullets": [
   "Start generating using all advanced models simultaneously.",
   "Integrate text, high-definition cinematic videos, and reproduced audio fingerprints into a single automated interface.",
-  "Arabic and English, built for Saudi and Gulf organisations."
+  "Arabic and English, built for Saudi and Gulf organisations.",
+  "The AI Tools Catalog: 61 tools across 7 tracks, each carrying a USE / MAYBE / SKIP verdict with the reason — the inventory behind Leap Connect."
  ],
  "tags": [
   "Live platform",
@@ -226,7 +226,72 @@ window.SHOWCASES = [
   "type": "external",
   "src": "https://signalx.beautifulmindlifestyle.com/"
  },
- "cta": "Visit the academy"
+ "cta": "Browse the academy"
+},
+{
+ "id": "leap-connect",
+ "lane": "ai",
+ "practice": "ai",
+ "status": "soon",
+ "icon": "⬡",
+ "tab": "SignalX Leap Connect",
+ "from": "LEAP 2026 · SignalX",
+ "headline": "Every LEAP exhibitor, matched to an AI stack",
+ "pitch": "A directory of 487 LEAP 2026 companies with a rules engine that pairs each one with the AI tools it should actually use — no LLM guessing, every verdict reasoned.",
+ "who": "exhibitors · startups · the companies I meet at LEAP",
+ "title": "487 companies, one honest tool stack each",
+ "kicker": "Product 07 · SignalX Leap Connect",
+ "lede": "Built for LEAP 2026 on the SignalX store: the exhibitor and startup directory, LEAP's own industry and sector tags, and a matching engine that reads the 61-tool catalog and proposes a stack per company — Video, Creative, Marketing or Workspace — with a stated reason for every pick.",
+ "bullets": [
+  "487 companies loaded from LEAP's directory, 99 active on the storefront today.",
+  "A rules engine, not a chatbot: every match traces to a tag, a track and a verdict — and says when there is no stack yet.",
+  "Runs on the 61-tool AI catalog, each tool carrying a USE / MAYBE / SKIP verdict with its reason.",
+  "Pilot cards live on a draft theme now; publishing and outreach are the next two gates."
+ ],
+ "tags": [
+  "Deployment stage",
+  "LEAP 2026",
+  "Rules engine"
+ ],
+ "open": {
+  "type": "external",
+  "src": "https://signalx.beautifulmindlifestyle.com/pages/leap-connect"
+ },
+ "cta": "Open Leap Connect"
+},
+{
+ "id": "coaching",
+ "lane": "practice",
+ "practice": "safety",
+ "status": "live",
+ "icon": "◆",
+ "tab": "Executive Coaching & Consultancy",
+ "from": "Masters Legacy · executive assessment",
+ "headline": "Executive coaching & consultancy",
+ "pitch": "Leadership-team assessment and coaching programmes for boards, executives and ministries — proposal, diagnostic, debrief and follow-through, in Arabic or English.",
+ "who": "boards · executive teams · government entities",
+ "title": "You already know how they perform. This shows what happens under pressure.",
+ "kicker": "Product 08 · Masters Legacy",
+ "lede": "The consultancy side of the practice: an executive-assessment programme built on Birkman data, delivered as a proposal a board can approve, a diagnostic the team sits through, and a coaching cycle that changes how they lead when it matters most. Two engagements are live as proposals right now.",
+ "bullets": [
+  "Al Rabie Saudi Foods — executive leadership assessment programme (live proposal).",
+  "Saudi Ministry of Education — assessment and coaching programme (live proposal).",
+  "Individual profiles, leadership-team maps, and a live debrief with every engagement.",
+  "Commercial terms sit in the proposal documents, not on this page."
+ ],
+ "tags": [
+  "Live proposals",
+  "Boards & ministries",
+  "Arabic + English"
+ ],
+ "links": [
+  { "label": "Al Rabie — executive assessment ↗", "src": "https://masterslegacy-alrabie.vercel.app/" },
+  { "label": "Ministry of Education — assessment & coaching ↗", "src": "https://masterslegacy-moe.vercel.app/" }
+ ],
+ "open": {
+  "type": "inline"
+ },
+ "cta": "See the engagements"
 },
 {
  "id": "birkman",
@@ -240,7 +305,7 @@ window.SHOWCASES = [
  "pitch": "Individual and leadership-team profiling with a live debrief — what the team does under pressure, before the pressure arrives.",
  "who": "founders · leadership teams · investors pre-deal",
  "title": "What your team does under pressure — before the pressure arrives",
- "kicker": "Product 07 · Birkman® Method",
+ "kicker": "Product 09 · Birkman® Method",
  "lede": "Twelve years of licensed Birkman practice, delivered in Arabic or English. An assessment is only worth the debrief that follows it, so every engagement ends with a live session where the team hears what the data actually says about how they will behave when it gets hard.",
  "bullets": [
   "38,986 behavioural assessments delivered.",
@@ -257,7 +322,7 @@ window.SHOWCASES = [
  "open": {
   "type": "inline"
  },
- "cta": "See the record"
+ "cta": "See the Birkman record"
 },
 {
  "id": "culture",
@@ -271,7 +336,7 @@ window.SHOWCASES = [
  "pitch": "The programme I ran globally at Weatherford from 2018–2020, delivered for your organisation in Arabic or English.",
  "who": "enterprises in merger, turnaround or scale-up",
  "title": "The culture programme I ran globally, run for you",
- "kicker": "Product 08 · Senn Delaney® Culture",
+ "kicker": "Product 10 · Senn Delaney® Culture",
  "lede": "Appointed through Heidrick & Struggles as a global culture-transformation facilitator at Weatherford between 2018 and 2020. The same programme, delivered for your organisation — in Arabic or English.",
  "bullets": [
   "Global culture-transformation facilitator at Weatherford, 2018–2020.",
@@ -287,7 +352,7 @@ window.SHOWCASES = [
  "open": {
   "type": "inline"
  },
- "cta": "See the record"
+ "cta": "See the culture programme"
 },
 {
  "id": "lean",
@@ -301,7 +366,7 @@ window.SHOWCASES = [
  "pitch": "A full corporate Lean programme — the same discipline I was selected by EDGE Group's Chairman to lead.",
  "who": "manufacturing · energy · logistics operations",
  "title": "A corporate Lean programme, not a Lean workshop",
- "kicker": "Product 09 · Toyota Production System",
+ "kicker": "Product 11 · Toyota Production System",
  "lede": "Certified by Toyota and the Kaizen Institute, and selected by the Chairman of EDGE Group to lead an intensive Toyota Production System programme as Lean/Kaizen facilitator. Sophisticated enough to run at corporate scale rather than as a one-off training day.",
  "bullets": [
   "Selected by EDGE Group's Chairman to lead an intensive TPS programme.",
@@ -317,7 +382,7 @@ window.SHOWCASES = [
  "open": {
   "type": "inline"
  },
- "cta": "See the record"
+ "cta": "See the Lean programme"
 },
 {
  "id": "tre",
@@ -331,7 +396,7 @@ window.SHOWCASES = [
  "pitch": "A body-based team session for stress management — run as a team-building exercise that leaves people regulated, not just informed.",
  "who": "high-pressure teams · offsites · individuals",
  "title": "Stress management your team does together, not a talk they sit through",
- "kicker": "Product 10 · TRE® Provider",
+ "kicker": "Product 12 · TRE® Provider",
  "lede": "TRE® is a body-based practice for nervous-system regulation. Run as a team exercise, it becomes the most honest team-building session an organisation can book: everyone in the room does the same thing, nobody performs, and people leave physically calmer than they arrived.",
  "bullets": [
   "Delivered as a team-building exercise for stress management — not a wellbeing lecture.",
