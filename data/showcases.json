@@ -1,5 +1,36 @@
 [
  {
+  "id": "signalx-qhsse",
+  "lane": "ai",
+  "practice": "ai",
+  "status": "live",
+  "icon": "⛑",
+  "tab": "SignalX QHSSE",
+  "from": "SignalX platform · Saudi Arabia",
+  "headline": "From regulation to everyday practice",
+  "pitch": "Saudi OSH regulations kept exactly as published, turned into procedures, forms, learning, AI-assisted audits and live indicators — in Arabic and English.",
+  "who": "QHSE managers · small & mid-size companies · regulators",
+  "title": "One bilingual QHSSE system, from the official text to the task on site",
+  "kicker": "Flagship · SignalX QHSSE",
+  "lede": "A live prototype that holds 37 official Saudi OSH documents and turns each one into a procedure, forms, a course and a KPI. Benchmarked against 12 global EHS platforms, with an embedded academy and an AI auditor that cites the article and waits for a qualified person to decide.",
+  "bullets": [
+   "5 levels connect the national OSH strategy to the task in front of a worker.",
+   "Fit to Work journey end to end: article → procedure → 9 forms → course → AI audit → human decision → indicator.",
+   "Academy inside every procedure, with a practitioner passport for valid and expiring certificates.",
+   "AI auditor, facilitator and coach: cites the source, drafts only, every action logged."
+  ],
+  "tags": [
+   "Live prototype",
+   "Arabic + English",
+   "AI audit"
+  ],
+  "open": {
+   "type": "external",
+   "src": "https://signalx-qhsse-showcase.vercel.app/"
+  },
+  "cta": "Open SignalX QHSSE"
+ },
+ {
   "id": "signalx",
   "lane": "ai",
   "practice": "ai",
